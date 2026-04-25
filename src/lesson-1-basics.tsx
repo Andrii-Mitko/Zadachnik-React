@@ -1,18 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>,
-)
+  </React.StrictMode>,
+);
 
 // ************************************************
 
 // Введение в фреймворк React
-// Данный учебник посвящен популярному JavaScript фреймворку React. Для его изучения вам необходимо знать чистый JavaScript, основы командной строки, работу с npm и npx, работу с модулями ES6, работу со сборщиком Vite.
+// Данный учебник посвящен популярному JavaScript фреймворку React. Для его изучения вам необходимо знать чистый JavaScript, основы командной строки, работу с npm и npx, работу с модулями ES6, работу со сборщиком Vite. />
 
 // ****************************************************
 
@@ -313,7 +312,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const str = 'text';
-	
+
 // 	return <div>
 // 		text
 // 	</div>;
@@ -322,7 +321,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const str = 'text';
-	
+
 // 	return <div>
 // 		{str}
 // 	</div>;
@@ -334,7 +333,7 @@ createRoot(document.getElementById('root')!).render(
 // function App() {
 // 	const str1 = 'text1';
 // 	const str2 = 'text1';
-	
+
 // 	return <div>
 // 		<p></p>
 // 		<p></p>
@@ -349,7 +348,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const str = 'text';
-	
+
 // 	return <div>
 // 		eee {str} bbb
 // 	</div>;
@@ -359,7 +358,7 @@ createRoot(document.getElementById('root')!).render(
 // function App() {
 // 	const str1 = 'text1';
 // 	const str2 = 'text2';
-	
+
 // 	return <div>
 // 		{str1} {str2}
 // 	</div>;
@@ -369,7 +368,7 @@ createRoot(document.getElementById('root')!).render(
 // function App() {
 // 	const str1 = 'text1';
 // 	const str2 = 'text2';
-	
+
 // 	return <div>
 // 		{str1} eee {str2}
 // 	</div>;
@@ -381,7 +380,7 @@ createRoot(document.getElementById('root')!).render(
 // function App() {
 // 	const name = 'user';
 // 	const age  = '30';
-	
+
 // 	return <div>
 // 		name: ?
 // 		age:  ?
@@ -396,7 +395,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const arr = [1, 2, 3];
-	
+
 // 	return <div>
 // 		<p>{arr[0]}</p>
 // 		<p>{arr[1]}</p>
@@ -419,7 +418,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const obj = {a: 1, b: 2, c: 3};
-	
+
 // 	return <div>
 // 		<p>{obj.a}</p>
 // 		<p>{obj.b}</p>
@@ -450,7 +449,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const str = <p>text</p>;
-	
+
 // 	return <div>
 // 		{str}
 // 	</div>;
@@ -468,7 +467,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const str = <p>text1</p><p>text2</p>;
-	
+
 // 	return <main>
 // 		{str}
 // 	</main>;
@@ -477,7 +476,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const str = <div><p>text1</p><p>text2</p></div>;
-	
+
 // 	return <main>
 // 		{str}
 // 	</main>;
@@ -486,7 +485,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const str = <><p>text1</p><p>text2</p></>;
-	
+
 // 	return <main>
 // 		{str}
 // 	</main>;
@@ -517,7 +516,7 @@ createRoot(document.getElementById('root')!).render(
 // 	const str = <p>
 // 		text
 // 	</p>;
-	
+
 // 	return <div>
 // 		{str}
 // 	</div>;
@@ -530,7 +529,7 @@ createRoot(document.getElementById('root')!).render(
 // 			text
 // 		</p>
 // 	);
-	
+
 // 	return <div>
 // 		{str}
 // 	</div>;
@@ -541,7 +540,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const items = <li>text1</li><li>text2</li><li>text3</li>;
-	
+
 // 	return <ul>
 // 		{items}
 // 	</ul>
@@ -557,7 +556,7 @@ createRoot(document.getElementById('root')!).render(
 // 	const str = <main>
 // 		text
 // 	</main>;
-	
+
 // 	return str;
 // }
 
@@ -642,7 +641,7 @@ createRoot(document.getElementById('root')!).render(
 // function App() {
 // 	const num1 = 1;
 // 	const num2 = 2;
-	
+
 // 	return <div>
 // 		{num1 + num2}
 // 	</div>;
@@ -654,7 +653,7 @@ createRoot(document.getElementById('root')!).render(
 // function App() {
 // 	const num1 = 3;
 // 	const num2 = 2;
-	
+
 // 	return <div>
 // 		result: {num1 ** num2}
 // 	</div>;
@@ -666,7 +665,7 @@ createRoot(document.getElementById('root')!).render(
 // function App() {
 // 	const name = 'john';
 // 	const surname = 'smit';
-	
+
 // 	return <div>
 // 		result: {name + ' ' + surname}
 // 	</div>;
@@ -677,7 +676,7 @@ createRoot(document.getElementById('root')!).render(
 
 // function App() {
 // 	const num = 4;
-	
+
 // 	return <div>
 // 		result: {Math.sqrt(num)}
 // 	</div>;
@@ -691,13 +690,13 @@ createRoot(document.getElementById('root')!).render(
 // function App() {
 // 	let text;
 // 	const show = true;
-	
+
 // 	if (show) {
 // 		text = 'text1';
 // 	} else {
 // 		text = 'text2';
 // 	}
-	
+
 // 	return <div>
 // 		{text}
 // 	</div>;
@@ -707,13 +706,13 @@ createRoot(document.getElementById('root')!).render(
 // function App() {
 // 	let text;
 // 	const show = true;
-	
+
 // 	if (show) {
 // 		text = <p>text1</p>;
 // 	} else {
 // 		text = <p>text2</p>;
 // 	}
-	
+
 // 	return <div>
 // 		{text}
 // 	</div>;
