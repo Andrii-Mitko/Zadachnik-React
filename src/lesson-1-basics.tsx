@@ -1,6 +1,6 @@
-import { nanoid } from "nanoid";
-import { v4 as uuidv4 } from "uuid";
-import React, { useState } from "react";
+// import { nanoid } from "nanoid";
+// import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 
 // ************************************************
 
@@ -2239,7 +2239,7 @@ import React, { useState } from "react";
 
 //; 	return <div>
 //; 		<span>{name}</span>
-//; 		<button onClick={() => setName('xxxx')}>btn</button>
+//; 		<button type="button" onClick={() => setName('xxxx')}>btn</button>
 //; 	</div>;
 //; }
 
@@ -2400,29 +2400,34 @@ import React, { useState } from "react";
 
 //; Давайте посмотрим на примере. Пусть у нас есть инпут:
 
-//; function App() {
-//; 	return <div>
-//; 		<input />
-//; 	</div>;
-//; }
+// function App() {
+//   return (
+//     <div>
+//       <input />
+//     </div>
+//   );
+// }
+
 //; Пусть также у нас есть стейт:
 
-//; function App() {
-//; 	const [value, setValue] = useState('text');
+// function App() {
+// 	const [value, setValue] = useState('text');
 
-//; 	return <div>
-//; 		<input />
-//; 	</div>;
-//; }
-//; Давайте к атрибуту value инпута привяжем нас стейт:
+// 	return <div>
+// 		<input />
+// 	</div>;
+// }
+// Давайте к атрибуту value инпута привяжем наш стейт:
 
-//; function App() {
-//; 	const [value, setValue] = useState('text');
+// function App() {
+//   const [value, setValue] = useState("text");
 
-//; 	return <div>
-//; 		<input value={value} />
-//; 	</div>;
-//; }
+//   return (
+//     <div>
+//       <input value={value} />
+//     </div>
+//   );
+// }
 //; В таком случае получится, что при изменении стейта, реактивно поменяется и текст инпута.
 
 //; Это, однако, дает интересный побочный эффект: теперь при запуске кода в браузере в инпуте невозможно поменять текст! Почему: потому что при вводе текста в инпут не меняется стейт value, соответственно, и текст в инпуте не должен меняться.
@@ -2530,192 +2535,426 @@ import React, { useState } from "react";
 
 //? Сделайте два инпута. Пусть текст первого инпута выводится в первый абзац, а текст второго инпута - во второй абзац.
 
-// *************************************************** //
-
-// Изменение данных инпута при их выводе в React
-// Пусть мы будем вводить в инпут число. Давайте сделаем так, чтобы по мере ввода числа в инпут в абзац выводился квадрат вводимого числа:
-
 // function App() {
-// 	const [value, setValue] = useState(0);
-
-// 	function handleChange(event) {
-// 		setValue(event.target.value);
-// 	}
-
-// 	return <div>
-// 		<input value={value} onChange={handleChange} />
-// 		<p>{value ** 2}</p>
-// 	</div>;
+//   const [value1, setValue1] = useState("");
+//   const [value2, setValue2] = useState("");
+//   return (
+//     <div>
+//       <input
+//         value={value1}
+//         onChange={(event) => setValue1(event.target.value)}
+//       />
+//       <input
+//         value={value2}
+//         onChange={(event) => setValue2(event.target.value)}
+//       />
+//       <p>text: {value1}</p>
+//       <p>text: {value2}</p>
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmFmsIO
-
-// Дан инпут. Дан абзац. Сделайте так, чтобы при вводе текста в инпут, в абзаце выводилось количество введенных в инпут символов.
-
-// *************************************************** //
-
-// Изменение данных с помощью функции в React
-// Не обязательно совершать некие операции над стейтом прямо на выводе. Можно воспользоваться функцией:
-
-// function square(num) {
-// 	return num ** 2;
-// }
-
-// function App() {
-// 	const [value, setValue] = useState(0);
-
-// 	function handleChange(event) {
-// 		setValue(event.target.value);
-// 	}
-
-// 	return <div>
-// 		<input value={value} onChange={handleChange} />
-// 		<p>{square(value)}</p>
-// 	</div>;
-// }
-// №1⊗jsrtPmFmsIF
-
-// Дан инпут и абзац. В инпут вводится возраст пользователя. Сделайте так, чтобы при наборе текста, в абзаце автоматически появлялся год рождения пользователя.
-
-// №2⊗jsrtPmFmsIF
-
-// Дан инпут и абзац. В инпут вводятся градусы Фаренгейта. Сделайте так, чтобы при наборе текста, в абзаце автоматически выполнялась конвертация в градусы Цельсия.
 
 // *************************************************** //
 
-// Работа с несколькими инпутами в React
-// Пусть у нас есть два инпута, в которые будут вводится числа. Давайте сделаем так, чтобы по мере ввода в абзац выводилась сумма двух инпутов:
+//! Изменение данных инпута при их выводе в React
+
+//; Пусть мы будем вводить в инпут число. Давайте сделаем так, чтобы по мере ввода числа в инпут в абзац выводился квадрат вводимого числа:
+
+//; function App() {
+//; 	const [value, setValue] = useState(0);
+
+//; 	function handleChange(event) {
+//; 		setValue(event.target.value);
+//; 	}
+
+//; 	return <div>
+//; 		<input value={value} onChange={handleChange} />
+//; 		<p>{value ** 2}</p>
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmFmsIO
+
+//? Дан инпут. Дан абзац. Сделайте так, чтобы при вводе текста в инпут, в абзаце выводилось количество введенных в инпут символов.
 
 // function App() {
-// 	const [value1, setValue1] = useState(0);
-// 	const [value2, setValue2] = useState(0);
+//   const [value, setValue] = useState("");
 
-// 	function handleChange1(event) {
-// 		setValue1(+event.target.value);
-// 	}
+//   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+//     setValue(e.target.value);
+//   }
 
-// 	function handleChange2(event) {
-// 		setValue2(+event.target.value);
-// 	}
-
-// 	return <div>
-// 		<input value={value1} onChange={handleChange1} />
-// 		<input value={value2} onChange={handleChange2} />
-// 		<p>result: {value1 + value2}</p>
-// 	</div>
+//   return (
+//     <div>
+//       <input value={value} onChange={handleChange} />
+//       <p>{value.length}</p>
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmFmsIS
-
-// Даны 5 инпутов. Сделайте так, чтобы при вводе чисел в наши инпуты в абзац выводилось среднее арифметическое введенных чисел.
 
 // *************************************************** //
 
-// Обработка данных формы по нажатию на кнопку в React
-// В предыдущем уроке мы делали так, чтобы при вводе символа в инпут в абзаце мгновенно появлялся результат. Это, конечно же, смотрится красиво, но имеет недостаток.
+//! Изменение данных с помощью функции в React
 
-// Представим себе, что нам нужно сделать некоторую "тяжелую", ресурсоемкую операцию. Не очень оптимально делать ее на каждый ввод символа - лучше дождаться окончательного ввода данных и потом выполнить нужную операцию один раз и результат вывести в абзац.
+//; Не обязательно совершать некие операции над стейтом прямо на выводе. Можно воспользоваться функцией:
 
-// Для этого нам нужно ввести кнопку, по нажатию на которую будет совершаться наша ресурсоемкая операция. В таком случае у нас опять каждому инпуту будет соответствовать свой стейт, плюс еще один стейт нам нужен для записи результата операции и отображения его на экран.
+//; function square(num) {
+//; 	return num ** 2;
+//; }
 
-// Посмотрим на примере. Пусть у нас есть два инпута и кнопка. По нажатию на кнопку давайте найдем сумму чисел, введенных в инпуты.
+//; function App() {
+//; 	const [value, setValue] = useState(0);
 
-// Реализуем:
+//; 	function handleChange(event) {
+//; 		setValue(event.target.value);
+//; 	}
 
-// function App() {
-// 	const [value1, setValue1] = useState(0);
-// 	const [value2, setValue2] = useState(0);
-// 	const [result, setResult] = useState(0);
+//; 	return <div>
+//; 		<input value={value} onChange={handleChange} />
+//; 		<p>{square(value)}</p>
+//; 	</div>;
+//; }
 
-// 	function handleChange1(event) {
-// 		setValue1(event.target.value);
-// 	}
+//? №1⊗jsrtPmFmsIF
 
-// 	function handleChange2(event) {
-// 		setValue2(event.target.value);
-// 	}
-
-// 	function handleClick() {
-// 		setResult(Number(value1) + Number(value2));
-// 	}
-
-// 	return <div>
-// 		<input value={value1} onChange={handleChange1} />
-// 		<input value={value2} onChange={handleChange2} />
-
-// 		<button onClick={handleClick}>btn</button>
-// 		<p>result: {result}</p>
-// 	</div>;
-// }
-// Можно использовать сокращенный вариант:
+//? Дан инпут и абзац. В инпут вводится возраст пользователя. Сделайте так, чтобы при наборе текста, в абзаце автоматически появлялся год рождения пользователя.
 
 // function App() {
-// 	const [value1, setValue1] = useState(0);
-// 	const [value2, setValue2] = useState(0);
-// 	const [result, setResult] = useState(0);
+//   const [value, setValue] = useState("");
 
-// 	return <div>
-// 		<input value={value1} onChange={event => setValue1(event.target.value)} />
-// 		<input value={value2} onChange={event => setValue2(event.target.value)} />
+//   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+//     setValue(e.target.value);
+//   }
 
-// 		<button onClick={() => setResult(Number(value1) + Number(value2))}>btn</button>
-// 		<p>result: {result}</p>
-// 	</div>;
+//   const year = new Date().getFullYear() - Number(value || 0);
+
+//   return (
+//     <div>
+//       <input value={value} onChange={handleChange} />
+//       <p>{year}</p>
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmFmsDt
 
-// Даны два инпута, две кнопки и абзац. Пусть в инпуты вводятся числа. По нажатию на первую кнопку найдите сумму чисел, а по нажатию на вторую кнопку - произведение. Результат выводите в абзац.
+//? №2⊗jsrtPmFmsIF
 
-// №2⊗jsrtPmFmsDt
+//? Дан инпут и абзац. В инпут вводятся градусы Фаренгейта. Сделайте так, чтобы при наборе текста, в абзаце автоматически выполнялась конвертация в градусы Цельсия.
 
-// Даны два инпута, кнопка и абзац. Пусть в инпуты вводятся даты в формате 2025-12-31. По нажатию на кнопку найдите разницу между датами в днях и результат выведите в абзац.
+// function App() {
+//   const [value, setValue] = useState("");
 
-// №3⊗jsrtPmFmsDt
+//   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+//     setValue(e.target.value);
+//   }
 
-// Модифицируйте предыдущую задачу так, чтобы по умолчанию в инпутах стояла текущая дата.
+//   const celsius = ((+value - 32) * 5) / 9;
 
-// №4⊗jsrtPmFmsDt
-
-// Дан инпут и абзац. В инпут вводится число. По потери фокуса выведите в абзац сумму цифр введенного числа.
-
-// №5⊗jsrtPmFmsDt
-
-// Дан инпут и абзац. В инпут вводится число. По потери фокуса выведите в абзац произведение делителей введенного числа.
+//   return (
+//     <div>
+//       <input value={value} onChange={handleChange} />
+//       {value && <p>{celsius.toFixed(1)}</p>}
+//     </div>
+//   );
+// }
 
 // *************************************************** //
 
-// Работа с textarea в React
-// Давайте теперь научимся работать с многострочным полем ввода textarea. В React работа с ним, для удобства, сделана похожей на работу с текстовым инпутом. В отличие от чистого JS, в React в textarea не нужен закрывающий тег, а его текст следует размещать в атрибуте value.
+//! Работа с несколькими инпутами в React
 
-// Смотрите пример:
+//; Пусть у нас есть два инпута, в которые будут вводится числа. Давайте сделаем так, чтобы по мере ввода в абзац выводилась сумма двух инпутов:
+
+//; function App() {
+//; 	const [value1, setValue1] = useState(0);
+//; 	const [value2, setValue2] = useState(0);
+
+//; 	function handleChange1(event) {
+//; 		setValue1(+event.target.value);
+//; 	}
+
+//; 	function handleChange2(event) {
+//; 		setValue2(+event.target.value);
+//; 	}
+
+//; 	return <div>
+//; 		<input value={value1} onChange={handleChange1} />
+//; 		<input value={value2} onChange={handleChange2} />
+//; 		<p>result: {value1 + value2}</p>
+//; 	</div>
+//; }
+
+//? №1⊗jsrtPmFmsIS
+
+//? Даны 5 инпутов. Сделайте так, чтобы при вводе чисел в наши инпуты в абзац выводилось среднее арифметическое введенных чисел.
 
 // function App() {
-// 	const [value, setValue] = useState('');
+//   const [values, setValues] = useState(["", "", "", "", ""]);
 
-// 	function handleChange(event) {
-// 		setValue(event.target.value);
-// 	}
+//   function handleChange(index: number, value: string) {
+//     const newValues = [...values];
+//     newValues[index] = value;
+//     setValues(newValues);
+//   }
 
-// 	return <div>
-// 		<textarea value={value} onChange={handleChange} />
-// 		<p>{value}</p>
-// 	</div>;
+//   const numbers = values.map((v) => Number(v) || 0);
+//   const avg = numbers.reduce((a, b) => a + b, 0) / 5;
+
+//   return (
+//     <div>
+//       {values.map((val, i) => (
+//         <input
+//           key={i}
+//           value={val}
+//           onChange={(e) => handleChange(i, e.target.value)}
+//         />
+//       ))}
+
+//       <p>result: {avg}</p>
+//     </div>
+//   );
 // }
-// В сокращенной форме:
+
+// *************************************************** //
+
+//! Обработка данных формы по нажатию на кнопку в React
+
+//; В предыдущем уроке мы делали так, чтобы при вводе символа в инпут в абзаце мгновенно появлялся результат. Это, конечно же, смотрится красиво, но имеет недостаток.
+
+//; Представим себе, что нам нужно сделать некоторую "тяжелую", ресурсоемкую операцию. Не очень оптимально делать ее на каждый ввод символа - лучше дождаться окончательного ввода данных и потом выполнить нужную операцию один раз и результат вывести в абзац.
+
+//; Для этого нам нужно ввести кнопку, по нажатию на которую будет совершаться наша ресурсоемкая операция. В таком случае у нас опять каждому инпуту будет соответствовать свой стейт, плюс еще один стейт нам нужен для записи результата операции и отображения его на экран.
+
+//; Посмотрим на примере. Пусть у нас есть два инпута и кнопка. По нажатию на кнопку давайте найдем сумму чисел, введенных в инпуты.
+
+//; Реализуем:
+
+//; function App() {
+//; 	const [value1, setValue1] = useState(0);
+//; 	const [value2, setValue2] = useState(0);
+//; 	const [result, setResult] = useState(0);
+
+//; 	function handleChange1(event) {
+//; 		setValue1(event.target.value);
+//; 	}
+
+//; 	function handleChange2(event) {
+//; 		setValue2(event.target.value);
+//; 	}
+
+//; 	function handleClick() {
+//; 		setResult(Number(value1) + Number(value2));
+//; 	}
+
+//; 	return <div>
+//; 		<input value={value1} onChange={handleChange1} />
+//; 		<input value={value2} onChange={handleChange2} />
+
+//; 		<button onClick={handleClick}>btn</button>
+//; 		<p>result: {result}</p>
+//; 	</div>;
+//; }
+//; Можно использовать сокращенный вариант:
+
+//; function App() {
+//; 	const [value1, setValue1] = useState(0);
+//; 	const [value2, setValue2] = useState(0);
+//; 	const [result, setResult] = useState(0);
+
+//; 	return <div>
+//; 		<input value={value1} onChange={event => setValue1(event.target.value)} />
+//; 		<input value={value2} onChange={event => setValue2(event.target.value)} />
+
+//; 		<button onClick={() => setResult(Number(value1) + Number(value2))}>btn</button>
+//; 		<p>result: {result}</p>
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmFmsDt
+
+//? Даны два инпута, две кнопки и абзац. Пусть в инпуты вводятся числа. По нажатию на первую кнопку найдите сумму чисел, а по нажатию на вторую кнопку - произведение. Результат выводите в абзац.
 
 // function App() {
-// 	const [value, setValue] = useState('');
+//   const [value1, setValue1] = useState(0);
+//   const [value2, setValue2] = useState(0);
+//   const [result, setResult] = useState(0);
 
-// 	return <div>
-// 		<textarea value={value} onChange={event => setValue(event.target.value)} />
-// 		<p>{value}</p>
-// 	</div>;
+//   return (
+//     <div>
+//       <input
+//         value={value1}
+//         onChange={(e) => setValue1(Number(e.target.value))}
+//       />
+//       <input
+//         value={value2}
+//         onChange={(e) => setValue2(Number(e.target.value))}
+//       />
+
+//       <button onClick={() => setResult(value1 + value2)}>cyma</button>
+//       <button onClick={() => setResult(value1 * value2)}>произведение</button>
+//       <p>result: {result}</p>
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmFmsTx
 
-// Пусть в textarea вводится текст. Сделайте так, чтобы в абзац выводился транслит вводимого текста.
+//? №2⊗jsrtPmFmsDt
 
-// №2⊗jsrtPmFmsTx
+//? Даны два инпута, кнопка и абзац. Пусть в инпуты вводятся даты в формате 2025-12-31. По нажатию на кнопку найдите разницу между датами в днях и результат выведите в абзац.
 
-// Пусть в textarea на каждой строке вводятся числа. Сделайте так, чтобы по мере ввода в абзац выводилась сумма введенных чисел.
+// function App() {
+//   const [value1, setValue1] = useState("");
+//   const [value2, setValue2] = useState("");
+//   const [result, setResult] = useState(0);
+
+//   function getDaysDifference(date1: string, date2: string) {
+//     const d1 = new Date(date1);
+//     const d2 = new Date(date2);
+
+//     const diffMs = Math.abs(d2.getTime() - d1.getTime());
+//     return diffMs / (1000 * 60 * 60 * 24);
+//   }
+
+//   return (
+//     <div>
+//       <input value={value1} onChange={(e) => setValue1(e.target.value)} />
+//       <input value={value2} onChange={(e) => setValue2(e.target.value)} />
+
+//       <button onClick={() => setResult(getDaysDifference(value1, value2))}>
+//         днів
+//       </button>
+
+//       <p>result: {result}</p>
+//     </div>
+//   );
+// }
+
+//? №3⊗jsrtPmFmsDt
+
+//? Модифицируйте предыдущую задачу так, чтобы по умолчанию в инпутах стояла текущая дата.
+
+// function App() {
+//   const today = new Date().toISOString().slice(0, 10);
+//   const [value1, setValue1] = useState(today);
+//   const [value2, setValue2] = useState(today);
+//   const [result, setResult] = useState(0);
+
+//   function getDaysDifference(date1: string, date2: string) {
+//     const d1 = new Date(date1);
+//     const d2 = new Date(date2);
+
+//     const diffMs = Math.abs(d2.getTime() - d1.getTime());
+//     return diffMs / (1000 * 60 * 60 * 24);
+//   }
+
+//   return (
+//     <div>
+//       <input value={value1} onChange={(e) => setValue1(e.target.value)} />
+//       <input value={value2} onChange={(e) => setValue2(e.target.value)} />
+
+//       <button onClick={() => setResult(getDaysDifference(value1, value2))}>
+//         днів
+//       </button>
+
+//       <p>result: {result}</p>
+//     </div>
+//   );
+// }
+
+//? №4⊗jsrtPmFmsDt
+
+//? Дан инпут и абзац. В инпут вводится число. По потери фокуса выведите в абзац сумму цифр введенного числа.
+
+// function App() {
+//   const [value, setValue] = useState("");
+//   const [result, setResult] = useState(0);
+
+//   function handleBlur() {
+//     const sum = value.split("").reduce((acc, n) => acc + Number(n), 0);
+
+//     setResult(sum);
+//   }
+
+//   return (
+//     <div>
+//       <input
+//         value={value}
+//         onChange={(e) => setValue(e.target.value)}
+//         onBlur={handleBlur}
+//       />
+
+//       <p>result: {result}</p>
+//     </div>
+//   );
+// }
+
+//? №5⊗jsrtPmFmsDt
+
+//? Дан инпут и абзац. В инпут вводится число. По потери фокуса выведите в абзац произведение делителей введенного числа.
+
+// function App() {
+//   const [value, setValue] = useState("");
+//   const [result, setResult] = useState(0);
+
+//   function handleBlur() {
+//     const arr = [];
+//     for (let i = 1; i <= +value; i++) {
+//       if (+value % i === 0) {
+//         arr.push(i);
+//       }
+//     }
+
+//     setResult(arr.reduce((acc, n) => acc * n, 1));
+//   }
+
+//   return (
+//     <div>
+//       <input
+//         value={value}
+//         onChange={(e) => setValue(e.target.value)}
+//         onBlur={handleBlur}
+//       />
+
+//       <p>result: {result}</p>
+//     </div>
+//   );
+// }
+
+// *************************************************** //
+
+//! Работа с textarea в React
+
+//; Давайте теперь научимся работать с многострочным полем ввода textarea. В React работа с ним, для удобства, сделана похожей на работу с текстовым инпутом. В отличие от чистого JS, в React в textarea не нужен закрывающий тег, а его текст следует размещать в атрибуте value.
+
+//; Смотрите пример:
+
+//; function App() {
+//; 	const [value, setValue] = useState('');
+
+//; 	function handleChange(event) {
+//; 		setValue(event.target.value);
+//; 	}
+
+//; 	return <div>
+//; 		<textarea value={value} onChange={handleChange} />
+//; 		<p>{value}</p>
+//; 	</div>;
+//; }
+//; В сокращенной форме:
+
+//; function App() {
+//; 	const [value, setValue] = useState('');
+
+//; 	return <div>
+//; 		<textarea value={value} onChange={event => setValue(event.target.value)} />
+//; 		<p>{value}</p>
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmFmsTx
+
+//? Пусть в textarea вводится текст. Сделайте так, чтобы в абзац выводился транслит вводимого текста.
+
+//? №2⊗jsrtPmFmsTx
+
+//? Пусть в textarea на каждой строке вводятся числа. Сделайте так, чтобы по мере ввода в абзац выводилась сумма введенных чисел.
 
 // *************************************************** /
 
