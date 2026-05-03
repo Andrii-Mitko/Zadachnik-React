@@ -2952,244 +2952,491 @@ import { useState } from "react";
 
 //? Пусть в textarea вводится текст. Сделайте так, чтобы в абзац выводился транслит вводимого текста.
 
+// function App() {
+//   const [value, setValue] = useState("");
+
+//   const translitMap: Record<string, string> = {
+//     а: "a",
+//     б: "b",
+//     в: "v",
+//     г: "g",
+//     д: "d",
+//     е: "e",
+//     ё: "yo",
+//     ж: "zh",
+//     з: "z",
+//     и: "i",
+//     й: "y",
+//     к: "k",
+//     л: "l",
+//     м: "m",
+//     н: "n",
+//     о: "o",
+//     п: "p",
+//     р: "r",
+//     с: "s",
+//     т: "t",
+//     у: "u",
+//     ф: "f",
+//     х: "kh",
+//     ц: "ts",
+//     ч: "ch",
+//     ш: "sh",
+//     щ: "shch",
+//     ы: "y",
+//     э: "e",
+//     ю: "yu",
+//     я: "ya",
+//   };
+
+//   const result = value
+//     .split("")
+//     .map((char) => translitMap[char] || char)
+//     .join("");
+
+//   return (
+//     <div>
+//       <textarea value={value} onChange={(e) => setValue(e.target.value)} />
+//       <p>{result}</p>
+//     </div>
+//   );
+// }
+
 //? №2⊗jsrtPmFmsTx
 
 //? Пусть в textarea на каждой строке вводятся числа. Сделайте так, чтобы по мере ввода в абзац выводилась сумма введенных чисел.
 
-// *************************************************** /
-
-// Работа с checkbox в React
-// Работа с checkbox также осуществляется по схожему принципу, только вместо атрибута value мы указываем атрибут checked. Если в этот атрибут передать true - то чекбокс будет отмечен, а если false - не будет отмечен:
-
 // function App() {
-// 	return <div>
-// 		<input type="checkbox" checked={true}  /> отмечен
-// 		<input type="checkbox" checked={false} /> не отмечен
-// 	</div>;
+//   const [value, setValue] = useState("");
+
+//   const result: number = value.split("\n").reduce((acc, n) => acc + +n, 0);
+
+//   return (
+//     <div>
+//       <textarea
+//         value={value}
+//         onChange={(e) => setValue(e.target.value)}
+//         placeholder="1\n2\n3"
+//       />
+//       <p>{result}</p>
+//     </div>
+//   );
 // }
-// Обычно в атрибут checked передается стейт, содержащий логическое значение:
-
-// function App() {
-// 	const [checked, setChecked] = useState(true);
-
-// 	return <div>
-// 		<input type="checkbox" checked={checked} />
-// 	</div>;
-// }
-// Так же, как и при работе с инпутами, если жестко задать значение атрибута checked - состояние чекбокса нельзя будет сменить. Для корректной работы будем по изменению чекбокса менять его стейт на противоположное ему значение:
-
-// function App() {
-// 	const [checked, setChecked] = useState(true);
-
-// 	function handleChange() {
-// 		setChecked(!checked); // инвертируем стейт
-// 	}
-
-// 	return <div>
-// 		<input type="checkbox" checked={checked} onChange={handleChange} />
-// 	</div>;
-// }
-// Можем упростить:
-
-// function App() {
-// 	const [checked, setChecked] = useState(true);
-
-// 	return <div>
-// 		<input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
-// 	</div>;
-// }
-// Давайте выведем состояние чекбокса в абзац, используя тернарный оператор:
-
-// function App() {
-// 	const [checked, setChecked] = useState(true);
-
-// 	return <div>
-// 		<input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
-// 		<p>состояние: {checked ? 'отмечен' : 'не отмечен'}</p>
-// 	</div>;
-// }
-// №1⊗jsrtPmFmsChI
-
-// Дан чекбокс, кнопка и абзац. По клику на кнопку, если чекбокс отмечен, выведите в абзац текст приветствия с пользователем, а если не отмечен - текст прощания.
-
-// №2⊗jsrtPmFmsChI
-
-// С помощью трех чекбоксов попросите пользователя выбрать языки, которые он знает: html, css и js. Результат выбора по каждому языку выводите в отдельные абзацы.
 
 // *************************************************** /
 
-// Чекбоксы и условный рендеринг в React
-// Давайте сделаем так, чтобы в зависимости от отметки чекбокса, на экран выводился либо один кусочек кода, либо другой. Используем для этого условный рендеринг:
+//! Работа с checkbox в React
+
+//; Работа с checkbox также осуществляется по схожему принципу, только вместо атрибута value мы указываем атрибут checked. Если в этот атрибут передать true - то чекбокс будет отмечен, а если false - не будет отмечен:
+
+//; function App() {
+//; 	return <div>
+//; 		<input type="checkbox" checked={true}  /> отмечен
+//; 		<input type="checkbox" checked={false} /> не отмечен
+//; 	</div>;
+//; }
+//; Обычно в атрибут checked передается стейт, содержащий логическое значение:
+
+//; function App() {
+//; 	const [checked, setChecked] = useState(true);
+
+//; 	return <div>
+//; 		<input type="checkbox" checked={checked} />
+//; 	</div>;
+//; }
+//; Так же, как и при работе с инпутами, если жестко задать значение атрибута checked - состояние чекбокса нельзя будет сменить. Для корректной работы будем по изменению чекбокса менять его стейт на противоположное ему значение:
+
+//; function App() {
+//; 	const [checked, setChecked] = useState(true);
+
+//; 	function handleChange() {
+//; 		setChecked(!checked); //; инвертируем стейт
+//; 	}
+
+//; 	return <div>
+//; 		<input type="checkbox" checked={checked} onChange={handleChange} />
+//; 	</div>;
+//; }
+//; Можем упростить:
+
+//; function App() {
+//; 	const [checked, setChecked] = useState(true);
+
+//; 	return <div>
+//; 		<input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
+//; 	</div>;
+//; }
+//; Давайте выведем состояние чекбокса в абзац, используя тернарный оператор:
+
+//; function App() {
+//; 	const [checked, setChecked] = useState(true);
+
+//; 	return <div>
+//; 		<input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
+//; 		<p>состояние: {checked ? 'отмечен' : 'не отмечен'}</p>
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmFmsChI
+
+//? Дан чекбокс, кнопка и абзац. По клику на кнопку, если чекбокс отмечен, выведите в абзац текст приветствия с пользователем, а если не отмечен - текст прощания.
 
 // function App() {
-// 	const [checked, setChecked] = useState(true);
+//   const [checked, setChecked] = useState(true);
+//   const [message, setMessage] = useState("");
 
-// 	let message;
-// 	if (checked) {
-// 		message = <p>сообщение 1</p>;
-// 	} else {
-// 		message = <p>сообщение 2</p>;
-// 	}
+//   const handleClick = () => {
+//     setMessage(checked ? "Добрий день!" : "До побачення!");
+//   };
 
-// 	return <div>
-// 		<input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
-// 		<div>{message}</div>
-// 	</div>;
+//   return (
+//     <div>
+//       <input
+//         type="checkbox"
+//         checked={checked}
+//         onChange={() => setChecked((prev) => !prev)}
+//       />
+
+//       <button type="button" onClick={handleClick}>
+//         Click
+//       </button>
+
+//       <p>{message}</p>
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmFmsChCR
 
-// Дан чекбокс. С помощью чекбокса спросите у пользователя, если ли ему уже 18 лет. Если чекбокс отмечен, покажите пользователю следующий блок кода:
+//? №2⊗jsrtPmFmsChI
 
-// <div>
-// 	<h2>Ура, вам уже есть 18</h2>
-// 	<p>
-// 		здесь расположен контент только для взрослых
-// 	</p>
-// </div>
-// А если чекбокс не отмечен - то следующий:
+//? С помощью трех чекбоксов попросите пользователя выбрать языки, которые он знает: html, css и js. Результат выбора по каждому языку выводите в отдельные абзацы.
 
-// <div>
-// 	<p>
-// 		увы, вам еще нет 18 лет:(
-// 	</p>
-// </div>
-// №2⊗jsrtPmFmsChCR
+// function App() {
+//   const [checked1, setChecked1] = useState(false);
+//   const [checked2, setChecked2] = useState(false);
+//   const [checked3, setChecked3] = useState(false);
 
-// Дан чекбокс и абзац. Если чекбокс отмечен, пусть абзац будет видимым на экране, а если не отмечен - спрячьте его.
+//   return (
+//     <div>
+//       <h2>Відмить, що ви знаєте</h2>
+//       <p>html</p>
+//       <input
+//         type="checkbox"
+//         checked={checked1}
+//         onChange={() => setChecked1((prev) => !prev)}
+//       />
+//       <p>css</p>
+//       <input
+//         type="checkbox"
+//         checked={checked2}
+//         onChange={() => setChecked2((prev) => !prev)}
+//       />
+//       <p>js</p>
+//       <input
+//         type="checkbox"
+//         checked={checked3}
+//         onChange={() => setChecked3((prev) => !prev)}
+//       />
+//       <div style={{ display: "flex", justifyContent: "center" }}>
+//         {checked1 && <p>-html-</p>}
+//         {checked2 && <p>-css-</p>}
+//         {checked3 && <p>-js-</p>}
+//       </div>
+//     </div>
+//   );
+// }
 
 // *************************************************** /
 
-// Работа с select в React
-// Давайте теперь займемся выпадающими списками select. Работа с ними также практически не отличается от работы с инпутами и чекбоксами.
+//! Чекбоксы и условный рендеринг в React
 
-// Пусть у нас есть вот такой селект:
+//; Давайте сделаем так, чтобы в зависимости от отметки чекбокса, на экран выводился либо один кусочек кода, либо другой. Используем для этого условный рендеринг:
+
+//; function App() {
+//; 	const [checked, setChecked] = useState(true);
+
+//; 	let message;
+//; 	if (checked) {
+//; 		message = <p>сообщение 1</p>;
+//; 	} else {
+//; 		message = <p>сообщение 2</p>;
+//; 	}
+
+//; 	return <div>
+//; 		<input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
+//; 		<div>{message}</div>
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmFmsChCR
+
+//? Дан чекбокс. С помощью чекбокса спросите у пользователя, если ли ему уже 18 лет. Если чекбокс отмечен, покажите пользователю следующий блок кода:
+
+//? <div>
+//? 	<h2>Ура, вам уже есть 18</h2>
+//? 	<p>
+//? 		здесь расположен контент только для взрослых
+//? 	</p>
+//? </div>
+//? А если чекбокс не отмечен - то следующий:
+
+//? <div>
+//? 	<p>
+//? 		увы, вам еще нет 18 лет:(
+//? 	</p>
+//? </div>
 
 // function App() {
-// 	return <div>
-// 		<select>
-// 			<option>text1</option>
-// 			<option>text2</option>
-// 			<option>text3</option>
-// 			<option>text4</option>
-// 		</select>
-// 	</div>;
+//   const [checked, setChecked] = useState(false);
+
+//   let message;
+//   if (checked) {
+//     message = (
+//       <div>
+//         <h2>Ура, вам уже есть 18</h2>
+//         <p>здесь расположен контент только для взрослых</p>
+//       </div>
+//     );
+//   } else {
+//     message = (
+//       <div>
+//         <p>увы, вам еще нет 18 лет:(</p>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div>
+//       <input
+//         type="checkbox"
+//         checked={checked}
+//         onChange={() => setChecked(!checked)}
+//       />
+//       <div>{message}</div>
+//     </div>
+//   );
 // }
-// Давайте обеспечим его работу средствами React:
+
+//? №2⊗jsrtPmFmsChCR
+
+//? Дан чекбокс и абзац. Если чекбокс отмечен, пусть абзац будет видимым на экране, а если не отмечен - спрячьте его.
 
 // function App() {
-// 	const [value, setValue] = useState('');
+//   const [checked, setChecked] = useState(false);
 
-// 	function handleChange(event) {
-// 		setValue(event.target.value);
-// 	}
-
-// 	return <div>
-// 		<select value={value} onChange={handleChange}>
-// 			<option>text1</option>
-// 			<option>text2</option>
-// 			<option>text3</option>
-// 			<option>text4</option>
-// 		</select>
-// 		<p>
-// 			ваш выбор: {value}
-// 		</p>
-// 	</div>;
+//   return (
+//     <div>
+//       <input
+//         type="checkbox"
+//         checked={checked}
+//         onChange={() => setChecked(!checked)}
+//       />
+//       {checked && <p>здесь расположен контент только для взрослых</p>}
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmFmsSI
-
-// Сделайте выпадающий список городов. Сделайте также абзац, в который будет выводиться выбор пользователя.
 
 // *************************************************** /
 
-// Пункты селекта из массива в React
-// Пусть у нас есть массив с текстами пунктов выпадающего списка:
+//! Работа с select в React
+
+//; Давайте теперь займемся выпадающими списками select. Работа с ними также практически не отличается от работы с инпутами и чекбоксами.
+
+//; Пусть у нас есть вот такой селект:
+
+//; function App() {
+//; 	return <div>
+//; 		<select>
+//; 			<option>text1</option>
+//; 			<option>text2</option>
+//; 			<option>text3</option>
+//; 			<option>text4</option>
+//; 		</select>
+//; 	</div>;
+//; }
+//; Давайте обеспечим его работу средствами React:
+
+//; function App() {
+//; 	const [value, setValue] = useState('');
+
+//; 	function handleChange(event) {
+//; 		setValue(event.target.value);
+//; 	}
+
+//; 	return <div>
+//; 		<select value={value} onChange={handleChange}>
+//; 			<option>text1</option>
+//; 			<option>text2</option>
+//; 			<option>text3</option>
+//; 			<option>text4</option>
+//; 		</select>
+//; 		<p>
+//; 			ваш выбор: {value}
+//; 		</p>
+//; 	</div>;
+//; }
 
 // function App() {
-// 	const texts = ['text1', 'text2', 'text3', 'text4'];
-// 	const [value, setValue] = useState('');
+//   const [value, setValue] = useState("");
 
-// 	return <div>
-// 		...
-// 	</div>;
+// function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
+//   setValue(event.target.value);
 // }
-// Давайте сформируем наши теги option в цикле:
 
-// function App() {
-// 	const texts = ['text1', 'text2', 'text3', 'text4'];
-// 	const [value, setValue] = useState('');
+//   return (
+//     <div>
+//       <select value={value} onChange={handleChange}>
+//         <option value="">Выберите город</option>
+//         <option value="Київ">Київ</option>
+//         <option value="Біла Церква">Біла Церква</option>
+//         <option value="Маріуполь">Маріуполь</option>
+//         <option value="Донецьк">Донецьк</option>
+//       </select>
 
-// 	const options = texts.map((text, index) => {
-// 		return <option key={index}>{text}</option>;
-// 	});
-
-// 	return <div>
-// 		<select value={value} onChange={(event) => setValue(event.target.value)}>
-// 			{options}
-// 		</select>
-// 		<p>
-// 			ваш выбор: {value}
-// 		</p>
-// 	</div>;
+//       <p>ваш выбор: {value}</p>
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmFmsSA
-
-// Пусть в массиве хранится список городов. Выведите с помощью цикла выпадающий список этих городов.
 
 // *************************************************** /
 
-// Атрибуты value в селекте в React
-// Пусть теперь у нас в тегах option есть атрибуты value:
+//! Пункты селекта из массива в React
+
+//; Пусть у нас есть массив с текстами пунктов выпадающего списка:
+
+//; function App() {
+//; 	const texts = ['text1', 'text2', 'text3', 'text4'];
+//; 	const [value, setValue] = useState('');
+
+//; 	return <div>
+//; 		...
+//; 	</div>;
+//; }
+//; Давайте сформируем наши теги option в цикле:
+
+//; function App() {
+//; 	const texts = ['text1', 'text2', 'text3', 'text4'];
+//; 	const [value, setValue] = useState('');
+
+//; 	const options = texts.map((text, index) => {
+//; 		return <option key={index}>{text}</option>;
+//; 	});
+
+//; 	return <div>
+//; 		<select value={value} onChange={(event) => setValue(event.target.value)}>
+//; 			{options}
+//; 		</select>
+//; 		<p>
+//; 			ваш выбор: {value}
+//; 		</p>
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmFmsSA
+
+//? Пусть в массиве хранится список городов. Выведите с помощью цикла выпадающий список этих городов.
 
 // function App() {
-// 	return <div>
-// 		<select>
-// 			<option value="1">text1</option>
-// 			<option value="2">text2</option>
-// 			<option value="3">text3</option>
-// 		</select>
-// 	</div>;
+//   const texts = ["Київ", "Біла Церква", "Маріуполь", "Донецьк"];
+//   const [value, setValue] = useState("");
+
+//   const options = texts.map((text) => {
+//     return (
+//       <option value={text} key={text}>
+//         {text}
+//       </option>
+//     );
+//   });
+
+//   return (
+//     <div>
+//       <select value={value} onChange={(event) => setValue(event.target.value)}>
+//         {options}
+//       </select>
+//       <p>ваш выбор: {value}</p>
+//     </div>
+//   );
 // }
-// В таком случае из-за наличия атрибутов value в стейт будут попадать именно их значения, а не тексты тегов option. Можно убедится в этом, выведя результат выбора в абзац:
+
+// *************************************************** /
+
+//! Атрибуты value в селекте в React
+
+//; Пусть теперь у нас в тегах option есть атрибуты value:
+
+//; function App() {
+//; 	return <div>
+//; 		<select>
+//; 			<option value="1">text1</option>
+//; 			<option value="2">text2</option>
+//; 			<option value="3">text3</option>
+//; 		</select>
+//; 	</div>;
+//; }
+//; В таком случае из-за наличия атрибутов value в стейт будут попадать именно их значения, а не тексты тегов option. Можно убедится в этом, выведя результат выбора в абзац:
+
+//; function App() {
+//; 	const [value, setValue] = useState('');
+
+//; 	return <div>
+//; 		<select value={value} onChange={(event) => setValue(event.target.value)}>
+//; 			<option value="1">text1</option>
+//; 			<option value="2">text2</option>
+//; 			<option value="3">text3</option>
+//; 		</select>
+//; 		<p>
+//; 			ваш выбор: {value}
+//; 		</p>
+//; 	</div>;
+//; }
+//; Разделить текст option и его значение может быть удобно: текст тега мы можем менять как нам угодно, при этом в нашем скрипте результат выбора будет обрабатываться по значению атрибута value, которые останется неизменным.
+
+//; Смотрите пример:
+
+//; function App() {
+//; 	const [value, setValue] = useState('');
+
+//; 	return <div>
+//; 		<select value={value} onChange={event => setValue(event.target.value)}>
+//; 			<option value="1">text1</option>
+//; 			<option value="2">text2</option>
+//; 			<option value="3">text3</option>
+//; 		</select>
+//; 		<p>
+//; 			{value === '1' && 'вы выбрали первый пункт'}
+//; 			{value === '2' && 'вы выбрали второй пункт'}
+//; 			{value === '3' && 'вы выбрали третий пункт'}
+//; 		</p>
+//; 	</div>;
+//; }
+//; Теперь, если мы изменим тексты тегов option, то работа скрипта не нарушится - ведь она привязана к значению атрибута value.
+
+//? №1⊗jsrtPmFmsSV
+
+//? С помощью выпадающего списка предложите пользователю выбрать к какой возрастной группе он относится: от 0 до 12 лет, от 13 до 17, от 18 до 25, либо старше 25 лет.
 
 // function App() {
-// 	const [value, setValue] = useState('');
+//   const [value, setValue] = useState("");
 
-// 	return <div>
-// 		<select value={value} onChange={(event) => setValue(event.target.value)}>
-// 			<option value="1">text1</option>
-// 			<option value="2">text2</option>
-// 			<option value="3">text3</option>
-// 		</select>
-// 		<p>
-// 			ваш выбор: {value}
-// 		</p>
-// 	</div>;
+//   const message: Record<string, string> = {
+//     "1": "от 0 до 12",
+//     "2": "от 13 до 17",
+//     "3": "от 18 до 25",
+//     "4": "старше 25 лет",
+//   };
+
+//   return (
+//     <div>
+//       <select value={value} onChange={(event) => setValue(event.target.value)}>
+//         {" "}
+//         <option value="1">от 0 до 12</option>
+//         <option value="2">от 13 до 17</option>
+//         <option value="3">от 18 до 25</option>
+//         <option value="4">старше 25 лет</option>
+//       </select>
+//       <p>{value && `вы выбрали ${message[value]}`}</p>
+//     </div>
+//   );
 // }
-// Разделить текст option и его значение может быть удобно: текст тега мы можем менять как нам угодно, при этом в нашем скрипте результат выбора будет обрабатываться по значению атрибута value, которые останется неизменным.
-
-// Смотрите пример:
-
-// function App() {
-// 	const [value, setValue] = useState('');
-
-// 	return <div>
-// 		<select value={value} onChange={event => setValue(event.target.value)}>
-// 			<option value="1">text1</option>
-// 			<option value="2">text2</option>
-// 			<option value="3">text3</option>
-// 		</select>
-// 		<p>
-// 			{value === '1' && 'вы выбрали первый пункт'}
-// 			{value === '2' && 'вы выбрали второй пункт'}
-// 			{value === '3' && 'вы выбрали третий пункт'}
-// 		</p>
-// 	</div>;
-// }
-// Теперь, если мы изменим тексты тегов option, то работа скрипта не нарушится - ведь она привязана к значению атрибута value.
-
-// №1⊗jsrtPmFmsSV
-
-// С помощью выпадающего списка предложите пользователю выбрать к какой возрастной группе он относится: от 0 до 12 лет, от 13 до 17, от 18 до 25, либо старше 25 лет.
 
 // *************************************************** /
 
