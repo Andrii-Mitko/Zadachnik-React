@@ -1,6 +1,6 @@
 // import { nanoid } from "nanoid";
 // import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+import { useState, type ReactEventHandler } from "react";
 
 // ************************************************
 
@@ -3440,271 +3440,401 @@ import { useState } from "react";
 
 // *************************************************** /
 
-// Атрибуты value селекта из массива в React
-// Пусть у нас опять пункты списка хранятся в массиве:
+//! Атрибуты value селекта из массива в React
+
+//; Пусть у нас опять пункты списка хранятся в массиве:
+
+//; function App() {
+//; 	const texts = ['text1', 'text2', 'text3', 'text4'];
+//; 	const [value, setValue] = useState('');
+
+//; 	...
+//; }
+//; Давайте сформируем с помощью этого массива теги option, добавив им в качестве атрибутов value значения элементов массива:
+
+//; function App() {
+//; 	const texts = ['text1', 'text2', 'text3', 'text4'];
+//; 	const [value, setValue] = useState('');
+
+//; 	const options = texts.map((text, index) => {
+//; 		return <option key={index} value={index}>{text}</option>;
+//; 	});
+
+//; 	...
+//; }
+//; Используя сформированные теги создадим выпадающий список:
+
+//; return <div>
+//; 	<select value={value} onChange={event => setValue(event.target.value)}>
+//; 		{options}
+//; 	</select>
+//; </div>;
+//; Выведем в абзац номер выбранного пункта:
+
+//; return <div>
+//; 	<select value={value} onChange={event => setValue(event.target.value)}>
+//; 		{options}
+//; 	</select>
+//; 	<p>
+//; 		ваш выбор: {value}
+//; 	</p>
+//; </div>;
+//; А теперь выведем текст выбранного пункта, используя его номер и массив с текстами:
+
+//; return <div>
+//; 	<select value={value} onChange={event => setValue(event.target.value)}>
+//; 		{options}
+//; 	</select>
+//; 	<p>
+//; 		ваш выбор: {texts[value]}
+//; 	</p>
+//; </div>;
+//; Соберем все вместе и получим следующий код:
+
+//; function App() {
+//; 	const texts = ['text1', 'text2', 'text3', 'text4'];
+//; 	const [value, setValue] = useState('');
+
+//; 	const options = texts.map((text, index) => {
+//; 		return <option key={index} value={index}>{text}</option>;
+//; 	});
+
+//; 	return <div>
+//; 		<select value={value} onChange={event => setValue(event.target.value)}>
+//; 			{options}
+//; 		</select>
+//; 		<p>
+//; 			ваш выбор: {texts[value]}
+//; 		</p>
+//; 	</div>;
+//; }
+
+// *************************************************** /
+
+//! Работа с radio в React
+
+//; Работа с radio radio несколько отличается, к примеру, от тех же чекбоксов. Проблема в том, что у нескольких радио будет один и тот же стейт, но разные value.
+
+//; Поэтому работа происходит следующем образом: каждой радиокнопке в атрибут value записывают свое значение, а в атрибут checked - специальное условие, которое проверяет, равен ли стейт определенному значению. Если равен - радиокнопочка станет отмеченной, а если не равен - будет не отмеченной.
+
+//; Вот реализация описанного:
+
+//; function App() {
+//; 	const [value, setValue] = useState(1);
+
+//; 	function changeHandler(event) {
+//; 		setValue(event.target.value);
+//; 	}
+
+//; 	return <div>
+//; 		<input
+//; 			type="radio"
+//; 			name="radio"
+//; 			value="1"
+//; 			checked={value === '1' ? true : false}
+//; 			onChange={changeHandler}
+//; 		/>
+//; 		<input
+//; 			type="radio"
+//; 			name="radio"
+//; 			value="2"
+//; 			checked={value === '2' ? true : false}
+//; 			onChange={changeHandler}
+//; 		/>
+//; 		<input
+//; 			type="radio"
+//; 			name="radio"
+//; 			value="3"
+//; 			checked={value === '3' ? true : false}
+//; 			onChange={changeHandler}
+//; 		/>
+//; 	</div>
+//; }
+
+//? №1⊗jsrtPmFmsRd
+
+//? Даны 3 радиокнопочки. Дан абзац. Сделайте так, чтобы значение выбранной радиокнопочки выводилось в этот абзац.
 
 // function App() {
-// 	const texts = ['text1', 'text2', 'text3', 'text4'];
-// 	const [value, setValue] = useState('');
-
-// 	...
+//   const [value, setValue] = useState("");
+//   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setValue(e.target.value);
+//   };
+//   return (
+//     <div>
+//       <input
+//         type="radio"
+//         name="radio"
+//         value="1"
+//         checked={value === "1"}
+//         onChange={changeHandler}
+//       />
+//       <input
+//         type="radio"
+//         name="radio"
+//         value="2"
+//         checked={value === "2"}
+//         onChange={changeHandler}
+//       />
+//       <input
+//         type="radio"
+//         name="radio"
+//         value="3"
+//         checked={value === "3"}
+//         onChange={changeHandler}
+//       />
+//       <p>{value}</p>
+//     </div>
+//   );
 // }
-// Давайте сформируем с помощью этого массива теги option, добавив им в качестве атрибутов value значения элементов массива:
 
-// function App() {
-// 	const texts = ['text1', 'text2', 'text3', 'text4'];
-// 	const [value, setValue] = useState('');
+//? №2⊗jsrtPmFmsRd
 
-// 	const options = texts.map((text, index) => {
-// 		return <option key={index} value={index}>{text}</option>;
-// 	});
+//? С помощью радиокнопочек спросите у пользователя его любимый язык программирования. Выведите его выбор в абзац. Если выбран язык JavaScript, похвалите пользователя.
 
-// 	...
-// }
-// Используя сформированные теги создадим выпадающий список:
-
-// return <div>
-// 	<select value={value} onChange={event => setValue(event.target.value)}>
-// 		{options}
-// 	</select>
-// </div>;
-// Выведем в абзац номер выбранного пункта:
-
-// return <div>
-// 	<select value={value} onChange={event => setValue(event.target.value)}>
-// 		{options}
-// 	</select>
-// 	<p>
-// 		ваш выбор: {value}
-// 	</p>
-// </div>;
-// А теперь выведем текст выбранного пункта, используя его номер и массив с текстами:
-
-// return <div>
-// 	<select value={value} onChange={event => setValue(event.target.value)}>
-// 		{options}
-// 	</select>
-// 	<p>
-// 		ваш выбор: {texts[value]}
-// 	</p>
-// </div>;
-// Соберем все вместе и получим следующий код:
-
-// function App() {
-// 	const texts = ['text1', 'text2', 'text3', 'text4'];
-// 	const [value, setValue] = useState('');
-
-// 	const options = texts.map((text, index) => {
-// 		return <option key={index} value={index}>{text}</option>;
-// 	});
-
-// 	return <div>
-// 		<select value={value} onChange={event => setValue(event.target.value)}>
-// 			{options}
-// 		</select>
-// 		<p>
-// 			ваш выбор: {texts[value]}
-// 		</p>
-// 	</div>;
+// export default function App() {
+//   const [value, setValue] = useState("");
+//   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setValue(e.target.value);
+//   };
+//   return (
+//     <div>
+//       <h3>Яка мова прогромування тобі подобується?</h3>
+//       <div>
+//         <label htmlFor="HTML/CSS">
+//           <input
+//             type="radio"
+//             name="radio"
+//             value="HTML/CSS"
+//             checked={value === "HTML/CSS"}
+//             onChange={changeHandler}
+//           />
+//           HTML/CSS
+//         </label>
+//         <label htmlFor="TypeScript">
+//           <input
+//             type="radio"
+//             name="radio"
+//             value="TypeScript"
+//             checked={value === "TypeScript"}
+//             onChange={changeHandler}
+//           />
+//           TypeScript
+//         </label>
+//         <label htmlFor="JavaScript">
+//           <input
+//             type="radio"
+//             name="radio"
+//             value="JavaScript"
+//             checked={value === "JavaScript"}
+//             onChange={changeHandler}
+//           />
+//           JavaScript
+//         </label>
+//       </div>
+//       <p>{value}</p>
+//       {value === "JavaScript" && <p>Ти молодець! Це розумний вибір!</p>}
+//     </div>
+//   );
 // }
 
 // *************************************************** /
 
-// Работа с radio в React
-// Работа с radio radio несколько отличается, к примеру, от тех же чекбоксов. Проблема в том, что у нескольких радио будет один и тот же стейт, но разные value.
+//! Значения по умолчанию в React
 
-// Поэтому работа происходит следующем образом: каждой радиокнопке в атрибут value записывают свое значение, а в атрибут checked - специальное условие, которое проверяет, равен ли стейт определенному значению. Если равен - радиокнопочка станет отмеченной, а если не равен - будет не отмеченной.
+//; Иногда может потребоваться сделать так, чтобы по умолчанию в инпуте уже было какое-то значение. При этом нужно, чтобы из стейта было взято только начальное значение инпута, а сам инпут не был бы привязан к этому стейту.
 
-// Вот реализация описанного:
+//; Для решения такой задачи нужно воспользоваться атрибутом defaultValue:
 
-// function App() {
-// 	const [value, setValue] = useState(1);
+//; function App() {
+//; 	const [value, setValue] = useState('text');
 
-// 	function changeHandler(event) {
-// 		setValue(event.target.value);
-// 	}
+//; 	return <div>
+//; 		<input defaultValue={value} />
+//; 	</div>;
+//; }
+//; Для чекбоксов существует аналогичный атрибут defaultChecked, с помощью которого можно задать начальное:
 
-// 	return <div>
-// 		<input
-// 			type="radio"
-// 			name="radio"
-// 			value="1"
-// 			checked={value === '1' ? true : false}
-// 			onChange={changeHandler}
-// 		/>
-// 		<input
-// 			type="radio"
-// 			name="radio"
-// 			value="2"
-// 			checked={value === '2' ? true : false}
-// 			onChange={changeHandler}
-// 		/>
-// 		<input
-// 			type="radio"
-// 			name="radio"
-// 			value="3"
-// 			checked={value === '3' ? true : false}
-// 			onChange={changeHandler}
-// 		/>
-// 	</div>
+//; function App() {
+//; 	const [checked, setChecked] = useState(true);
+
+//; 	return <div>
+//; 		<input type="checkbox" defaultChecked={checked} />
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmFmsDV
+
+//? Самостоятельно опробуйте работу данных атрибутов.
+
+// export default function App() {
+//   const [value, setValue] = useState("");
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setValue(e.target.value);
+//   };
+//   return (
+//     <div>
+//       <input
+//         value={value}
+//         type="text"
+//         placeholder="Enter here..."
+//         onChange={handleChange}
+//       />
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmFmsRd
-
-// Даны 3 радиокнопочки. Дан абзац. Сделайте так, чтобы значение выбранной радиокнопочки выводилось в этот абзац.
-
-// №2⊗jsrtPmFmsRd
-
-// С помощью радиокнопочек спросите у пользователя его любимый язык программирования. Выведите его выбор в абзац. Если выбран язык JavaScript, похвалите пользователя.
 
 // *************************************************** /
 
-// Значения по умолчанию в React
-// Иногда может потребоваться сделать так, чтобы по умолчанию в инпуте уже было какое-то значение. При этом нужно, чтобы из стейта было взято только начальное значение инпута, а сам инпут не был бы привязан к этому стейту.
+//! Привязка инпутов к массиву в React
 
-// Для решения такой задачи нужно воспользоваться атрибутом defaultValue:
+//; Пусть в стейте notes хранится массив:
 
-// function App() {
-// 	const [value, setValue] = useState('text');
+//; function App() {
+//; 	const [notes, setNotes] = useState([1, 2, 3]);
 
-// 	return <div>
-// 		<input defaultValue={value} />
-// 	</div>;
-// }
-// Для чекбоксов существует аналогичный атрибут defaultChecked, с помощью которого можно задать начальное:
+//; 	return <div>
 
-// function App() {
-// 	const [checked, setChecked] = useState(true);
+//; 	</div>;
+//; }
+//; Пусть у нас также есть вспомогательная функция, находящая сумму элементов массива:
 
-// 	return <div>
-// 		<input type="checkbox" defaultChecked={checked} />
-// 	</div>;
-// }
-// №1⊗jsrtPmFmsDV
+//; function getSum(arr) {
+//; 	let sum = 0;
 
-// Самостоятельно опробуйте работу данных атрибутов.
+//; 	for (const elem of arr) {
+//; 		sum += +elem;
+//; 	}
 
-// *************************************************** /
+//; 	return sum;
+//; }
 
-// Привязка инпутов к массиву в React
-// Пусть в стейте notes хранится массив:
+//; function App() {
+//; 	...
+//; }
+//; Давайте найдем и выведем сумму элементов нашего массива из стейта, использовав для этого нашу вспомогательную функцию:
 
-// function App() {
-// 	const [notes, setNotes] = useState([1, 2, 3]);
+//; function App() {
+//; 	const [notes, setNotes] = useState([1, 2, 3]);
 
-// 	return <div>
+//; 	return <div>
+//; 		{getSum(notes)}
+//; 	</div>;
+//; }
+//; Давайте теперь сделаем три инпута и в value каждого инпута запишем один из элементов массива:
 
-// 	</div>;
-// }
-// Пусть у нас также есть вспомогательная функция, находящая сумму элементов массива:
+//; function App() {
+//; 	const [notes, setNotes] = useState([1, 2, 3]);
 
-// function getSum(arr) {
-// 	let sum = 0;
+//; 	return <div>
+//; 		<input value={notes[0]} />
+//; 		<input value={notes[1]} />
+//; 		<input value={notes[2]} />
 
-// 	for (const elem of arr) {
-// 		sum += +elem;
-// 	}
+//; 		{getSum(notes)}
+//; 	</div>;
+//; }
+//; Давайте теперь добавим событие onChange нашим инпутам. При этом сделаем одну общую функцию-обработчик этого события:
 
-// 	return sum;
-// }
+//; function App() {
+//; 	const [notes, setNotes] = useState([1, 2, 3]);
 
-// function App() {
-// 	...
-// }
-// Давайте найдем и выведем сумму элементов нашего массива из стейта, использовав для этого нашу вспомогательную функцию:
+//; 	function changeHandler(index, event) {
+//; 		//; общая функция-обработчик
+//; 	}
 
-// function App() {
-// 	const [notes, setNotes] = useState([1, 2, 3]);
+//; 	return <div>
+//; 		<input value={notes[0]} onChange={event => changeHandler(0, event)} />
+//; 		<input value={notes[1]} onChange={event => changeHandler(1, event)} />
+//; 		<input value={notes[2]} onChange={event => changeHandler(2, event)} />
 
-// 	return <div>
-// 		{getSum(notes)}
-// 	</div>;
-// }
-// Давайте теперь сделаем три инпута и в value каждого инпута запишем один из элементов массива:
+//; 		{getSum(notes)}
+//; 	</div>;
+//; }
+//; Как вы видите, функция changeHandler первым параметром принимает номер того элемента массива, который редактирует данный инпут.
 
-// function App() {
-// 	const [notes, setNotes] = useState([1, 2, 3]);
+//; По этому номеру мы можем заменить элемент массива на содержимое инпута.
 
-// 	return <div>
-// 		<input value={notes[0]} />
-// 		<input value={notes[1]} />
-// 		<input value={notes[2]} />
+//; Сделаем это:
 
-// 		{getSum(notes)}
-// 	</div>;
-// }
-// Давайте теперь добавим событие onChange нашим инпутам. При этом сделаем одну общую функцию-обработчик этого события:
+//; function changeHandler(index, event) {
+//; 	setNotes([...notes.slice(0, index), event.target.value, ...notes.slice(index + 1)]);
+//; }
+//; Теперь можно будет поредактировать любой инпут, при этом реактивно будет изменяться массив и, соответственно, пересчитываться сумма его элементов.
 
-// function App() {
-// 	const [notes, setNotes] = useState([1, 2, 3]);
+//; Давайте соберем весь наш код вместе:
 
-// 	function changeHandler(index, event) {
-// 		// общая функция-обработчик
-// 	}
+//; function App() {
+//; 	const [notes, setNotes] = useState([1, 2, 3]);
 
-// 	return <div>
-// 		<input value={notes[0]} onChange={event => changeHandler(0, event)} />
-// 		<input value={notes[1]} onChange={event => changeHandler(1, event)} />
-// 		<input value={notes[2]} onChange={event => changeHandler(2, event)} />
+//; 	function changeHandler(index, event) {
+//; 		setNotes([...notes.slice(0, index), event.target.value, ...notes.slice(index + 1)]);
+//; 	}
 
-// 		{getSum(notes)}
-// 	</div>;
-// }
-// Как вы видите, функция changeHandler первым параметром принимает номер того элемента массива, который редактирует данный инпут.
+//; 	return <div>
+//; 		<input value={notes[0]} onChange={event => changeHandler(0, event)} />
+//; 		<input value={notes[1]} onChange={event => changeHandler(1, event)} />
+//; 		<input value={notes[2]} onChange={event => changeHandler(2, event)} />
 
-// По этому номеру мы можем заменить элемент массива на содержимое инпута.
+//; 		{getSum(notes)}
+//; 	</div>;
+//; }
+//; Можно сделать так, чтобы инпуты формировались в цикле:
 
-// Сделаем это:
+//; function App() {
+//; 	const [notes, setNotes] = useState([1, 2, 3]);
 
-// function changeHandler(index, event) {
-// 	setNotes([...notes.slice(0, index), event.target.value, ...notes.slice(index + 1)]);
-// }
-// Теперь можно будет поредактировать любой инпут, при этом реактивно будет изменяться массив и, соответственно, пересчитываться сумма его элементов.
+//; 	function changeHandler(index, event) {
+//; 		setNotes([...notes.slice(0, index), event.target.value, ...notes.slice(index + 1)]);
+//; 	}
 
-// Давайте соберем весь наш код вместе:
+//; 	const result = notes.map((note, index) => {
+//; 		return <input
+//; 			key={index}
+//; 			value={note}
+//; 			onChange={event => changeHandler(index, event)}
+//; 		/>;
+//; 	});
 
-// function App() {
-// 	const [notes, setNotes] = useState([1, 2, 3]);
+//; 	return <div>
+//; 		{result}
+//; 		{getSum(notes)}
+//; 	</div>;
+//; }
 
-// 	function changeHandler(index, event) {
-// 		setNotes([...notes.slice(0, index), event.target.value, ...notes.slice(index + 1)]);
-// 	}
+//? №1⊗jsrtPmFmsAIB
 
-// 	return <div>
-// 		<input value={notes[0]} onChange={event => changeHandler(0, event)} />
-// 		<input value={notes[1]} onChange={event => changeHandler(1, event)} />
-// 		<input value={notes[2]} onChange={event => changeHandler(2, event)} />
+//? Дан следующий массив:
 
-// 		{getSum(notes)}
-// 	</div>;
-// }
-// Можно сделать так, чтобы инпуты формировались в цикле:
+//? [1, 2, 3, 4, 5, 6, 7, 8, 9]
+//? Выведите на экран среднее арифметическое элементов этого массива. В цикле сделайте инпуты для редактирования элементов.
 
-// function App() {
-// 	const [notes, setNotes] = useState([1, 2, 3]);
+export default function App() {
+  const [notes, setNotes] = useState<number[]>([1, 2, 3]);
 
-// 	function changeHandler(index, event) {
-// 		setNotes([...notes.slice(0, index), event.target.value, ...notes.slice(index + 1)]);
-// 	}
+  function changeHandler(
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) {
+    setNotes([
+      ...notes.slice(0, index),
+      Number(event.target.value),
+      ...notes.slice(index + 1),
+    ]);
+  }
 
-// 	const result = notes.map((note, index) => {
-// 		return <input
-// 			key={index}
-// 			value={note}
-// 			onChange={event => changeHandler(index, event)}
-// 		/>;
-// 	});
-
-// 	return <div>
-// 		{result}
-// 		{getSum(notes)}
-// 	</div>;
-// }
-// №1⊗jsrtPmFmsAIB
-
-// Дан следующий массив:
-
-// [1, 2, 3, 4, 5, 6, 7, 8, 9]
-// Выведите на экран среднее арифметическое элементов этого массива. В цикле сделайте инпуты для редактирования элементов.
+  return (
+    <div>
+      {notes.map((note, index) => (
+        <input
+          key={index}
+          value={note}
+          onChange={(event) => changeHandler(index, event)}
+        />
+      ))}
+    </div>
+  );
+}
 
 // *************************************************** /
 
@@ -5960,4 +6090,71 @@ import { useState } from "react";
 
 // Добавьте функционал для поиска записей.
 
-export default App;
+//!  Cніпет
+
+// 	"React App simple": {
+//   "prefix": "app0",
+//   "body": [
+//     "export default function App() {",
+//     "  return (",
+//     "    <div>",
+//     "      App",
+//     "    </div>",
+//     "  );",
+//     "}"
+//   ]
+// },
+// 	"Radio group": {
+//   "prefix": "radioGroup",
+//   "body": [
+//     "<div>",
+//     "  <input",
+//     "    type=\"radio\"",
+//     "    name=\"radio\"",
+//     "    value=\"1\"",
+//     "    checked={value === '1'}",
+//     "    onChange={changeHandler}",
+//     "  />",
+//     "  <input",
+//     "    type=\"radio\"",
+//     "    name=\"radio\"",
+//     "    value=\"2\"",
+//     "    checked={value === '2'}",
+//     "    onChange={changeHandler}",
+//     "  />",
+//     "  <input",
+//     "    type=\"radio\"",
+//     "    name=\"radio\"",
+//     "    value=\"3\"",
+//     "    checked={value === '3'}",
+//     "    onChange={changeHandler}",
+//     "  />",
+//     "</div>"
+//   ]
+// },
+// "useState string": {
+//   "prefix": "us",
+//   "body": [
+//     "const [${1:value}, set${1/(.*)/${1:/capitalize}/}] = useState(\"${2}\");"
+//   ]
+// },
+// "React ChangeEvent Input": {
+//   "prefix": "e:",
+//   "body": [
+//     "(e: React.ChangeEvent<HTMLInputElement>) => {",
+//     "  setValue(e.target.value);",
+//     "  $0",
+//     "}"
+//   ]
+// },
+// "React controlled input": {
+//   "prefix": "input",
+//   "body": [
+//     "<input",
+//     "  type=\"text\"",
+//     "  value={${1:value}}",
+//     "  placeholder=\"Enter here...\"",
+//     "  onChange={${2:handleChange}}",
+//     "/>"
+//   ]
+// }
