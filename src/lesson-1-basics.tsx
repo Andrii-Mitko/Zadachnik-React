@@ -1,6 +1,6 @@
 // import { nanoid } from "nanoid";
 // import { v4 as uuidv4 } from "uuid";
-import { useState, type ReactEventHandler } from "react";
+import { useState } from "react";
 
 // ************************************************
 
@@ -3809,129 +3809,270 @@ import { useState, type ReactEventHandler } from "react";
 //? [1, 2, 3, 4, 5, 6, 7, 8, 9]
 //? Выведите на экран среднее арифметическое элементов этого массива. В цикле сделайте инпуты для редактирования элементов.
 
-export default function App() {
-  const [notes, setNotes] = useState<number[]>([1, 2, 3]);
+// export default function App() {
+//   const [notes, setNotes] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-  function changeHandler(
-    index: number,
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) {
-    setNotes([
-      ...notes.slice(0, index),
-      Number(event.target.value),
-      ...notes.slice(index + 1),
-    ]);
-  }
+//   function changeHandler(
+//     index: number,
+//     event: React.ChangeEvent<HTMLInputElement>,
+//   ) {
+//     setNotes([
+//       ...notes.slice(0, index),
+//       Number(event.target.value),
+//       ...notes.slice(index + 1),
+//     ]);
+//   }
 
-  return (
-    <div>
-      {notes.map((note, index) => (
-        <input
-          key={index}
-          value={note}
-          onChange={(event) => changeHandler(index, event)}
-        />
-      ))}
-    </div>
-  );
-}
+//   const average = notes.reduce((acc, note) => acc + note, 0) / notes.length;
+
+//   return (
+//     <div>
+//       {notes.map((note, index) => (
+//         <input
+//           key={index}
+//           value={note}
+//           onChange={(event) => changeHandler(index, event)}
+//         />
+//       ))}
+
+//       <p>{average}</p>
+//     </div>
+//   );
+// }
 
 // *************************************************** /
 
-// Привязка инпутов к объекту в React
-// Пусть в стейте хранится объект:
+//! Привязка инпутов к объекту в React
 
-// const initObj = {
-// 	prop1: 'value1',
-// 	prop2: 'value2',
-// 	prop3: 'value3',
-// }
+//; Пусть в стейте хранится объект:
 
-// function App() {
-// 	const [obj, setObj] = useState(initObj);
+//; const initObj = {
+//; 	prop1: 'value1',
+//; 	prop2: 'value2',
+//; 	prop3: 'value3',
+//; }
 
-// 	return <div>
-// 		{obj.prop1}-{obj.prop2}-{obj.prop3}
-// 	</div>;
-// }
-// Давайте выведем каждое свойство нашего объекта в отдельном инпуте:
+//; function App() {
+//; 	const [obj, setObj] = useState(initObj);
 
-// function App() {
-// 	const [obj, setObj] = useState(initObj);
+//; 	return <div>
+//; 		{obj.prop1}-{obj.prop2}-{obj.prop3}
+//; 	</div>;
+//; }
+//; Давайте выведем каждое свойство нашего объекта в отдельном инпуте:
 
-// 	return <div>
-// 		<input value={obj.prop1} />
-// 		<input value={obj.prop2} />
-// 		<input value={obj.prop3} />
+//; function App() {
+//; 	const [obj, setObj] = useState(initObj);
 
-// 		<br />
-// 		{obj.prop1}-{obj.prop2}-{obj.prop3}
-// 	</div>;
-// }
-// Давайте теперь к каждому инпуту привяжем событие onChange. В качестве обработчика назначим одну общую функцию:
+//; 	return <div>
+//; 		<input value={obj.prop1} />
+//; 		<input value={obj.prop2} />
+//; 		<input value={obj.prop3} />
 
-// function App() {
-// 	const [obj, setObj] = useState(initObj);
+//; 		<br />
+//; 		{obj.prop1}-{obj.prop2}-{obj.prop3}
+//; 	</div>;
+//; }
+//; Давайте теперь к каждому инпуту привяжем событие onChange. В качестве обработчика назначим одну общую функцию:
 
-// 	return <div>
-// 		<input value={obj.prop1} onChange={event => handleChange('prop1', event)} />
-// 		<input value={obj.prop2} onChange={event => handleChange('prop2', event)} />
-// 		<input value={obj.prop3} onChange={event => handleChange('prop3', event)} />
+//; function App() {
+//; 	const [obj, setObj] = useState(initObj);
 
-// 		<br />
-// 		{obj.prop1}-{obj.prop2}-{obj.prop3}
-// 	</div>;
-// }
-// Как вы видите, функция handleChange первым параметром принимает имя соответствующего свойства объекта.
+//; 	return <div>
+//; 		<input value={obj.prop1} onChange={event => handleChange('prop1', event)} />
+//; 		<input value={obj.prop2} onChange={event => handleChange('prop2', event)} />
+//; 		<input value={obj.prop3} onChange={event => handleChange('prop3', event)} />
 
-// Давайте напишем реализацию нашей функции:
+//; 		<br />
+//; 		{obj.prop1}-{obj.prop2}-{obj.prop3}
+//; 	</div>;
+//; }
+//; Как вы видите, функция handleChange первым параметром принимает имя соответствующего свойства объекта.
 
-// function handleChange(prop, event) {
-// 	const copy = Object.assign({}, obj);
-// 	copy[prop] = event.target.value;
-// 	setObj(copy);
-// }
-// Данная реализация рабочая, но ее можно упростить, если воспользоваться вычисляемыми именами свойств объекта:
+//; Давайте напишем реализацию нашей функции:
 
-// function handleChange(prop, event) {
-// 	setObj({...obj, ...{[prop]: event.target.value}});
-// }
-// Давайте соберем весь код вместе:
+//; function handleChange(prop, event) {
+//; 	const copy = Object.assign({}, obj);
+//; 	copy[prop] = event.target.value;
+//; 	setObj(copy);
+//; }
+//; Данная реализация рабочая, но ее можно упростить, если воспользоваться вычисляемыми именами свойств объекта:
 
-// function App() {
-// 	const [obj, setObj] = useState(initObj);
+//; function handleChange(prop, event) {
+//; 	setObj({...obj, ...{[prop]: event.target.value}});
+//; }
+//; Давайте соберем весь код вместе:
 
-// 	function handleChange(prop, event) {
-// 		setObj({...obj, ...{[prop]: event.target.value}});
-// 	}
+//; function App() {
+//; 	const [obj, setObj] = useState(initObj);
 
-// 	return <div>
-// 		<input value={obj.prop1} onChange={event => handleChange('prop1', event)} />
-// 		<input value={obj.prop2} onChange={event => handleChange('prop2', event)} />
-// 		<input value={obj.prop3} onChange={event => handleChange('prop3', event)} />
+//; 	function handleChange(prop, event) {
+//; 		setObj({...obj, ...{[prop]: event.target.value}});
+//; 	}
 
-// 		<br />
-// 		{obj.prop1}-{obj.prop2}-{obj.prop3}
-// 	</div>;
-// }
-// №1⊗jsrtPmFmsOIB
+//; 	return <div>
+//; 		<input value={obj.prop1} onChange={event => handleChange('prop1', event)} />
+//; 		<input value={obj.prop2} onChange={event => handleChange('prop2', event)} />
+//; 		<input value={obj.prop3} onChange={event => handleChange('prop3', event)} />
 
-// Пусть в стейте хранится объект с датой:
+//; 		<br />
+//; 		{obj.prop1}-{obj.prop2}-{obj.prop3}
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmFmsOIB
+
+//? Пусть в стейте хранится объект с датой:
+
+//? const initDate = {
+//? 	year:  2025,
+//? 	month: 12,
+//? 	day:   31,
+//? }
+//? Выведите в абзаце год, месяц и день из даты, хранящейся в стейте, а также день недели, соответствующий ей.
 
 // const initDate = {
-// 	year:  2025,
-// 	month: 12,
-// 	day:   31,
+//   year: 2025,
+//   month: 12,
+//   day: 31,
+// };
+
+// export default function App() {
+//   const [value, setValue] = useState(initDate);
+
+//   const date = new Date(value.year, value.month - 1, value.day);
+
+//   const weekDays = [
+//     "Sunday",
+//     "Monday",
+//     "Tuesday",
+//     "Wednesday",
+//     "Thursday",
+//     "Friday",
+//     "Saturday",
+//   ];
+
+//   const dayWeek = weekDays[date.getDay()];
+
+//   return (
+//     <div>
+//       <input
+//         type="number"
+//         value={value.year}
+//         onChange={(e) =>
+//           setValue({
+//             ...value,
+//             year: Number(e.target.value),
+//           })
+//         }
+//       />
+
+//       <input
+//         type="number"
+//         value={value.month}
+//         onChange={(e) =>
+//           setValue({
+//             ...value,
+//             month: Number(e.target.value),
+//           })
+//         }
+//       />
+
+//       <input
+//         type="number"
+//         value={value.day}
+//         onChange={(e) =>
+//           setValue({
+//             ...value,
+//             day: Number(e.target.value),
+//           })
+//         }
+//       />
+
+//       <p>
+//         {value.year}-{value.month}-{value.day}
+//       </p>
+
+//       <p>{dayWeek}</p>
+//     </div>
+//   );
 // }
-// Выведите в абзаце год, месяц и день из даты, хранящейся в стейте, а также день недели, соответствующий ей.
 
-// №2⊗jsrtPmFmsOIB
+//? №2⊗jsrtPmFmsOIB
 
-// Модифицируйте предыдущую задачу, добавив три инпута для редактирования даты.
+//? Модифицируйте предыдущую задачу, добавив три инпута для редактирования даты.
+
+// const initDate = {
+//   year: 2025,
+//   month: 12,
+//   day: 31,
+// };
+
+// export default function App() {
+//   const [value, setValue] = useState(initDate);
+
+//   const date = new Date(value.year, value.month - 1, value.day);
+
+//   const weekDays = [
+//     "Sunday",
+//     "Monday",
+//     "Tuesday",
+//     "Wednesday",
+//     "Thursday",
+//     "Friday",
+//     "Saturday",
+//   ];
+
+//   const dayWeek = weekDays[date.getDay()];
+
+//   return (
+//     <div>
+//       <input
+//         type="number"
+//         value={value.year}
+//         onChange={(e) =>
+//           setValue({
+//             ...value,
+//             year: Number(e.target.value),
+//           })
+//         }
+//       />
+
+//       <input
+//         type="number"
+//         value={value.month}
+//         onChange={(e) =>
+//           setValue({
+//             ...value,
+//             month: Number(e.target.value),
+//           })
+//         }
+//       />
+
+//       <input
+//         type="number"
+//         value={value.day}
+//         onChange={(e) =>
+//           setValue({
+//             ...value,
+//             day: Number(e.target.value),
+//           })
+//         }
+//       />
+
+//       <p>
+//         {value.year}-{value.month}-{value.day}
+//       </p>
+
+//       <p>{dayWeek}</p>
+//     </div>
+//   );
+// }
 
 // ***************************************************
 
-// Реактивность данных в React
+//! Реактивность данных в React
+
 // В React мы будем хранить наши данные в различных структурах: в массивах, в объектах, в массивах объектов. Эти структуры в React обладают реактивностью. React реактивно реагирует на все изменения данных: на добавление, удаление, изменение элементов, а также на изменение их порядка.
 
 // При этом правилами React запрещено изменять данные массивов и объектов из стейта. Нужно делать копию данных, изменять их и записывать обратно в стейт. Это значит, что наши данные должны быть иммутабельными. Читайте про иммутабельность массивов, объектов и массивов объектов в соответствующем разделе учебника JavaScript.
