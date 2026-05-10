@@ -6751,3 +6751,156 @@ export default function App() {
 // Добавьте функционал для поиска записей.
 
 // *************************************************** //
+
+//! 	"Console log": {
+// 		"prefix": "c",
+// 		"body": [
+// 			"console.log(${1});"
+// 		],
+// 		"description": "fast console.log"
+// 	},
+// 	"React App simple": {
+//   "prefix": "app0",
+//   "body": [
+//     "export default function App() {",
+//     "  return (",
+//     "    <div>",
+//     "      App",
+//     "    </div>",
+//     "  );",
+//     "}"
+//   ]
+// },
+// 	"Radio group": {
+//   "prefix": "radioGroup",
+//   "body": [
+//     "<div>",
+//     "  <input",
+//     "    type=\"radio\"",
+//     "    name=\"radio\"",
+//     "    value=\"1\"",
+//     "    checked={value === '1'}",
+//     "    onChange={changeHandler}",
+//     "  />",
+//     "  <input",
+//     "    type=\"radio\"",
+//     "    name=\"radio\"",
+//     "    value=\"2\"",
+//     "    checked={value === '2'}",
+//     "    onChange={changeHandler}",
+//     "  />",
+//     "  <input",
+//     "    type=\"radio\"",
+//     "    name=\"radio\"",
+//     "    value=\"3\"",
+//     "    checked={value === '3'}",
+//     "    onChange={changeHandler}",
+//     "  />",
+//     "</div>"
+//   ]
+// },
+// "useState string": {
+//   "prefix": "us",
+//   "body": [
+//     "const [${1:value}, set${1/(.*)/${1:/capitalize}/}] = useState(\"${2}\");"
+//   ]
+// },
+// "React ChangeEvent Input": {
+//   "prefix": "e:",
+//   "body": [
+//     "(e: React.ChangeEvent<HTMLInputElement>) => {",
+//     "  setValue(e.target.value);",
+//     "  $0",
+//     "}"
+//   ]
+// },
+// "React controlled input": {
+//   "prefix": "input",
+//   "body": [
+//     "<input",
+//     "  type=\"text\"",
+//     "  value={${1:value}}",
+//     "  placeholder=\"Enter here...\"",
+//     "  onChange={${2:handleChange}}",
+//     "/>"
+//   ]
+// },
+//   "Generate commit message": {
+//     "prefix": "commit",
+//     "body": [
+//       "// generate conventional commit message with scope and description based on my changes",
+//     ],
+//     "description": "Copilot commit message prompt"
+//   },
+//   "React Query Setup": {
+//   "prefix": "mainQuery",
+//   "body": [
+//     "import { createRoot } from \"react-dom/client\";",
+//     "import { StrictMode } from \"react\";",
+//     "import { QueryClient, QueryClientProvider } from \"@tanstack/react-query\";",
+//     "import { ReactQueryDevtools } from \"@tanstack/react-query-devtools\";",
+//     "",
+//     "import App from \"./Components/App/App\";",
+//     "import \"./index.css\";",
+//     "",
+//     "const queryClient = new QueryClient();",
+//     "",
+//     "createRoot(document.getElementById(\"root\") as HTMLElement).render(",
+//     "  <StrictMode>",
+//     "    <QueryClientProvider client={queryClient}>",
+//     "      <App />",
+//     "      <ReactQueryDevtools initialIsOpen={false} />",
+//     "    </QueryClientProvider>",
+//     "  </StrictMode>",
+//     ");"
+//   ],
+//   "description": "React Query basic setup with Devtools"
+// },
+// "React Query SWAPI Person Component": {
+//   "prefix": "appQuery",
+//   "body": [
+//     "import { useQuery } from \"@tanstack/react-query\";",
+//     "import { getSomePerson } from \"${1:../../services/api.service}\";",
+//     "",
+//     "export default function ${2:App}() {",
+//     "  const { data, isLoading, isError } = useQuery({",
+//     "    queryKey: [\"getPerson\"],",
+//     "    queryFn: getSomePerson,",
+//     "  });",
+//     "",
+//     "  return (",
+//     "    <div>",
+//     "      {isLoading && <div>Loading...</div>}",
+//     "      {isError && <p>oops...</p>}",
+//     "      {data && <div>{JSON.stringify(data)}</div>}",
+//     "    </div>",
+//     "  );",
+//     "}"
+//   ],
+//   "description": "React Query component with loading, error and data states"
+// },
+//   "React Query SWAPI person queryFn": {
+//     "prefix": "serviceApi",
+//     "body": [
+//       "import axios from \"axios\";",
+//       "",
+//       "export const getSomePerson = async ({ queryKey }: any) => {",
+//       "  const [, personId] = queryKey;",
+//       "",
+//       "  const { data } = await axios.get(",
+//       "    `https://swapi.info/api/people/${personId}`",
+//       "  );",
+//       "",
+//       "  return data;",
+//       "};"
+//     ],
+//     "description": "React Query queryFn for SWAPI person"
+//   },
+//   "React Button Loading": {
+//   "prefix": "buttonApp",
+//   "body": [
+//     "<button type=\"button\" onClick={${1:handleClick}}>${3:Save}</button>"
+//   ],
+//   "description": "React button with loading state"
+// }
+// }
