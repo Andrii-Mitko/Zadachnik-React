@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./Components/Lesson-1-basics/lesson-1-basics";
+import App from "./Components/Lesson-1-basics/Lesson-1-basics";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

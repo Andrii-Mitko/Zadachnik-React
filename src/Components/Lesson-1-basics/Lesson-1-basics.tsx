@@ -4213,179 +4213,615 @@ import css from "./Lesson-1-basics.module.css";
 
 //! Реактивные операции над массивами в React
 
-// Давайте теперь научимся делать реактивные манипуляции с элементами массива. Для этого мы на каждую li навесим обработчик события, в которой параметром будем передавать номер этой li в массиве:
+//; Давайте теперь научимся делать реактивные манипуляции с элементами массива. Для этого мы на каждую li навесим обработчик события, в которой параметром будем передавать номер этой li в массиве:
 
-// function App() {
-// 	const [notes, setNotes] = useState([1, 2, 3, 4, 5]);
+//; function App() {
+//; 	const [notes, setNotes] = useState([1, 2, 3, 4, 5]);
 
-// 	const result = notes.map((note, index) => {
-// 		return <li key={index} onClick={() => doSmth(index)}>
-// 			{note}
-// 		</li>;
-// 	});
+//; 	const result = notes.map((note, index) => {
+//; 		return <li key={index} onClick={() => doSmth(index)}>
+//; 			{note}
+//; 		</li>;
+//; 	});
 
-// 	return <div>
-// 		<ul>
-// 			{result}
-// 		</ul>
-// 	</div>;
+//; 	return <div>
+//; 		<ul>
+//; 			{result}
+//; 		</ul>
+//; 	</div>;
+//; }
+//; Внутри нашей функции мы можем совершить любую операцию над нашим элементом массива:
+
+//; function App() {
+//; 	...
+
+//; 	function doSmth(index) {
+//; 		let copy = Object.assign([], notes);
+//; 		copy[index] += '!'; //; что-то сделаем с элементом
+//; 		setNotes(copy);
+//; 	}
+//; }
+
+//? №1⊗jsrtPmDtAOp
+
+//? Дан массив с числами. Выведите его в виде списка ul. По клику на любую li возведите ее число в квадрат.
+
+// export default function App() {
+//   const [item, setItem] = useState([1, 2, 3, 4, 5]);
+
+//   const listNumber = item.map((n, i) => (
+//     <li
+//       className={css.li}
+//       key={i}
+//       onClick={() => {
+//         setItem((prev) =>
+//           prev.map((item, index) => (index === i ? item ** 2 : item)),
+//         );
+//       }}
+//     >
+//       {n}
+//     </li>
+//   ));
+//   console.log(item);
+//   return (
+//     <div>
+//       <h3>возведение числа в квадрат</h3>
+//       <ul className={css.ul}>{listNumber}</ul>
+//     </div>
+//   );
 // }
-// Внутри нашей функции мы можем совершить любую операцию над нашим элементом массива:
 
-// function App() {
-// 	...
+//? №2⊗jsrtPmDtAOp
 
-// 	function doSmth(index) {
-// 		let copy = Object.assign([], notes);
-// 		copy[index] += '!'; // что-то сделаем с элементом
-// 		setNotes(copy);
-// 	}
+//? В конце каждой li сделайте кнопку, по нажатию на которую эта li будет удаляться из списка.
+
+// export default function App() {
+//   const [item, setItem] = useState([1, 2, 3, 4, 5]);
+
+//   const listNumber = item.map((n, i) => (
+//     <li className={css.li}>
+//       <p
+//         className={css.p}
+//         key={i}
+//         onClick={() => {
+//           setItem((prev) =>
+//             prev.map((item, index) => (index === i ? item ** 2 : item)),
+//           );
+//         }}
+//       >
+//         {n}
+//       </p>
+//       <button
+//         type="button"
+//         onClick={() =>
+//           setItem((prev) => prev.filter((_, index) => index !== i))
+//         }
+//       >
+//         Видалити
+//       </button>
+//     </li>
+//   ));
+
+//   return (
+//     <div>
+//       <h3>возведение числа в квадрат</h3>
+//       <ul className={css.ul}>{listNumber}</ul>
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmDtAOp
 
-// Дан массив с числами. Выведите его в виде списка ul. По клику на любую li возведите ее число в квадрат.
+//? №3⊗jsrtPmDtAOp
 
-// №2⊗jsrtPmDtAOp
+//? Дан инпут. По клику на любую li сделайте так, чтобы текст этой li попал в инпут.
 
-// В конце каждой li сделайте кнопку, по нажатию на которую эта li будет удаляться из списка.
+// export default function App() {
+//   const [item] = useState([1, 2, 3, 4, 5]);
+//   const [value, setValue] = useState("");
 
-// №3⊗jsrtPmDtAOp
+//   const listNumber = item.map((n, i) => (
+//     <li className={css.li} key={i} onClick={() => setValue(String(n))}>
+//       {n}
+//     </li>
+//   ));
 
-// Дан инпут. По клику на любую li сделайте так, чтобы текст этой li попал в инпут.
+//   return (
+//     <div>
+//       <h3>текст в инпут</h3>
 
-// №4⊗jsrtPmDtAOp
+//       <ul className={css.ul}>{listNumber}</ul>
 
-// Модифицируйте предыдущую задачу так, чтобы по потери фокуса инпута измененный текст попадал в соответствующую li.
+//       <input
+//         className={css.input}
+//         type="text"
+//         value={value}
+//         onChange={(e) => setValue(e.target.value)}
+//       />
+//     </div>
+//   );
+// }
 
-// №5⊗jsrtPmDtAOp
+//? №4⊗jsrtPmDtAOp
 
-// Дана кнопка. По клику на эту кнопку переверните порядок li на обратный.
+//? Модифицируйте предыдущую задачу так, чтобы по потери фокуса инпута измененный текст попадал в соответствующую li.
+
+// export default function App() {
+//   const [item, setItem] = useState(["1", "2", "3", "4", "5"]);
+//   const [value, setValue] = useState("");
+//   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+//   const handleBlur = () => {
+//     if (activeIndex === null) return;
+
+//     setItem((prev) => prev.map((el, i) => (i === activeIndex ? value : el)));
+
+//     setActiveIndex(null);
+//     setValue("");
+//   };
+
+//   return (
+//     <div>
+//       <h3>редактирование li через input</h3>
+
+//       <ul className={css.ul}>
+//         {item.map((n, i) => (
+//           <li className={css.li} key={i}>
+//             {activeIndex === i ? (
+//               <input
+//                 className={css.input}
+//                 value={value}
+//                 onChange={(e) => setValue(e.target.value)}
+//                 onBlur={handleBlur}
+//                 autoFocus
+//               />
+//             ) : (
+//               <span
+//                 onClick={() => {
+//                   setValue(n);
+//                   setActiveIndex(i);
+//                 }}
+//               >
+//                 {n}
+//               </span>
+//             )}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
+
+//? №5⊗jsrtPmDtAOp
+
+//? Дана кнопка. По клику на эту кнопку переверните порядок li на обратный.
+
+// export default function App() {
+//   const [arr, setArr] = useState(["nanoid", "catch", "document", "cat"]);
+
+//   const reverseOrder = () => {
+//     setArr((prev) => [...prev].reverse());
+//   };
+
+//   const list = arr.map((item, i) => (
+//     <li className={css.li} key={i}>
+//       {item}
+//     </li>
+//   ));
+
+//   return (
+//     <div className={css.div}>
+//       <h3>Перевертання LI</h3>
+//       <ul className={css.ul}>{list}</ul>
+//       <button className={css.button} onClick={reverseOrder}>
+//         reverse
+//       </button>
+//     </div>
+//   );
+// }
 
 // ***************************************************
 
-// Реактивное добавление в массив объектов в React
-// Давайте теперь изучим реактивность массива объектов. В данном случае мы должны будем производить любые изменения, обращаясь к элементам по id, которые хранятся внутри самих объектов.
+//! Реактивное добавление в массив объектов в React
 
-// Давайте попробуем. Пусть у нас есть следующий массив объектов:
+//; Давайте теперь изучим реактивность массива объектов. В данном случае мы должны будем производить любые изменения, обращаясь к элементам по id, которые хранятся внутри самих объектов.
 
-// const initNotes = [
-// 	{
-// 		id: 'GYi9G_uC4gBF1e2SixDvu',
-// 		prop1: 'value11',
-// 		prop2: 'value12',
-// 		prop3: 'value13',
-// 	},
-// 	{
-// 		id: 'IWSpfBPSV3SXgRF87uO74',
-// 		prop1: 'value21',
-// 		prop2: 'value22',
-// 		prop3: 'value23',
-// 	},
-// 	{
-// 		id: 'JAmjRlfQT8rLTm5tG2m1L',
-// 		prop1: 'value31',
-// 		prop2: 'value32',
-// 		prop3: 'value33',
-// 	},
-// ];
-// Давайте выведем каждый элемент нашего массива в отдельном теге li:
+//; Давайте попробуем. Пусть у нас есть следующий массив объектов:
 
-// function App() {
-// 	const [notes, setNotes] = useState(initNotes);
+//; const initNotes = [
+//; 	{
+//; 		id: 'GYi9G_uC4gBF1e2SixDvu',
+//; 		prop1: 'value11',
+//; 		prop2: 'value12',
+//; 		prop3: 'value13',
+//; 	},
+//; 	{
+//; 		id: 'IWSpfBPSV3SXgRF87uO74',
+//; 		prop1: 'value21',
+//; 		prop2: 'value22',
+//; 		prop3: 'value23',
+//; 	},
+//; 	{
+//; 		id: 'JAmjRlfQT8rLTm5tG2m1L',
+//; 		prop1: 'value31',
+//; 		prop2: 'value32',
+//; 		prop3: 'value33',
+//; 	},
+//; ];
+//; Давайте выведем каждый элемент нашего массива в отдельном теге li:
 
-// 	const result = notes.map(note => {
-// 		return <li key={note.id}>
-// 			<span>{note.prop1}</span>
-// 			<span>{note.prop2}</span>
-// 			<span>{note.prop3}</span>
-// 		</li>;
-// 	});
+//; function App() {
+//; 	const [notes, setNotes] = useState(initNotes);
 
-// 	return <div>
-// 		<ul>
-// 			{result}
-// 		</ul>
-// 	</div>;
+//; 	const result = notes.map(note => {
+//; 		return <li key={note.id}>
+//; 			<span>{note.prop1}</span>
+//; 			<span>{note.prop2}</span>
+//; 			<span>{note.prop3}</span>
+//; 		</li>;
+//; 	});
+
+//; 	return <div>
+//; 		<ul>
+//; 			{result}
+//; 		</ul>
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmDtOAA
+
+//? Сделайте кнопку, по нажатию на которую будет добавляться новый элемент в конец массива, тем самым добавляя новый li в конец тега ul.
+
+// export default function App() {
+//   const [list, setList] = useState([
+//     "JAmjRlfQT8rLTm5tG2m1L",
+//     "value31",
+//     "value32",
+//     "value33",
+//   ]);
+
+//   const [value, setValue] = useState("");
+
+//   const handleAdd = () => {
+//     if (!value.trim()) return;
+
+//     setList((prev) => [...prev, value]);
+//     setValue("");
+//   };
+
+//   return (
+//     <div>
+//       <h3 className={css.title}>Новий елемент</h3>
+
+//       <input
+//         className={css.input}
+//         type="text"
+//         value={value}
+//         placeholder="Enter here..."
+//         onChange={(e) => setValue(e.target.value)}
+//       />
+
+//       <ul className={css.ul}>
+//         {list.map((item, i) => (
+//           <li className={css.li} key={i}>
+//             {item}
+//           </li>
+//         ))}
+//       </ul>
+
+//       <button type="button" className={css.button} onClick={handleAdd}>
+//         new elem
+//       </button>
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmDtOAA
 
-// Сделайте кнопку, по нажатию на которую будет добавляться новый элемент в конец массива, тем самым добавляя новый li в конец тега ul.
+//? №2⊗jsrtPmDtOAA
 
-// №2⊗jsrtPmDtOAA
+//? Сделайте три инпута и кнопку. По нажатию на кнопку из данных инпута создайте новую li в конце тега ul.
 
-// Сделайте три инпута и кнопку. По нажатию на кнопку из данных инпута создайте новую li в конце тега ul.
+// export default function App() {
+//   const [value1, setValue1] = useState("");
+//   const [value2, setValue2] = useState("");
+//   const [value3, setValue3] = useState("");
 
-// ***************************************************
+//   const [list, setList] = useState<string[]>([]);
 
-// Реактивные операции над массивами объектов в React
-// Давайте теперь научимся делать реактивные операции над массивами объектов. В этом случае мы должны передать в функцию id элемента массива, с которым мы собираемся что-то делать:
+//   const listItem = list.map((item, i) => (
+//     <li className={css.li} key={i}>
+//       {item}
+//     </li>
+//   ));
 
-// function App() {
-// 	const [notes, setNotes] = useState(initNotes);
+//   const handleChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setValue1(e.target.value);
+//   };
+//   const handleChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setValue2(e.target.value);
+//   };
+//   const handleChange3 = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setValue3(e.target.value);
+//   };
 
-// 	const result = notes.map(note => {
-// 		return <li key={note.id}>
-// 			<span>{note.prop1}</span>
-// 			<span>{note.prop2}</span>
-// 			<span>{note.prop3}</span>
-
-// 			<button onClick={() => doSmth(note.id)}>
-// 				btn
-// 			</button>
-// 		</li>;
-// 	});
-
-// 	return <div>
-// 		<ul>
-// 			{result}
-// 		</ul>
-// 	</div>;
+//   const clickButton = () => {
+//     setList((prev) => [...prev, `${value1} ${value2} ${value3}`]);
+//     setValue1("");
+//     setValue2("");
+//     setValue3("");
+//   };
+//   return (
+//     <div>
+//       <input
+//         className={css.input}
+//         type="text"
+//         value={value1}
+//         placeholder="Enter here..."
+//         onChange={handleChange1}
+//       />
+//       <input
+//         className={css.input}
+//         type="text"
+//         value={value2}
+//         placeholder="Enter here..."
+//         onChange={handleChange2}
+//       />
+//       <input
+//         className={css.input}
+//         type="text"
+//         value={value3}
+//         placeholder="Enter here..."
+//         onChange={handleChange3}
+//       />
+//       <button className={css.button} onClick={clickButton} type="button">
+//         Створити
+//       </button>
+//       <ul className={css.ul}>{listItem}</ul>
+//     </div>
+//   );
 // }
-// Для того, чтобы что-то сделать с элементом, мы сначала должны найти его, перебрав весь массив циклом:
 
-// function App() {
-// 	...
+//*****************************************************
 
-// 	function doSmth(id) {
-// 		setNotes(notes.map(note => {
-// 			if (note.id === id) {
-// 				// что-то делаем с элементом
-// 			}
+//! Реактивные операции над массивами объектов в React
 
-// 			return note;
-// 		}));
-// 	}
+//; Давайте теперь научимся делать реактивные операции над массивами объектов. В этом случае мы должны передать в функцию id элемента массива, с которым мы собираемся что-то делать:
+
+//; function App() {
+//; 	const [notes, setNotes] = useState(initNotes);
+
+//; 	const result = notes.map(note => {
+//; 		return <li key={note.id}>
+//; 			<span>{note.prop1}</span>
+//; 			<span>{note.prop2}</span>
+//; 			<span>{note.prop3}</span>
+
+//; 			<button onClick={() => doSmth(note.id)}>
+//; 				btn
+//; 			</button>
+//; 		</li>;
+//; 	});
+
+//; 	return <div>
+//; 		<ul>
+//; 			{result}
+//; 		</ul>
+//; 	</div>;
+//; }
+//; Для того, чтобы что-то сделать с элементом, мы сначала должны найти его, перебрав весь массив циклом:
+
+//; function App() {
+//; 	...
+
+//; 	function doSmth(id) {
+//; 		setNotes(notes.map(note => {
+//; 			if (note.id === id) {
+//; 				//; что-то делаем с элементом
+//; 			}
+
+//; 			return note;
+//; 		}));
+//; 	}
+//; }
+//; Давайте для примера поменяем тексты найденного объекта:
+
+//; function App() {
+//; 	...
+
+//; 	function doSmth(id) {
+//; 		setNotes(notes.map(note => {
+//; 			if (note.id === id) {
+//; 				note.prop1 += '!';
+//; 				note.prop2 += '!';
+//; 				note.prop2 += '!';
+
+//; 				return note;
+//; 			}
+
+//; 			return note;
+//; 		}));
+//; 	}
+//; }
+
+//? №1⊗jsrtPmDtOAOp
+
+//? В конце каждой li сделайте кнопку, по нажатию на которую эта li будет удаляться из списка.
+
+// export default function App() {
+//   const [list, setList] = useState(["Один", "Два", "Три"]);
+
+//   const handleClick = (indexToDelete: number) => {
+//     setList((prev) => prev.filter((_, index) => index !== indexToDelete));
+//   };
+
+//   const listItem = list.map((item, i) => (
+//     <li className={css.li} key={i}>
+//       <p>{item}</p>
+//       <button type="button" onClick={() => handleClick(i)}>
+//         Видалити
+//       </button>
+//     </li>
+//   ));
+
+//   return (
+//     <div className={css.div}>
+//       <ul className={css.ul}>{listItem}</ul>
+//     </div>
+//   );
 // }
-// Давайте для примера поменяем тексты найденного объекта:
 
-// function App() {
-// 	...
+//? №2⊗jsrtPmDtOAOp
 
-// 	function doSmth(id) {
-// 		setNotes(notes.map(note => {
-// 			if (note.id === id) {
-// 				note.prop1 += '!';
-// 				note.prop2 += '!';
-// 				note.prop2 += '!';
+//? Даны три инпута. В конце каждой li сделайте кнопку, по нажатию на которую данные объекта этой li будут попадать в соответствующие инпуты.
 
-// 				return note;
-// 			}
+// export default function App() {
+//   const [list] = useState([
+//     {
+//       name: "Андрій",
+//       city: "Київ",
+//       job: "Electrician",
+//     },
+//     {
+//       name: "Іван",
+//       city: "Львів",
+//       job: "Developer",
+//     },
+//     {
+//       name: "Олег",
+//       city: "Одеса",
+//       job: "Designer",
+//     },
+//   ]);
 
-// 			return note;
-// 		}));
-// 	}
+//   const [value1, setValue1] = useState("");
+//   const [value2, setValue2] = useState("");
+//   const [value3, setValue3] = useState("");
+
+//   const handleFillInputs = (name: string, city: string, job: string) => {
+//     setValue1(name);
+//     setValue2(city);
+//     setValue3(job);
+//   };
+
+//   const listItem = list.map((item, i) => (
+//     <li className={css.li} key={i}>
+//       <p>{item.name}</p>
+//       <p>{item.city}</p>
+//       <p>{item.job}</p>
+
+//       <button
+//         type="button"
+//         onClick={() => handleFillInputs(item.name, item.city, item.job)}
+//       >
+//         Заповнити input
+//       </button>
+//     </li>
+//   ));
+
+//   return (
+//     <div className={css.div}>
+//       <input
+//         className={css.input}
+//         value={value1}
+//         onChange={(e) => setValue1(e.target.value)}
+//       />
+
+//       <input
+//         className={css.input}
+//         value={value2}
+//         onChange={(e) => setValue2(e.target.value)}
+//       />
+
+//       <input
+//         className={css.input}
+//         value={value3}
+//         onChange={(e) => setValue3(e.target.value)}
+//       />
+
+//       <ul className={css.ul}>{listItem}</ul>
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmDtOAOp
 
-// В конце каждой li сделайте кнопку, по нажатию на которую эта li будет удаляться из списка.
+//? №3⊗jsrtPmDtOAOp
 
-// №2⊗jsrtPmDtOAOp
+//? Модифицируйте предыдущую задачу так, чтобы рядом с инпутами была кнопка, по нажатию на которую данные инпутов будут попадать в соответствующую li.
 
-// Даны три инпута. В конце каждой li сделайте кнопку, по нажатию на которую данные объекта этой li будут попадать в соответствующие инпуты.
+export default function App() {
+  const [list, setList] = useState([
+    { name: "Андрій", city: "Київ", job: "Electrician" },
+    { name: "Іван", city: "Львів", job: "Developer" },
+    { name: "Олег", city: "Одеса", job: "Designer" },
+  ]);
 
-// №3⊗jsrtPmDtOAOp
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState("");
+  const [value3, setValue3] = useState("");
 
-// Модифицируйте предыдущую задачу так, чтобы рядом с инпутами была кнопка, по нажатию на которую данные инпутов будут попадать в соответствующую li.
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const handleFillInputs = (item: any, index: number) => {
+    setValue1(item.name);
+    setValue2(item.city);
+    setValue3(item.job);
+    setActiveIndex(index);
+  };
+
+  const handleSave = () => {
+    if (activeIndex === null) return;
+
+    setList((prev) =>
+      prev.map((item, i) =>
+        i === activeIndex
+          ? {
+              name: value1,
+              city: value2,
+              job: value3,
+            }
+          : item,
+      ),
+    );
+
+    setActiveIndex(null);
+  };
+
+  const listItem = list.map((item, i) => (
+    <li className={css.li} key={i}>
+      <p>{item.name}</p>
+      <p>{item.city}</p>
+      <p>{item.job}</p>
+
+      <button type="button" onClick={() => handleFillInputs(item, i)}>
+        Заповнити input
+      </button>
+    </li>
+  ));
+
+  return (
+    <div className={css.div}>
+      <input
+        className={css.input}
+        value={value1}
+        onChange={(e) => setValue1(e.target.value)}
+      />
+
+      <input
+        className={css.input}
+        value={value2}
+        onChange={(e) => setValue2(e.target.value)}
+      />
+
+      <input
+        className={css.input}
+        value={value3}
+        onChange={(e) => setValue3(e.target.value)}
+      />
+
+      <button type="button" className={css.button} onClick={handleSave}>
+        Save
+      </button>
+
+      <ul className={css.ul}>{listItem}</ul>
+    </div>
+  );
+}
 
 // ***************************************************
 

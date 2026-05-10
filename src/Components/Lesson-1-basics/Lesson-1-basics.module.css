@@ -14,8 +14,7 @@
   border-radius: 8px;
   outline: none;
   font-size: 16px;
-
-  /* 🔥 FIX */
+  margin: 10px;
   width: fit-content;
 }
 
@@ -25,21 +24,36 @@
   padding: 10px 14px;
   border: none;
   border-radius: 10px; /* 🔥 добавили скругление */
-  background: #ff6b00;
+  background: #2600ff;
   color: white;
   font-weight: bold;
   cursor: pointer;
+  margin: 10px;
   transition: 0.2s;
 }
 
 .button:hover {
-  background: #ff8c2a;
+  background: #752aff;
 }
 
 .button:active {
   transform: scale(0.95);
 }
-
+.p {
+  font-size: 18px;
+  font-weight: 500;
+  color: #222;
+  margin: 6px 0;
+  line-height: 1.4;
+}
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin: 20px 0;
+  color: #222;
+  letter-spacing: 1px;
+}
 /* LIST */
 .ul {
   list-style: none;
@@ -57,6 +71,7 @@
   color: white;
   border-radius: 8px;
   font-weight: bold;
+  color: #023c17;
   transition: 0.2s;
 }
 
