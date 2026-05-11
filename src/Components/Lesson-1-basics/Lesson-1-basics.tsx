@@ -1,7 +1,10 @@
 // import { nanoid } from "nanoid";
 // import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
-import css from "./Lesson-1-basics.module.css";
+// import { useState } from "react";
+// import css from "./Lesson-1-basics.module.css";
+
+// import Employee from "./Employee/Employee";
+// import User from "./User/User";
 
 // ************************************************
 
@@ -4744,328 +4747,441 @@ import css from "./Lesson-1-basics.module.css";
 
 //? Модифицируйте предыдущую задачу так, чтобы рядом с инпутами была кнопка, по нажатию на которую данные инпутов будут попадать в соответствующую li.
 
-export default function App() {
-  const [list, setList] = useState([
-    { name: "Андрій", city: "Київ", job: "Electrician" },
-    { name: "Іван", city: "Львів", job: "Developer" },
-    { name: "Олег", city: "Одеса", job: "Designer" },
-  ]);
+// export default function App() {
 
-  const [value1, setValue1] = useState("");
-  const [value2, setValue2] = useState("");
-  const [value3, setValue3] = useState("");
+// type User = {
+//   name: string;
+//   city: string;
+//   job: string;
+// };
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+//   const [list, setList] = useState<User[]>([
+//     { name: "Андрій", city: "Київ", job: "Electrician" },
+//     { name: "Іван", city: "Львів", job: "Developer" },
+//     { name: "Олег", city: "Одеса", job: "Designer" },
+//   ]);
 
-  const handleFillInputs = (item: any, index: number) => {
-    setValue1(item.name);
-    setValue2(item.city);
-    setValue3(item.job);
-    setActiveIndex(index);
-  };
+//   const [value1, setValue1] = useState("");
+//   const [value2, setValue2] = useState("");
+//   const [value3, setValue3] = useState("");
 
-  const handleSave = () => {
-    if (activeIndex === null) return;
+//   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-    setList((prev) =>
-      prev.map((item, i) =>
-        i === activeIndex
-          ? {
-              name: value1,
-              city: value2,
-              job: value3,
-            }
-          : item,
-      ),
-    );
+//   const handleFillInputs = (item: User, index: number) => {
+//     setValue1(item.name);
+//     setValue2(item.city);
+//     setValue3(item.job);
+//     setActiveIndex(index);
+//   };
 
-    setActiveIndex(null);
-  };
+//   const handleSave = () => {
+//     if (activeIndex === null) return;
 
-  const listItem = list.map((item, i) => (
-    <li className={css.li} key={i}>
-      <p>{item.name}</p>
-      <p>{item.city}</p>
-      <p>{item.job}</p>
+//     setList((prev) =>
+//       prev.map((item, i) =>
+//         i === activeIndex
+//           ? {
+//               name: value1,
+//               city: value2,
+//               job: value3,
+//             }
+//           : item,
+//       ),
+//     );
 
-      <button type="button" onClick={() => handleFillInputs(item, i)}>
-        Заповнити input
-      </button>
-    </li>
-  ));
+//     setActiveIndex(null);
+//   };
 
-  return (
-    <div className={css.div}>
-      <input
-        className={css.input}
-        value={value1}
-        onChange={(e) => setValue1(e.target.value)}
-      />
+//   const listItem = list.map((item, i) => (
+//     <li className={css.li} key={i}>
+//       <p>{item.name}</p>
+//       <p>{item.city}</p>
+//       <p>{item.job}</p>
 
-      <input
-        className={css.input}
-        value={value2}
-        onChange={(e) => setValue2(e.target.value)}
-      />
+//       <button type="button" onClick={() => handleFillInputs(item, i)}>
+//         Заповнити input
+//       </button>
+//     </li>
+//   ));
 
-      <input
-        className={css.input}
-        value={value3}
-        onChange={(e) => setValue3(e.target.value)}
-      />
+//   return (
+//     <div className={css.div}>
+//       <input
+//         className={css.input}
+//         value={value1}
+//         onChange={(e) => setValue1(e.target.value)}
+//       />
 
-      <button type="button" className={css.button} onClick={handleSave}>
-        Save
-      </button>
+//       <input
+//         className={css.input}
+//         value={value2}
+//         onChange={(e) => setValue2(e.target.value)}
+//       />
 
-      <ul className={css.ul}>{listItem}</ul>
-    </div>
-  );
-}
+//       <input
+//         className={css.input}
+//         value={value3}
+//         onChange={(e) => setValue3(e.target.value)}
+//       />
+
+//       <button type="button" className={css.button} onClick={handleSave}>
+//         Save
+//       </button>
+
+//       <ul className={css.ul}>{listItem}</ul>
+//     </div>
+//   );
+// }
 
 // ***************************************************
 
-// Реактивный показ данных в React
-// Пусть у нас есть массив объектов, содержащий в себе названия и описания чего-либо:
+//! Реактивный показ данных в React
+
+//; Пусть у нас есть массив объектов, содержащий в себе названия и описания чего-либо:
+
+//; const initNotes = [
+//; 	{
+//; 		id: id(),
+//; 		name: 'name1',
+//; 		desc: 'long description 1'
+//; 	},
+//; 	{
+//; 		id: id(),
+//; 		name: 'name2',
+//; 		desc: 'long description 2'
+//; 	},
+//; 	{
+//; 		id: id(),
+//; 		name: 'name3',
+//; 		desc: 'long description 3'
+//; 	},
+//; ];
+//; Давайте выведем каждый элемент этого массива в отдельном абзаце:
+
+//; function App() {
+//; 	const [notes, setNotes] = useState(initNotes);
+
+//; 	const result = notes.map(note => {
+//; 		return <p key={note.id}>
+//; 			{note.name},
+//; 			<i>{note.desc}</i>
+//; 		</p>;
+//; 	});
+
+//; 	return <div>
+//; 		{result}
+//; 	</div>;
+//; }
+//; Давайте теперь сделаем так, чтобы описание изначально было скрыто, но в конце каждого абзаца добавим кнопки для показа описания из этого абзаца. Для этого в каждый объект с продуктом добавим свойство show, регулирующее показ описания:
+
+//; const initNotes = [
+//; 	{
+//; 		id: id(),
+//; 		name: 'name1',
+//; 		desc: 'long description 1',
+//; 		show: false,
+//; 	},
+//; 	{
+//; 		id: id(),
+//; 		name: 'name2',
+//; 		desc: 'long description 2',
+//; 		show: false,
+//; 	},
+//; 	{
+//; 		id: id(),
+//; 		name: 'name3',
+//; 		desc: 'long description 3',
+//; 		show: false,
+//; 	},
+//; ];
+
+//? №1⊗jsrtPmDtSh
+
+//? В конце каждого абзаца сделайте кнопку, по нажатию на которую будет показываться полное описание продукта.
 
 // const initNotes = [
-// 	{
-// 		id: id(),
-// 		name: 'name1',
-// 		desc: 'long description 1'
-// 	},
-// 	{
-// 		id: id(),
-// 		name: 'name2',
-// 		desc: 'long description 2'
-// 	},
-// 	{
-// 		id: id(),
-// 		name: 'name3',
-// 		desc: 'long description 3'
-// 	},
+//   {
+//     id: uuidv4(),
+//     name: "name1",
+//     desc: "long description 1",
+//     show: false,
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "name2",
+//     desc: "long description 2",
+//     show: false,
+//   },
+//   {
+//     id: uuidv4(),
+//     name: "name3",
+//     desc: "long description 3",
+//     show: false,
+//   },
 // ];
-// Давайте выведем каждый элемент этого массива в отдельном абзаце:
 
-// function App() {
-// 	const [notes, setNotes] = useState(initNotes);
+// export default function App() {
+//   const [notes, setNotes] = useState(initNotes);
 
-// 	const result = notes.map(note => {
-// 		return <p key={note.id}>
-// 			{note.name},
-// 			<i>{note.desc}</i>
-// 		</p>;
-// 	});
+//   const handleClick = (id: string) => {
+//     setNotes(
+//       notes.map((note) =>
+//         note.id === id ? { ...note, show: !note.show } : note,
+//       ),
+//     );
+//   };
 
-// 	return <div>
-// 		{result}
-// 	</div>;
+//   const result = notes.map((note) => {
+//     return (
+//       <div key={note.id}>
+//         <p className={css.p}>{note.name}</p>
+
+//         {note.show && <p>{note.desc}</p>}
+
+//         <button
+//           type="button"
+//           onClick={() => handleClick(note.id)}
+//           className={css.button}
+//         >
+//           {note.show ? "Hide" : "More"}
+//         </button>
+//       </div>
+//     );
+//   });
+
+//   return <div className={css.div}>{result}</div>;
 // }
-// Давайте теперь сделаем так, чтобы описание изначально было скрыто, но в конце каждого абзаца добавим кнопки для показа описания из этого абзаца. Для этого в каждый объект с продуктом добавим свойство show, регулирующее показ описания:
-
-// const initNotes = [
-// 	{
-// 		id: id(),
-// 		name: 'name1',
-// 		desc: 'long description 1',
-// 		show: false,
-// 	},
-// 	{
-// 		id: id(),
-// 		name: 'name2',
-// 		desc: 'long description 2',
-// 		show: false,
-// 	},
-// 	{
-// 		id: id(),
-// 		name: 'name3',
-// 		desc: 'long description 3',
-// 		show: false,
-// 	},
-// ];
-// №1⊗jsrtPmDtSh
-
-// В конце каждого абзаца сделайте кнопку, по нажатию на которую будет показываться полное описание продукта.
 
 // ***************************************************
 
-// Введение в компоненты React
-// Взглянем на любой сайт. Он состоит из набора независимых блоков: хедер, сайдбары, футер, контент. Можно сказать, что эти блоки и есть компоненты в том смысле, в котором подразумевается в React.
+//! Введение в компоненты React
 
-// Если посмотреть на тот же хедер, что в нем можно выделить блок с логотипом, блок контактов, блок с меню и так далее. To есть компоненты могут состоять из других подкомпонентов.
+//; Взглянем на любой сайт. Он состоит из набора независимых блоков: хедер, сайдбары, футер, контент. Можно сказать, что эти блоки и есть компоненты в том смысле, в котором подразумевается в React.
 
-// Аналогичным образом дело обстоит в React - сайт строится из набора компонентов, которые в свою очередь могут содержать другие компоненты.
+//; Если посмотреть на тот же хедер, что в нем можно выделить блок с логотипом, блок контактов, блок с меню и так далее. To есть компоненты могут состоять из других подкомпонентов.
 
-// В React каждый компонент представляет собой отдельный модуль. Обычно разработка начинается с главного компонента App, который содержит в себе остальные.
+//; Аналогичным образом дело обстоит в React - сайт строится из набора компонентов, которые в свою очередь могут содержать другие компоненты.
 
-// Давайте потренируемся создавать новые компоненты.
+//; В React каждый компонент представляет собой отдельный модуль. Обычно разработка начинается с главного компонента App, который содержит в себе остальные.
 
-// Пусть для примера нам нужен компонент, выводящий данные продукта. Для этого нам нужно в рабочей папке создать файл Product.js и добавить в него следующий код:
+//; Давайте потренируемся создавать новые компоненты.
 
-// import React from 'react';
+//; Пусть для примера нам нужен компонент, выводящий данные продукта. Для этого нам нужно в рабочей папке создать файл Product.js и добавить в него следующий код:
 
-// function Product() {
-// 	return <p>
-// 		product
-// 	</p>;
-// }
+//; import React from 'react';
 
-// export default Product;
-// Как вы видите, сейчас наш компонент возвращает абзац с текстом. В следующих уроках мы доработаем этот код так, чтобы возвращались данные продукта. Но пока для начала просто оставим абзац с некоторым начальным текстом.
+//; function Product() {
+//; 	return <p>
+//; 		product
+//; 	</p>;
+//; }
 
-// Давайте теперь выведем наш созданный компонент в компоненте App. Пусть сейчас наш App имеет следующий код:
+//; export default Product;
+//; Как вы видите, сейчас наш компонент возвращает абзац с текстом. В следующих уроках мы доработаем этот код так, чтобы возвращались данные продукта. Но пока для начала просто оставим абзац с некоторым начальным текстом.
 
-// import React from 'react';
+//; Давайте теперь выведем наш созданный компонент в компоненте App. Пусть сейчас наш App имеет следующий код:
 
-// function App() {
-// 	return <div>
-// 		text
-// 	</div>;
-// }
+//; import React from 'react';
 
-// export default App;
-// Для начала нам нужно импортировать созданный нами компонент с продуктом:
+//; function App() {
+//; 	return <div>
+//; 		text
+//; 	</div>;
+//; }
 
-// import React from 'react';
-// import Product from './Product'; // импортируем продукт
+//; export default App;
+//; Для начала нам нужно импортировать созданный нами компонент с продуктом:
 
-// function App() {
-// 	return <div>
-// 		text
-// 	</div>;
-// }
+//; import React from 'react';
+//; import Product from './Product'; //; импортируем продукт
 
-// export default App;
-// После такого импорта внутри компонента App можно использовать компонент Product.
+//; function App() {
+//; 	return <div>
+//; 		text
+//; 	</div>;
+//; }
 
-// *************************************************** //
-
-// Использование компонентов в React
-// Каждому подключенному компоненту соответствует свой JSX тег. К примеру, у нас есть компонент Product, а значит ему соответствует следующий тег:
-
-// <Product />
-// Название тега компонента обязательно следует писать с большой буквы, чтобы React мог отличить вызов компонента от использования тега HTML.
-
-// Итак, давайте внутри компонента App используем компонент Product, написав соответствующий ему тег:
-
-// import React from 'react';
-// import Product from './Product';
-
-// function App() {
-// 	return <div>
-// 		<Product />
-// 	</div>;
-// }
-
-// export default App;
-// В результате после рендиренга получится следующее:
-
-// <div>
-// 	<p>
-// 		product
-// 	</p>
-// </div>
-// №1⊗jsrtPmCpUs
-
-// Сделайте компонент User, который будет выводить данные юзеров. Пусть сейчас этот компонент просто выводит какой-нибудь текст. Используйте этот компонент в компоненте App.
+//; export default App;
+//; После такого импорта внутри компонента App можно использовать компонент Product.
 
 // *************************************************** //
 
-// Несколько экземпляров компонента в React
-// Можно вставить несколько продуктов. Для этого нужно просто написать несколько тегов компонента:
+//! Использование компонентов в React
 
-// import React from 'react';
-// import Product from './Product';
+//; Каждому подключенному компоненту соответствует свой JSX тег. К примеру, у нас есть компонент Product, а значит ему соответствует следующий тег:
 
-// function App() {
-// 	return <div>
-// 		<Product />
-// 		<Product />
-// 		<Product />
-// 	</div>;
+//; <Product />
+//; Название тега компонента обязательно следует писать с большой буквы, чтобы React мог отличить вызов компонента от использования тега HTML.
+
+//; Итак, давайте внутри компонента App используем компонент Product, написав соответствующий ему тег:
+
+//; import React from 'react';
+//; import Product from './Product';
+
+//; function App() {
+//; 	return <div>
+//; 		<Product />
+//; 	</div>;
+//; }
+
+//; export default App;
+//; В результате после рендиренга получится следующее:
+
+//; <div>
+//; 	<p>
+//; 		product
+//; 	</p>
+//; </div>
+
+//? №1⊗jsrtPmCpUs
+
+//? Сделайте компонент User, который будет выводить данные юзеров. Пусть сейчас этот компонент просто выводит какой-нибудь текст. Используйте этот компонент в компоненте App.
+
+// export default function App() {
+//   return (
+//     <div>
+//       <User />
+//     </div>
+//   );
 // }
-
-// export default App;
-// В результате после рендиренга получится следующее:
-
-// <div>
-// 	<p>
-// 		product
-// 	</p>
-// 	<p>
-// 		product
-// 	</p>
-// 	<p>
-// 		product
-// 	</p>
-// </div>
-// №1⊗jsrtPmCpMI
-
-// Добавьте в компонент App несколько экземпляров компонента User, созданного вами в предыдущей задаче.
 
 // *************************************************** //
 
-// Пропсы компонентов в React
-// В предыдущем уроке мы вывели несколько экземпляров продуктов:
+//! Несколько экземпляров компонента в React
 
-// function App() {
-// 	return <div>
-// 		<Product />
-// 		<Product />
-// 		<Product />
-// 	</div>;
+//; Можно вставить несколько продуктов. Для этого нужно просто написать несколько тегов компонента:
+
+//; import React from 'react';
+//; import Product from './Product';
+
+//; function App() {
+//; 	return <div>
+//; 		<Product />
+//; 		<Product />
+//; 		<Product />
+//; 	</div>;
+//; }
+
+//; export default App;
+//; В результате после рендиренга получится следующее:
+
+//; <div>
+//; 	<p>
+//; 		product
+//; 	</p>
+//; 	<p>
+//; 		product
+//; 	</p>
+//; 	<p>
+//; 		product
+//; 	</p>
+//; </div>
+
+//? №1⊗jsrtPmCpMI
+
+//? Добавьте в компонент App несколько экземпляров компонента User, созданного вами в предыдущей задаче.
+
+// export default function App() {
+//   return (
+//     <div>
+//       <User />
+//       <User />
+//       <User />
+//     </div>
+//   );
 // }
-// Пока каждый вызов тега с продуктом выводит на экран одно и тоже. Давайте теперь сделаем каждый продукт уникальным.
-
-// Пусть, к примеру, каждый продукт должен иметь название и цену. Сделаем так, чтобы каждый вызов тега с продуктом выводил продукт со своим именем и ценой, оформленными в нужную нам верстку.
-
-// Для этого нам необходимо проделать несколько шагов.
-
-// Для начала при вызове тега с продуктом мы в этот тег будем писать два атрибута: атрибут name с названием продукта и атрибут cost с ценой, вот так:
-
-// function App() {
-// 	return <div>
-// 		<Product name="product1" cost="100" />
-// 		<Product name="product2" cost="200" />
-// 		<Product name="product3" cost="300" />
-// 	</div>;
-// }
-// Имена и значения этих атрибутов будут попадать в виде объекта в первый параметр функции-конструктора нашего компонента Product:
-
-// function Product(props) {
-// 	console.log(props); // объект с ключами name и cost
-
-// 	return <p>
-// 		product
-// 	</p>;
-// }
-// Имя параметра может быть каким угодно, но в React принято называть его props. Фактически это не просто имя параметра, а важная концепция React.
-
-// Суть этой концепции в следующем: при вызове тега компонента в этот тег можно записывать атрибуты с данными. Эти данные будут попадать в пропсы компонента. Затем компонент может использовать эти данные, например, для создания нужной верстки.
-
-// Давайте сделаем это:
-
-// function Product(props) {
-// 	return <p>
-// 		name: <span>{props.name}</span>,
-// 		cost: <span>{props.cost}</span>
-// 	</p>;
-// }
-// Более удобно и более принято не пользоваться объектом props, а сразу выполнять дестуктуризацию пропсов прямо в параметрах функции:
-
-// function Product({ name, cost }) {
-// 	return <p>
-// 		name: <span>{name}</span>,
-// 		cost: <span>{cost}</span>
-// 	</p>;
-// }
-// №1⊗jsrtPmCpPr
-
-// Сделайте компонент Employee, выводящий данные работника на экран. Пусть этими данными будут фамилия, имя, отчество и зарплата. Оформите эти данные в нужную вам верстку. Выведите в компоненте App трех работников с разными данными.
 
 // *************************************************** //
 
-// Создание дочерних компонентов в React
+//! Пропсы компонентов в React
+
+//; В предыдущем уроке мы вывели несколько экземпляров продуктов:
+
+//; function App() {
+//; 	return <div>
+//; 		<Product />
+//; 		<Product />
+//; 		<Product />
+//; 	</div>;
+//; }
+//; Пока каждый вызов тега с продуктом выводит на экран одно и тоже. Давайте теперь сделаем каждый продукт уникальным.
+
+//; Пусть, к примеру, каждый продукт должен иметь название и цену. Сделаем так, чтобы каждый вызов тега с продуктом выводил продукт со своим именем и ценой, оформленными в нужную нам верстку.
+
+//; Для этого нам необходимо проделать несколько шагов.
+
+//; Для начала при вызове тега с продуктом мы в этот тег будем писать два атрибута: атрибут name с названием продукта и атрибут cost с ценой, вот так:
+
+//; function App() {
+//; 	return <div>
+//; 		<Product name="product1" cost="100" />
+//; 		<Product name="product2" cost="200" />
+//; 		<Product name="product3" cost="300" />
+//; 	</div>;
+//; }
+//; Имена и значения этих атрибутов будут попадать в виде объекта в первый параметр функции-конструктора нашего компонента Product:
+
+//; function Product(props) {
+//; 	console.log(props); //; объект с ключами name и cost
+
+//; 	return <p>
+//; 		product
+//; 	</p>;
+//; }
+//; Имя параметра может быть каким угодно, но в React принято называть его props. Фактически это не просто имя параметра, а важная концепция React.
+
+//; Суть этой концепции в следующем: при вызове тега компонента в этот тег можно записывать атрибуты с данными. Эти данные будут попадать в пропсы компонента. Затем компонент может использовать эти данные, например, для создания нужной верстки.
+
+//; Давайте сделаем это:
+
+//; function Product(props) {
+//; 	return <p>
+//; 		name: <span>{props.name}</span>,
+//; 		cost: <span>{props.cost}</span>
+//; 	</p>;
+//; }
+//; Более удобно и более принято не пользоваться объектом props, а сразу выполнять дестуктуризацию пропсов прямо в параметрах функции:
+
+//; function Product({ name, cost }) {
+//; 	return <p>
+//; 		name: <span>{name}</span>,
+//; 		cost: <span>{cost}</span>
+//; 	</p>;
+//; }
+
+//? №1⊗jsrtPmCpPr
+
+//? Сделайте компонент Employee, выводящий данные работника на экран. Пусть этими данными будут фамилия, имя, отчество и зарплата. Оформите эти данные в нужную вам верстку. Выведите в компоненте App трех работников с разными данными.
+
+// export default function App() {
+//   return (
+//     <div>
+//       <Employee
+//         name="Andrii"
+//         reporting="Mulolaiovuch"
+//         lastName="Mitko"
+//         salary={20000}
+//       />
+//       <Employee
+//         name="Oleksandr"
+//         reporting="Ilarionovuch"
+//         lastName="Zozulenko"
+//         salary={15000}
+//       />
+//       <Employee
+//         name="Vasilii"
+//         reporting="Vasiliovuch"
+//         lastName="Dzuba"
+//         salary={18000}
+//       />
+//     </div>
+//   );
+// }
+
+// *************************************************** //
+
+//! Создание дочерних компонентов в React
+
 // В атрибуты тегов компонента можно передавать не только строки, но и выполнять вставку переменных и констант:
 
 // function App() {
@@ -6751,156 +6867,3 @@ export default function App() {
 // Добавьте функционал для поиска записей.
 
 // *************************************************** //
-
-//! 	"Console log": {
-// 		"prefix": "c",
-// 		"body": [
-// 			"console.log(${1});"
-// 		],
-// 		"description": "fast console.log"
-// 	},
-// 	"React App simple": {
-//   "prefix": "app0",
-//   "body": [
-//     "export default function App() {",
-//     "  return (",
-//     "    <div>",
-//     "      App",
-//     "    </div>",
-//     "  );",
-//     "}"
-//   ]
-// },
-// 	"Radio group": {
-//   "prefix": "radioGroup",
-//   "body": [
-//     "<div>",
-//     "  <input",
-//     "    type=\"radio\"",
-//     "    name=\"radio\"",
-//     "    value=\"1\"",
-//     "    checked={value === '1'}",
-//     "    onChange={changeHandler}",
-//     "  />",
-//     "  <input",
-//     "    type=\"radio\"",
-//     "    name=\"radio\"",
-//     "    value=\"2\"",
-//     "    checked={value === '2'}",
-//     "    onChange={changeHandler}",
-//     "  />",
-//     "  <input",
-//     "    type=\"radio\"",
-//     "    name=\"radio\"",
-//     "    value=\"3\"",
-//     "    checked={value === '3'}",
-//     "    onChange={changeHandler}",
-//     "  />",
-//     "</div>"
-//   ]
-// },
-// "useState string": {
-//   "prefix": "us",
-//   "body": [
-//     "const [${1:value}, set${1/(.*)/${1:/capitalize}/}] = useState(\"${2}\");"
-//   ]
-// },
-// "React ChangeEvent Input": {
-//   "prefix": "e:",
-//   "body": [
-//     "(e: React.ChangeEvent<HTMLInputElement>) => {",
-//     "  setValue(e.target.value);",
-//     "  $0",
-//     "}"
-//   ]
-// },
-// "React controlled input": {
-//   "prefix": "input",
-//   "body": [
-//     "<input",
-//     "  type=\"text\"",
-//     "  value={${1:value}}",
-//     "  placeholder=\"Enter here...\"",
-//     "  onChange={${2:handleChange}}",
-//     "/>"
-//   ]
-// },
-//   "Generate commit message": {
-//     "prefix": "commit",
-//     "body": [
-//       "// generate conventional commit message with scope and description based on my changes",
-//     ],
-//     "description": "Copilot commit message prompt"
-//   },
-//   "React Query Setup": {
-//   "prefix": "mainQuery",
-//   "body": [
-//     "import { createRoot } from \"react-dom/client\";",
-//     "import { StrictMode } from \"react\";",
-//     "import { QueryClient, QueryClientProvider } from \"@tanstack/react-query\";",
-//     "import { ReactQueryDevtools } from \"@tanstack/react-query-devtools\";",
-//     "",
-//     "import App from \"./Components/App/App\";",
-//     "import \"./index.css\";",
-//     "",
-//     "const queryClient = new QueryClient();",
-//     "",
-//     "createRoot(document.getElementById(\"root\") as HTMLElement).render(",
-//     "  <StrictMode>",
-//     "    <QueryClientProvider client={queryClient}>",
-//     "      <App />",
-//     "      <ReactQueryDevtools initialIsOpen={false} />",
-//     "    </QueryClientProvider>",
-//     "  </StrictMode>",
-//     ");"
-//   ],
-//   "description": "React Query basic setup with Devtools"
-// },
-// "React Query SWAPI Person Component": {
-//   "prefix": "appQuery",
-//   "body": [
-//     "import { useQuery } from \"@tanstack/react-query\";",
-//     "import { getSomePerson } from \"${1:../../services/api.service}\";",
-//     "",
-//     "export default function ${2:App}() {",
-//     "  const { data, isLoading, isError } = useQuery({",
-//     "    queryKey: [\"getPerson\"],",
-//     "    queryFn: getSomePerson,",
-//     "  });",
-//     "",
-//     "  return (",
-//     "    <div>",
-//     "      {isLoading && <div>Loading...</div>}",
-//     "      {isError && <p>oops...</p>}",
-//     "      {data && <div>{JSON.stringify(data)}</div>}",
-//     "    </div>",
-//     "  );",
-//     "}"
-//   ],
-//   "description": "React Query component with loading, error and data states"
-// },
-//   "React Query SWAPI person queryFn": {
-//     "prefix": "serviceApi",
-//     "body": [
-//       "import axios from \"axios\";",
-//       "",
-//       "export const getSomePerson = async ({ queryKey }: any) => {",
-//       "  const [, personId] = queryKey;",
-//       "",
-//       "  const { data } = await axios.get(",
-//       "    `https://swapi.info/api/people/${personId}`",
-//       "  );",
-//       "",
-//       "  return data;",
-//       "};"
-//     ],
-//     "description": "React Query queryFn for SWAPI person"
-//   },
-//   "React Button Loading": {
-//   "prefix": "buttonApp",
-//   "body": [
-//     "<button type=\"button\" onClick={${1:handleClick}}>${3:Save}</button>"
-//   ],
-//   "description": "React button with loading state"
-// }
-// }
