@@ -3,8 +3,8 @@ import css from "./Employee.module.css";
 interface P {
   name: string;
   reporting: string;
-  lastName: string;
-  salary: number;
+  lastName?: string;
+  salary?: number;
 }
 
 export default function Employee({ name, reporting, lastName, salary }: P) {

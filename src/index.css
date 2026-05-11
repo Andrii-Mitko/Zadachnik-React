@@ -1,47 +1,204 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #ffffff;
-  --border: #e5e4e7;
-  --accent: #ff6b00;
+  --text: #d6d6d6;
+  --text-heading: #ffffff;
+
+  --bg: #0f172a;
+  --surface: #1e293b;
+
+  --border: #334155;
+
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+
+  --success: #22c55e;
+  --danger: #ef4444;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  padding: 0;
+
   font-family: system-ui, Arial, sans-serif;
+
   background: var(--bg);
   color: var(--text);
 }
 
-/* 🔥 ROOT (ВАЖНО — без ломания layout) */
+/* ROOT */
 #root {
   min-height: 100vh;
+
   display: flex;
-  justify-content: center; /* центр по горизонтали */
-  padding: 20px;
-  text-align: initial; /* ❗ убираем центр текста */
+  justify-content: center;
+
+  padding: 40px 20px;
 }
 
-/* 📦 базовые заголовки */
+/* CONTAINER */
+.container {
+  width: 100%;
+  max-width: 1000px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  padding: 30px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+/* HEADINGS */
 h1,
 h2,
-h3 {
-  color: var(--text-h);
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 12px;
+
+  color: var(--text-heading);
+
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* TEXT */
+p {
   margin: 0 0 10px;
+
+  line-height: 1.6;
+  color: var(--text);
 }
 
-/* 📦 инпуты */
+/* INPUT */
 input {
-  font-family: inherit;
+  width: 260px;
+
+  padding: 12px 14px;
+  margin: 5px 0;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background: #0f172a;
+  color: white;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition: 0.2s;
 }
 
-/* 📦 списки */
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* BUTTON */
+button {
+  padding: 12px 18px;
+  margin: 5px 0;
+
+  border: none;
+  border-radius: 10px;
+
+  background: var(--accent);
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+button:hover {
+  background: var(--accent-hover);
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* TABLE */
+table {
+  width: 100%;
+
+  margin-top: 20px;
+
+  border-collapse: collapse;
+
+  overflow: hidden;
+
+  background: #0f172a;
+
+  border-radius: 14px;
+}
+
+/* TABLE HEAD */
+thead {
+  background: var(--accent);
+  color: white;
+}
+
+/* TABLE CELLS */
+th,
+td {
+  padding: 14px 16px;
+
+  border: 1px solid var(--border);
+
+  text-align: left;
+}
+
+/* TABLE ROWS */
+tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+tbody tr:hover {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+/* LIST */
 ul {
-  padding: 0;
   margin: 0;
+  padding: 0;
+
   list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* LIST ITEM */
+li {
+  padding: 14px 16px;
+
+  background: #0f172a;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  color: white;
+
+  transition: 0.2s;
+}
+
+li:hover {
+  transform: translateX(6px);
+  border-color: var(--accent);
 }

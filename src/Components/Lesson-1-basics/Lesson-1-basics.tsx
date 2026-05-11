@@ -4,7 +4,7 @@
 // import css from "./Lesson-1-basics.module.css";
 
 // import Employee from "./Employee/Employee";
-// import User from "./User/User";
+import User from "./User/User";
 
 // ************************************************
 
@@ -5182,71 +5182,166 @@
 
 //! Создание дочерних компонентов в React
 
-// В атрибуты тегов компонента можно передавать не только строки, но и выполнять вставку переменных и констант:
+//; В атрибуты тегов компонента можно передавать не только строки, но и выполнять вставку переменных и констант:
 
-// function App() {
-// 	const name = 'product';
-// 	const cost = '100';
+//; function App() {
+//; 	const name = 'product';
+//; 	const cost = '100';
 
-// 	return <div>
-// 		<Product name={name} cost={cost} />
-// 	</div>;
+//; 	return <div>
+//; 		<Product name={name} cost={cost} />
+//; 	</div>;
+//; }
+//; Давайте сделаем сразу несколько продуктов:
+
+//; function App() {
+//; 	const name1  = 'product1';
+//; 	const cost1 = '100';
+
+//; 	const name2  = 'product2';
+//; 	const cost2 = '100';
+
+//; 	const name3  = 'product3';
+//; 	const cost3 = '100';
+
+//; 	return <div>
+//; 		<Product name={name1} cost={cost1} />
+//; 		<Product name={name2} cost={cost2} />
+//; 		<Product name={name3} cost={cost3} />
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmCpCh
+
+//? Опробуйте изученное на каком-нибудь из ваших компонентов.
+
+// interface Sal {
+//   lastName: string;
+//   salary: number;
 // }
-// Давайте сделаем сразу несколько продуктов:
 
-// function App() {
-// 	const name1  = 'product1';
-// 	const cost1 = '100';
+// export default function App() {
+//   const sal1: Sal = {
+//     lastName: "Mitko",
+//     salary: 25000,
+//   };
+//   const sal2: Sal = {
+//     lastName: "Zozulenko",
+//     salary: 21000,
+//   };
+//   const sal3: Sal = {
+//     lastName: "Dzuba",
+//     salary: 24000,
+//   };
 
-// 	const name2  = 'product2';
-// 	const cost2 = '100';
-
-// 	const name3  = 'product3';
-// 	const cost3 = '100';
-
-// 	return <div>
-// 		<Product name={name1} cost={cost1} />
-// 		<Product name={name2} cost={cost2} />
-// 		<Product name={name3} cost={cost3} />
-// 	</div>;
+//   return (
+//     <div>
+//       <Employee
+//         name="Andrii"
+//         reporting="Mulolaiovuch"
+//         lastName={sal1.lastName}
+//         salary={sal1.salary}
+//       />
+//       <Employee
+//         name="Oleksandr"
+//         reporting="Ilarionovuch"
+//         lastName={sal2.lastName}
+//         salary={sal2.salary}
+//       />
+//       <Employee
+//         name="Vasilii"
+//         reporting="Vasiliovuch"
+//         lastName={sal3.lastName}
+//         salary={sal3.salary}
+//       />
+//     </div>
+//   );
 // }
-// №1⊗jsrtPmCpCh
-
-// Опробуйте изученное на каком-нибудь из ваших компонентов.
 
 // *************************************************** //
 
-// Массив для создания дочерних компонентов в React
-// Пусть у нас есть массив с продуктами:
+//! Массив для создания дочерних компонентов в React
 
-// const prods = [
-// 	{id: id(), name: 'product1', cost: 100},
-// 	{id: id(), name: 'product2', cost: 200},
-// 	{id: id(), name: 'product3', cost: 300},
-// ];
-// Давайте выведем на экран три компонента Product, передав им в пропсы данные из нашего массива. Пока не будем использовать цикл, а просто будем обращаться к элементам массива и объекта:
+//; Пусть у нас есть массив с продуктами:
 
-// function App() {
-// 	return <div>
-// 		<Product name={prods[0].name} cost={prods[0].cost} />
-// 		<Product name={prods[1].name} cost={prods[1].cost} />
-// 		<Product name={prods[2].name} cost={prods[2].cost} />
-// 	</div>;
+//; const prods = [
+//; 	{id: id(), name: 'product1', cost: 100},
+//; 	{id: id(), name: 'product2', cost: 200},
+//; 	{id: id(), name: 'product3', cost: 300},
+//; ];
+//; Давайте выведем на экран три компонента Product, передав им в пропсы данные из нашего массива. Пока не будем использовать цикл, а просто будем обращаться к элементам массива и объекта:
+
+//; function App() {
+//; 	return <div>
+//; 		<Product name={prods[0].name} cost={prods[0].cost} />
+//; 		<Product name={prods[1].name} cost={prods[1].cost} />
+//; 		<Product name={prods[2].name} cost={prods[2].cost} />
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmCpChA
+
+//? Сделайте компонент User, выводящий данные юзера на экран. Пусть этими данными будут имя, фамилия, возраст. Оформите данные юзера в виде тега tr, содержащего три тега td.
+
+// export default function App() {
+//   const users = [
+//     {
+//       name: "Andrii",
+//       lastName: "Mitko",
+//       age: 50,
+//     },
+//     {
+//       name: "Oleksandr",
+//       lastName: "Zozulenko",
+//       age: 62,
+//     },
+//     {
+//       name: "Vasilii",
+//       lastName: "Dzuba",
+//       age: 70,
+//     },
+//   ];
+
+//   return (
+//     <table>
+//       <thead>
+//         <tr>
+//           <th>Name</th>
+//           <th>LastName</th>
+//           <th>Age</th>
+//         </tr>
+//       </thead>
+
+//       <tbody>
+//         {users.map((user, i) => (
+//           <User
+//             key={i}
+//             name={user.name}
+//             lastName={user.lastName}
+//             age={user.age}
+//           />
+//         ))}
+//       </tbody>
+//     </table>
+//   );
 // }
-// №1⊗jsrtPmCpChA
 
-// Сделайте компонент User, выводящий данные юзера на экран. Пусть этими данными будут имя, фамилия, возраст. Оформите данные юзера в виде тега tr, содержащего три тега td.
+//? №2⊗jsrtPmCpChA
 
-// №2⊗jsrtPmCpChA
+//? В компоненте App дан следующий массив:
 
-// В компоненте App дан следующий массив:
+//? const users = [
+//? 	{id: id(), name: 'user1', surn: 'surn1', age: 30},
+//? 	{id: id(), name: 'user2', surn: 'surn2', age: 31},
+//? 	{id: id(), name: 'user3', surn: 'surn3', age: 32},
+//? ];
+//? С помощью этого массива выведите трех юзеров. Оформите их вывод в виде таблицы table.
 
-// const users = [
-// 	{id: id(), name: 'user1', surn: 'surn1', age: 30},
-// 	{id: id(), name: 'user2', surn: 'surn2', age: 31},
-// 	{id: id(), name: 'user3', surn: 'surn3', age: 32},
-// ];
-// С помощью этого массива выведите трех юзеров. Оформите их вывод в виде таблицы table.
+const users = [
+  { id: id(), name: "user1", surn: "surn1", age: 30 },
+  { id: id(), name: "user2", surn: "surn2", age: 31 },
+  { id: id(), name: "user3", surn: "surn3", age: 32 },
+];
 
 // *************************************************** //
 
