@@ -4,7 +4,8 @@
 // import css from "./Lesson-1-basics.module.css";
 
 // import Employee from "./Employee/Employee";
-import User from "./User/User";
+// import User from "./User/User";
+import Users from "./Users/Users";
 
 // ************************************************
 
@@ -5533,123 +5534,140 @@ import User from "./User/User";
 
 //? Модифицируйте ваш компонент User так, чтобы в нем в абзаце выводился id юзера.
 
+// export default function App() {
+//   return (
+//     <div>
+//       <Users />
+//     </div>
+//   );
+// }
+
 // *************************************************** //
 
-// Изменение стейта родителя в дочернем компоненте в React
-// В предыдущем уроке у нас стейт с данными хранился в родительском компоненте, а дочерние компоненты получали эти данные в виде пропсов.
+//! Изменение стейта родителя в дочернем компоненте в React
 
-// Пусть теперь мы хотим изменять наши продукты. Сделаем, к примеру, кнопку, которая будет помещать наш продукт в корзину. Для начала давайте добавим в наш массив с продуктами поле inCart, показывающее, в корзине продукт или нет:
+//; В предыдущем уроке у нас стейт с данными хранился в родительском компоненте, а дочерние компоненты получали эти данные в виде пропсов.
 
-// const initProds = [
-// 	{id: id(), name: 'product1', cost: 100, inCart: false},
-// 	{id: id(), name: 'product2', cost: 200, inCart: false},
-// 	{id: id(), name: 'product3', cost: 300, inCart: false},
-// ];
-// В компоненте Products в тег с продуктом добавим еще один атрибут inCart:
+//; Пусть теперь мы хотим изменять наши продукты. Сделаем, к примеру, кнопку, которая будет помещать наш продукт в корзину. Для начала давайте добавим в наш массив с продуктами поле inCart, показывающее, в корзине продукт или нет:
 
-// function Products() {
-// 	const [prods, setProds] = useState(initProds);
+//; const initProds = [
+//; 	{id: id(), name: 'product1', cost: 100, inCart: false},
+//; 	{id: id(), name: 'product2', cost: 200, inCart: false},
+//; 	{id: id(), name: 'product3', cost: 300, inCart: false},
+//; ];
+//; В компоненте Products в тег с продуктом добавим еще один атрибут inCart:
 
-// 	const items = prods.map(prod => {
-// 		return <Product
-// 			key   ={prod.id}
-// 			name  ={prod.name}
-// 			cost  ={prod.cost}
-// 			inCart={prod.inCart}
-// 		/>;
-// 	});
+//; function Products() {
+//; 	const [prods, setProds] = useState(initProds);
 
-// 	return <div>
-// 		{items}
-// 	</div>;
-// }
-// Давайте в дочернем компоненте Product сделаем вывод информации о корзине и кнопку для добавления в корзину:
+//; 	const items = prods.map(prod => {
+//; 		return <Product
+//; 			key   ={prod.id}
+//; 			name  ={prod.name}
+//; 			cost  ={prod.cost}
+//; 			inCart={prod.inCart}
+//; 		/>;
+//; 	});
 
-// function Product({ id, name, cost, inCart }) {
-// 	return <div>
-// 		name: <span>{name}</span>,
-// 		cost: <span>{cost}</span>,
-// 		<span>{inCart ? 'in cart' : 'not in cart'}</span>
-// 		<button>to cart</button>
-// 	</div>;
-// }
-// Реализуем добавление
-// По правилам React компонент не должен изменять свои пропсы. Это значит, что дочерний компонент не может положить сам себя в корзину, изменив пропс inCart. Это не правильно.
+//; 	return <div>
+//; 		{items}
+//; 	</div>;
+//; }
+//; Давайте в дочернем компоненте Product сделаем вывод информации о корзине и кнопку для добавления в корзину:
 
-// Правильно будет попросить родительский компонент изменить свой стейт prods, положив определенный продукт в корзину.
+//; function Product({ id, name, cost, inCart }) {
+//; 	return <div>
+//; 		name: <span>{name}</span>,
+//; 		cost: <span>{cost}</span>,
+//; 		<span>{inCart ? 'in cart' : 'not in cart'}</span>
+//; 		<button>to cart</button>
+//; 	</div>;
+//; }
+//; Реализуем добавление
+//; По правилам React компонент не должен изменять свои пропсы. Это значит, что дочерний компонент не может положить сам себя в корзину, изменив пропс inCart. Это не правильно.
 
-// Давайте посмотрим, как это делается.
+//; Правильно будет попросить родительский компонент изменить свой стейт prods, положив определенный продукт в корзину.
 
-// В компоненте-родителе сделаем функцию addToCart, которая параметром принимает id продукта и для этого продукта меняет свойство inCart на true:
+//; Давайте посмотрим, как это делается.
 
-// function addToCart(id) {
-// 	setProds(prods.map(prod => {
-// 		if (prod.id === id) {
-// 			prod.inCart = true;
-// 		}
+//; В компоненте-родителе сделаем функцию addToCart, которая параметром принимает id продукта и для этого продукта меняет свойство inCart на true:
 
-// 		return prod;
-// 	}));
-// }
-// В тег с продуктом добавим атрибут, в который передадим созданную нами функцию, а также атрибут, в который передадим id продукта:
+//; function addToCart(id) {
+//; 	setProds(prods.map(prod => {
+//; 		if (prod.id === id) {
+//; 			prod.inCart = true;
+//; 		}
 
-// const items = prods.map(prod => {
-// 	return <Product
-// 		key      ={prod.id}
-// 		id       ={prod.id}
-// 		name     ={prod.name}
-// 		cost     ={prod.cost}
-// 		inCart   ={prod.inCart}
-// 		addToCart={addToCart}
-// 	/>;
-// });
-// Как вы видите, в пропсы компонентов можно передавать не только какие-то данные, но и функции.
+//; 		return prod;
+//; 	}));
+//; }
+//; В тег с продуктом добавим атрибут, в который передадим созданную нами функцию, а также атрибут, в который передадим id продукта:
 
-// Итоговый код класса Products получится следующим:
+//; const items = prods.map(prod => {
+//; 	return <Product
+//; 		key      ={prod.id}
+//; 		id       ={prod.id}
+//; 		name     ={prod.name}
+//; 		cost     ={prod.cost}
+//; 		inCart   ={prod.inCart}
+//; 		addToCart={addToCart}
+//; 	/>;
+//; });
+//; Как вы видите, в пропсы компонентов можно передавать не только какие-то данные, но и функции.
 
-// function Products() {
-// 	const [prods, setProds] = useState(initProds);
+//; Итоговый код класса Products получится следующим:
 
-// 	function addToCart(id) {
-// 		setProds(prods.map(prod => {
-// 			if (prod.id === id) {
-// 				prod.inCart = true;
-// 			}
+//; function Products() {
+//; 	const [prods, setProds] = useState(initProds);
 
-// 			return prod;
-// 		}));
-// 	}
+//; 	function addToCart(id) {
+//; 		setProds(prods.map(prod => {
+//; 			if (prod.id === id) {
+//; 				prod.inCart = true;
+//; 			}
 
-// 	const items = prods.map(prod => {
-// 		return <Product
-// 			key      ={prod.id}
-// 			id       ={prod.id}
-// 			name     ={prod.name}
-// 			cost     ={prod.cost}
-// 			inCart   ={prod.inCart}
-// 			addToCart={addToCart}
-// 		/>;
-// 	});
+//; 			return prod;
+//; 		}));
+//; 	}
 
-// 	return <div>
-// 		{items}
-// 	</div>;
-// }
-// Теперь в дочернем классе у нас будет доступна функция addToCart. Вызовем эту функцию по клику на кнопку, передав ей параметром id продукта:
+//; 	const items = prods.map(prod => {
+//; 		return <Product
+//; 			key      ={prod.id}
+//; 			id       ={prod.id}
+//; 			name     ={prod.name}
+//; 			cost     ={prod.cost}
+//; 			inCart   ={prod.inCart}
+//; 			addToCart={addToCart}
+//; 		/>;
+//; 	});
 
-// function Product({ id, name, cost, inCart, addToCart }) {
-// 	return <div>
-// 		name: <span>{name}</span>,
-// 		cost: <span>{cost}</span>,
-// 		<span>{inCart ? 'in cart' : 'not in cart'}</span>
-// 		<button onClick={() => addToCart(id)}>to cart</button>
-// 	</div>;
-// }
-// Получится, что по клику на кнопку в потомке вызовется функция родителя, которая и поменяет родительский стейт. Изменение родительского стейта вызовет перерендеринг и перересует наш продукт, передав ему измененный пропс.
+//; 	return <div>
+//; 		{items}
+//; 	</div>;
+//; }
+//; Теперь в дочернем классе у нас будет доступна функция addToCart. Вызовем эту функцию по клику на кнопку, передав ей параметром id продукта:
 
-// №1⊗jsrtPmCpChPS
+//; function Product({ id, name, cost, inCart, addToCart }) {
+//; 	return <div>
+//; 		name: <span>{name}</span>,
+//; 		cost: <span>{cost}</span>,
+//; 		<span>{inCart ? 'in cart' : 'not in cart'}</span>
+//; 		<button onClick={() => addToCart(id)}>to cart</button>
+//; 	</div>;
+//; }
+//; Получится, что по клику на кнопку в потомке вызовется функция родителя, которая и поменяет родительский стейт. Изменение родительского стейта вызовет перерендеринг и перересует наш продукт, передав ему измененный пропс.
 
-// Возьмите компонент User из предыдущего урока. Сделайте так, чтобы в нем появилась кнопка для бана юзера.
+//? №1⊗jsrtPmCpChPS
+
+//? Возьмите компонент User из предыдущего урока. Сделайте так, чтобы в нем появилась кнопка для бана юзера.
+
+export default function App() {
+  return (
+    <div>
+      <Users />
+    </div>
+  );
+}
 
 // *************************************************** //
 

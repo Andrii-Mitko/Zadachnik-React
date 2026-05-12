@@ -9,11 +9,9 @@
 
   --accent: #3b82f6;
   --accent-hover: #2563eb;
-
-  --success: #22c55e;
-  --danger: #ef4444;
 }
 
+/* RESET */
 *,
 *::before,
 *::after {
@@ -22,37 +20,25 @@
 
 body {
   margin: 0;
-  padding: 0;
-
   font-family: system-ui, Arial, sans-serif;
-
   background: var(--bg);
   color: var(--text);
 }
 
-/* ROOT */
-#root {
+/* ROOT CONTAINER */
+#root > div {
   min-height: 100vh;
-
-  display: flex;
-  justify-content: center;
-
-  padding: 40px 20px;
-}
-
-/* CONTAINER */
-.container {
-  width: 100%;
-  max-width: 1000px;
 
   display: flex;
   flex-direction: column;
   gap: 24px;
 
   padding: 30px;
+  margin: 40px auto;
+
+  max-width: 900px;
 
   background: var(--surface);
-
   border: 1px solid var(--border);
   border-radius: 20px;
 }
@@ -64,36 +50,26 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 12px;
-
+  margin: 0;
   color: var(--text-heading);
-
-  font-weight: 700;
-  line-height: 1.2;
 }
 
 /* TEXT */
 p {
-  margin: 0 0 10px;
-
-  line-height: 1.6;
-  color: var(--text);
+  margin: 0;
+  line-height: 1.5;
 }
 
 /* INPUT */
 input {
   width: 260px;
-
-  padding: 12px 14px;
-  margin: 5px 0;
+  padding: 10px 12px;
 
   border: 1px solid var(--border);
   border-radius: 10px;
 
   background: #0f172a;
   color: white;
-
-  font-size: 16px;
 
   outline: none;
 
@@ -102,22 +78,18 @@ input {
 
 input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 /* BUTTON */
 button {
-  padding: 12px 18px;
-  margin: 5px 0;
+  padding: 10px 14px;
 
   border: none;
   border-radius: 10px;
 
   background: var(--accent);
   color: white;
-
-  font-size: 15px;
-  font-weight: 600;
 
   cursor: pointer;
 
@@ -126,79 +98,84 @@ button {
 
 button:hover {
   background: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
-button:active {
-  transform: scale(0.96);
-}
-
-/* TABLE */
-table {
-  width: 100%;
-
-  margin-top: 20px;
-
-  border-collapse: collapse;
-
-  overflow: hidden;
-
-  background: #0f172a;
-
-  border-radius: 14px;
-}
-
-/* TABLE HEAD */
-thead {
-  background: var(--accent);
-  color: white;
-}
-
-/* TABLE CELLS */
-th,
-td {
-  padding: 14px 16px;
-
-  border: 1px solid var(--border);
-
-  text-align: left;
-}
-
-/* TABLE ROWS */
-tbody tr:nth-child(even) {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-tbody tr:hover {
-  background: rgba(59, 130, 246, 0.15);
-}
-
-/* LIST */
-ul {
-  margin: 0;
-  padding: 0;
+/* GRID */
+#root > div ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
 
   list-style: none;
-
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  padding: 0;
+  margin: 0;
 }
 
-/* LIST ITEM */
-li {
-  padding: 14px 16px;
-
-  background: #0f172a;
+/* CARD */
+#root > div ul li {
+  padding: 14px;
 
   border: 1px solid var(--border);
   border-radius: 12px;
 
-  color: white;
+  background: linear-gradient(145deg, #0f172a, #111c33);
 
-  transition: 0.2s;
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+  will-change: transform;
 }
 
-li:hover {
-  transform: translateX(6px);
+/* glow layer */
+#root > div ul li::before {
+  content: "";
+
+  position: absolute;
+  inset: -40%;
+
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.18),
+    transparent 60%
+  );
+
+  filter: blur(20px);
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+/* HOVER EFFECT */
+#root > div ul li:hover {
+  transform: scale(1.05) translateY(-6px);
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(59, 130, 246, 0.25);
+
   border-color: var(--accent);
+}
+
+#root > div ul li:hover::before {
+  opacity: 1;
+}
+
+/* TEXT ANIMATION */
+#root > div ul li p {
+  transition: transform 0.2s ease;
+}
+
+#root > div ul li:hover p {
+  transform: translateX(4px);
+}
+
+/* HIGHLIGHT ID */
+#root > div ul li p:first-child {
+  color: var(--accent);
+  font-weight: bold;
 }
