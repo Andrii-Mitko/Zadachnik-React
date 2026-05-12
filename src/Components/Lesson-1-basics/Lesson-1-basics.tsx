@@ -1,4 +1,4 @@
-import { nanoid } from "nanoid";
+// import { nanoid } from "nanoid";
 // import { v4 as uuidv4 } from "uuid";
 // import { useState } from "react";
 // import css from "./Lesson-1-basics.module.css";
@@ -5497,53 +5497,41 @@ import User from "./User/User";
 //? ];
 //? Переберите этот массив циклом и выведите всех юзеров на экран. Создайте для отображения юзера отдельный компонент User.
 
-interface InitUsers {
-  id: string;
-  name: string;
-  surname: string;
-  age: number;
-}
-
-export default function App() {
-const initUsers: InitUsers[] = [
-  { id: nanoid(), name: "user1", surname: "surn1", age: 30 },
-  { id: nanoid(), name: "user2", surname: "surn2", age: 31 },
-  { id: nanoid(), name: "user3", surname: "surn3", age: 32 },
-];
-
-export default function App() {
-  return (
-    <div>
-      App
-    </div>
-  );
-}
+// export default function App() {
+//   return (
+//     <div>
+//       <User />
+//     </div>
+//   );
+// }
 
 // *************************************************** //
 
-// Передача id в компонент в React
-// Вы уже знаете, что атрибуты тега компонента попадают в пропсы. Это касается всех атрибутов, кроме атрибута key, который нужен для использования в циклах, вот так:
+//! Передача id в компонент в React
 
-// const items = prods.map(prod => {
-// 	return <Product
-// 		key ={prod.id}
-// 		name={prod.name}
-// 		cost={prod.cost}
-// 	/>;
-// });
-// В данном случае в пропсы попадут атрибуты name и cost, а key - не попадет. Нам, однако, может понадобится передать id в пропсы компонента. В этом случае нам нужно будет ввести еще один атрибут:
+//; Вы уже знаете, что атрибуты тега компонента попадают в пропсы. Это касается всех атрибутов, кроме атрибута key, который нужен для использования в циклах, вот так:
 
-// const items = prods.map(prod => {
-// 	return <Product
-// 		key ={prod.id}
-// 		id  ={prod.id}
-// 		name={prod.name}
-// 		cost={prod.cost}
-// 	/>;
-// });
-// №1⊗jsrtPmCpPI
+//; const items = prods.map(prod => {
+//; 	return <Product
+//; 		key ={prod.id}
+//; 		name={prod.name}
+//; 		cost={prod.cost}
+//; 	/>;
+//; });
+//; В данном случае в пропсы попадут атрибуты name и cost, а key - не попадет. Нам, однако, может понадобится передать id в пропсы компонента. В этом случае нам нужно будет ввести еще один атрибут:
 
-// Модифицируйте ваш компонент User так, чтобы в нем в абзаце выводился id юзера.
+//; const items = prods.map(prod => {
+//; 	return <Product
+//; 		key ={prod.id}
+//; 		id  ={prod.id}
+//; 		name={prod.name}
+//; 		cost={prod.cost}
+//; 	/>;
+//; });
+
+//? №1⊗jsrtPmCpPI
+
+//? Модифицируйте ваш компонент User так, чтобы в нем в абзаце выводился id юзера.
 
 // *************************************************** //
 
