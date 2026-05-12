@@ -1,4 +1,4 @@
-// import { nanoid } from "nanoid";
+import { nanoid } from "nanoid";
 // import { v4 as uuidv4 } from "uuid";
 // import { useState } from "react";
 // import css from "./Lesson-1-basics.module.css";
@@ -5337,113 +5337,187 @@ import User from "./User/User";
 //? ];
 //? С помощью этого массива выведите трех юзеров. Оформите их вывод в виде таблицы table.
 
-const users = [
-  { id: id(), name: "user1", surn: "surn1", age: 30 },
-  { id: id(), name: "user2", surn: "surn2", age: 31 },
-  { id: id(), name: "user3", surn: "surn3", age: 32 },
+// const users = [
+//   { id: nanoid(), name: "user1", surn: "surn1", age: 30 },
+//   { id: nanoid(), name: "user2", surn: "surn2", age: 31 },
+//   { id: nanoid(), name: "user3", surn: "surn3", age: 32 },
+// ];
+// export default function App() {
+//   return (
+//     <table>
+//       <thead>
+//         <tr>
+//           <th>Name</th>
+//           <th>Surn</th>
+//           <th>Age</th>
+//         </tr>
+//       </thead>
+
+//       <tbody>
+//         {users.map((user) => (
+//           <User
+//             key={user.id}
+//             name={user.name}
+//             surn={user.surn}
+//             age={user.age}
+//           />
+//         ))}
+//       </tbody>
+//     </table>
+//   );
+// }
+
+// *************************************************** //
+
+//! Дочерние компоненты в цикле React
+
+//; Давайте теперь выведем наши компоненты в цикле. Используем для этого метод map:
+
+//; function App() {
+//; 	const result = prods.map(prod => {
+//; 		return <Product name={prod.name} cost={prod.cost} />;
+//; 	});
+
+//; 	return <div>
+//; 		{result}
+//; 	</div>;
+//; }
+//; Не забудем указать атрибут key:
+
+//; function App() {
+//; 	const result = prods.map(prod => {
+//; 		return <Product key={prod.id} name={prod.name} cost={prod.cost} />;
+//; 	});
+
+//; 	return <div>
+//; 		{result}
+//; 	</div>;
+//; }
+
+//? №1⊗jsrtPmCpChL
+
+//? Модифицируйте предыдущую задачу так, чтобы юзеры выводились через цикл.
+
+// const users = [
+//   { id: nanoid(), name: "user1", surn: "surn1", age: 30 },
+//   { id: nanoid(), name: "user2", surn: "surn2", age: 31 },
+//   { id: nanoid(), name: "user3", surn: "surn3", age: 32 },
+// ];
+// export default function App() {
+//   const userItem = users.map((user) => (
+//     <User key={user.id} name={user.name} surn={user.surn} age={user.age} />
+//   ));
+
+//   return (
+//     <table>
+//       <thead>
+//         <tr>
+//           <th>Name</th>
+//           <th>Surn</th>
+//           <th>Age</th>
+//         </tr>
+//       </thead>
+
+//       <tbody>{userItem}</tbody>
+//     </table>
+//   );
+// }
+
+// *************************************************** //
+
+//! Передача стейтов в дочерние компоненты в React
+
+//; Пусть у нас дан массив с продуктами:
+
+//; const initProds = [
+//; 	{id: id(), name: 'product1', cost: 100},
+//; 	{id: id(), name: 'product2', cost: 200},
+//; 	{id: id(), name: 'product3', cost: 300},
+//; ];
+//; Пусть этот массив располагается в компоненте Products. Запишем эти продукты в состояние компонента:
+
+//; function Products() {
+//; 	const [prods, setProds] = useState(initProds);
+//; }
+//; Теперь давайте переберем продукты циклом и выведем их в какой-нибудь верстке:
+
+//; function Products() {
+//; 	const [prods, setProds] = useState(initProds);
+
+//; 	const items = prods.map(prod => {
+//; 		return <div key={prod.id}>
+//; 			name: <span>{prod.name}</span>,
+//; 			cost: <span>{prod.cost}</span>
+//; 		</div>;
+//; 	});
+
+//; 	return <div>
+//; 		{items}
+//; 	</div>;
+//; }
+//; Как вы видите, содержимое нашего цикла map достаточно сложное, особенное если верстка продукта разрастется в дальнейшем. Такая сложность затрудняет чтение, понимание и поддержку кода.
+
+//; Будет лучше вынести код, отвечающий за отображение продукта в отдельный компонент. Назовем его Product. Вот код нашего компонента:
+
+//; function Product({ name, cost }) {
+//; 	return <div>
+//; 		name: <span>{name}</span>,
+//; 		cost: <span>{cost}</span>
+//; 	</div>;
+//; }
+//; Давайте теперь внутри компонента Products в цикле map будем использовать дочерние компоненты Product:
+
+//; function Products() {
+//; 	const [prods, setProds] = useState(initProds);
+
+//; 	const items = prods.map(prod => {
+//; 		return <Product
+//; 			key ={prod.id}
+//; 			name={prod.name}
+//; 			cost={prod.cost}
+//; 		/>;
+//; 	});
+
+//; 	return <div>
+//; 		{items}
+//; 	</div>;
+//; }
+//; Как вы видите, теперь код цикла упростился и стал более понятым для понимания. Кроме того, теперь за отображение продукта отвечает отдельный компонент, в котором мы можем делать, а потом редактировать верстку продуктов.
+
+//; Технически у нас получается, что родительский компонент имеет стейт с данными, а дочерние компоненты получают эти данные в виде пропсов и отображают их нужным нам образом.
+
+//? №1⊗jsrtPmCpPS
+
+//? В стейте компонента Users дан следующий массив:
+
+//? const initUsers = [
+//? 	{id: id(), name: 'user1', surname: 'surn1', age: 30},
+//? 	{id: id(), name: 'user2', surname: 'surn2', age: 31},
+//? 	{id: id(), name: 'user3', surname: 'surn3', age: 32},
+//? ];
+//? Переберите этот массив циклом и выведите всех юзеров на экран. Создайте для отображения юзера отдельный компонент User.
+
+interface InitUsers {
+  id: string;
+  name: string;
+  surname: string;
+  age: number;
+}
+
+export default function App() {
+const initUsers: InitUsers[] = [
+  { id: nanoid(), name: "user1", surname: "surn1", age: 30 },
+  { id: nanoid(), name: "user2", surname: "surn2", age: 31 },
+  { id: nanoid(), name: "user3", surname: "surn3", age: 32 },
 ];
 
-// *************************************************** //
-
-// Дочерние компоненты в цикле React
-// Давайте теперь выведем наши компоненты в цикле. Используем для этого метод map:
-
-// function App() {
-// 	const result = prods.map(prod => {
-// 		return <Product name={prod.name} cost={prod.cost} />;
-// 	});
-
-// 	return <div>
-// 		{result}
-// 	</div>;
-// }
-// Не забудем указать атрибут key:
-
-// function App() {
-// 	const result = prods.map(prod => {
-// 		return <Product key={prod.id} name={prod.name} cost={prod.cost} />;
-// 	});
-
-// 	return <div>
-// 		{result}
-// 	</div>;
-// }
-// №1⊗jsrtPmCpChL
-
-// Модифицируйте предыдущую задачу так, чтобы юзеры выводились через цикл.
-
-// *************************************************** //
-
-// Передача стейтов в дочерние компоненты в React
-// Пусть у нас дан массив с продуктами:
-
-// const initProds = [
-// 	{id: id(), name: 'product1', cost: 100},
-// 	{id: id(), name: 'product2', cost: 200},
-// 	{id: id(), name: 'product3', cost: 300},
-// ];
-// Пусть этот массив располагается в компоненте Products. Запишем эти продукты в состояние компонента:
-
-// function Products() {
-// 	const [prods, setProds] = useState(initProds);
-// }
-// Теперь давайте переберем продукты циклом и выведем их в какой-нибудь верстке:
-
-// function Products() {
-// 	const [prods, setProds] = useState(initProds);
-
-// 	const items = prods.map(prod => {
-// 		return <div key={prod.id}>
-// 			name: <span>{prod.name}</span>,
-// 			cost: <span>{prod.cost}</span>
-// 		</div>;
-// 	});
-
-// 	return <div>
-// 		{items}
-// 	</div>;
-// }
-// Как вы видите, содержимое нашего цикла map достаточно сложное, особенное если верстка продукта разрастется в дальнейшем. Такая сложность затрудняет чтение, понимание и поддержку кода.
-
-// Будет лучше вынести код, отвечающий за отображение продукта в отдельный компонент. Назовем его Product. Вот код нашего компонента:
-
-// function Product({ name, cost }) {
-// 	return <div>
-// 		name: <span>{name}</span>,
-// 		cost: <span>{cost}</span>
-// 	</div>;
-// }
-// Давайте теперь внутри компонента Products в цикле map будем использовать дочерние компоненты Product:
-
-// function Products() {
-// 	const [prods, setProds] = useState(initProds);
-
-// 	const items = prods.map(prod => {
-// 		return <Product
-// 			key ={prod.id}
-// 			name={prod.name}
-// 			cost={prod.cost}
-// 		/>;
-// 	});
-
-// 	return <div>
-// 		{items}
-// 	</div>;
-// }
-// Как вы видите, теперь код цикла упростился и стал более понятым для понимания. Кроме того, теперь за отображение продукта отвечает отдельный компонент, в котором мы можем делать, а потом редактировать верстку продуктов.
-
-// Технически у нас получается, что родительский компонент имеет стейт с данными, а дочерние компоненты получают эти данные в виде пропсов и отображают их нужным нам образом.
-
-// №1⊗jsrtPmCpPS
-
-// В стейте компонента Users дан следующий массив:
-
-// const initUsers = [
-// 	{id: id(), name: 'user1', surname: 'surn1', age: 30},
-// 	{id: id(), name: 'user2', surname: 'surn2', age: 31},
-// 	{id: id(), name: 'user3', surname: 'surn3', age: 32},
-// ];
-// Переберите этот массив циклом и выведите всех юзеров на экран. Создайте для отображения юзера отдельный компонент User.
+export default function App() {
+  return (
+    <div>
+      App
+    </div>
+  );
+}
 
 // *************************************************** //
 
