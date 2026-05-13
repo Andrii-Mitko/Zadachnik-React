@@ -5847,62 +5847,71 @@ import Users from "./Users/Users";
 
 //! Редактирование стейта во внучатом компоненте в React
 
-// Рассмотрим компонент Product, полученный нами в предыдущем уроке:
+//; Рассмотрим компонент Product, полученный нами в предыдущем уроке:
 
-// function Product({ id, name, cost, isEdit, toggleMode, editProd }) {
-// 	return <div>
-// 		name: {
-// 			isEdit
-// 			? <input value={name} onChange={event => editProd(id, 'name', event)} />
-// 			: <span>{name}</span>
-// 		}
-// 		cost: {
-// 			isEdit
-// 			? <input value={cost} onChange={event => editProd(id, 'cost', event)} />
-// 			: <span>{cost}</span>
-// 		}
+//; function Product({ id, name, cost, isEdit, toggleMode, editProd }) {
+//; 	return <div>
+//; 		name: {
+//; 			isEdit
+//; 			? <input value={name} onChange={event => editProd(id, 'name', event)} />
+//; 			: <span>{name}</span>
+//; 		}
+//; 		cost: {
+//; 			isEdit
+//; 			? <input value={cost} onChange={event => editProd(id, 'cost', event)} />
+//; 			: <span>{cost}</span>
+//; 		}
 
-// 		<button onClick={() => toggleMode(id)}>
-// 			{isEdit ? 'save': 'edit'}
-// 		</button>
-// 	</div>;
-// }
-// Легко заметить, что код для названия продукта и для цены продукта практически дублируется. Давайте вынесем этот код в отдельный компонент ProductField:
+//; 		<button onClick={() => toggleMode(id)}>
+//; 			{isEdit ? 'save': 'edit'}
+//; 		</button>
+//; 	</div>;
+//; }
+//; Легко заметить, что код для названия продукта и для цены продукта практически дублируется. Давайте вынесем этот код в отдельный компонент ProductField:
 
-// function ProductField({ id, text, type, isEdit, editProd }) {
-// 	return isEdit
-// 		? <input value={text} onChange={event => editProd(id, type, event)} />
-// 		: <span>{text}</span>
-// 	;
-// }
-// Внесем изменения в компонент Product:
+//; function ProductField({ id, text, type, isEdit, editProd }) {
+//; 	return isEdit
+//; 		? <input value={text} onChange={event => editProd(id, type, event)} />
+//; 		: <span>{text}</span>
+//; 	;
+//; }
+//; Внесем изменения в компонент Product:
 
-// function Product({ id, name, cost, isEdit, toggleMode, editProd }) {
-// 	return <div>
-// 		name: <ProductField
-// 			id={id}
-// 			text={name}
-// 			type="name"
-// 			isEdit={isEdit}
-// 			editProd={editProd}
-// 		/>,
+//; function Product({ id, name, cost, isEdit, toggleMode, editProd }) {
+//; 	return <div>
+//; 		name: <ProductField
+//; 			id={id}
+//; 			text={name}
+//; 			type="name"
+//; 			isEdit={isEdit}
+//; 			editProd={editProd}
+//; 		/>,
 
-// 		cost: <ProductField
-// 			id={id}
-// 			text={cost}
-// 			type="cost"
-// 			isEdit={isEdit}
-// 			editProd={editProd}
-// 		/>
+//; 		cost: <ProductField
+//; 			id={id}
+//; 			text={cost}
+//; 			type="cost"
+//; 			isEdit={isEdit}
+//; 			editProd={editProd}
+//; 		/>
 
-// 		<button onClick={() => toggleMode(id)}>
-// 			{isEdit ? 'save': 'edit'}
-// 		</button>
-// 	</div>;
-// }
-// №1⊗jsrtPmCpEGS
+//; 		<button onClick={() => toggleMode(id)}>
+//; 			{isEdit ? 'save': 'edit'}
+//; 		</button>
+//; 	</div>;
+//; }
 
-// Проделайте аналогичные операции с компонентом User, созданным вами в предыдущих уроках.
+//? №1⊗jsrtPmCpEGS
+
+//? Проделайте аналогичные операции с компонентом User, созданным вами в предыдущих уроках.
+
+export default function App() {
+  return (
+    <div>
+      <Users />
+    </div>
+  );
+}
 
 // *************************************************** //
 
