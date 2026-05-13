@@ -5661,181 +5661,192 @@ import Users from "./Users/Users";
 
 //? Возьмите компонент User из предыдущего урока. Сделайте так, чтобы в нем появилась кнопка для бана юзера.
 
-export default function App() {
-  return (
-    <div>
-      <Users />
-    </div>
-  );
-}
+// export default function App() {
+//   return (
+//     <div>
+//       <Users />
+//     </div>
+//   );
+// }
 
 // *************************************************** //
 
-// Редактирование стейта родителя в дочернем компоненте в React
-// Давайте теперь будем редактировать наши продукты с помощью инпутов. Для этого в дочернем компоненте сделаем кнопку.
+//! Редактирование стейта родителя в дочернем компоненте в React
 
-// По первому нажатию на эту кнопку пусть вместо названия и цены с продуктом появятся инпуты для их редактирования, а по второму нажатию вместо инпутов опять появятся тексты.
+//; Давайте теперь будем редактировать наши продукты с помощью инпутов. Для этого в дочернем компоненте сделаем кнопку.
 
-// Внесем изменение в массив с продуктами, добавив свойство isEdit (а работу с корзиной для простоты уберем):
+//; По первому нажатию на эту кнопку пусть вместо названия и цены с продуктом появятся инпуты для их редактирования, а по второму нажатию вместо инпутов опять появятся тексты.
 
-// const initProds = [
-// 	{id: id(), name: 'product1', cost: 100, isEdit: false},
-// 	{id: id(), name: 'product2', cost: 200, isEdit: false},
-// 	{id: id(), name: 'product3', cost: 300, isEdit: false},
-// ];
-// Компонент Product
-// Сделаем в продукте кнопку для редактирования:
+//; Внесем изменение в массив с продуктами, добавив свойство isEdit (а работу с корзиной для простоты уберем):
 
-// function Product({ id, name, cost, isEdit }) {
-// 	return <div>
-// 		name: <span>{name}</span>
-// 		cost: <span>{cost}</span>
-// 		<button>edit</button>
-// 	</div>;
+//; const initProds = [
+//; 	{id: id(), name: 'product1', cost: 100, isEdit: false},
+//; 	{id: id(), name: 'product2', cost: 200, isEdit: false},
+//; 	{id: id(), name: 'product3', cost: 300, isEdit: false},
+//; ];
+//; Компонент Product
+//; Сделаем в продукте кнопку для редактирования:
+
+//; function Product({ id, name, cost, isEdit }) {
+//; 	return <div>
+//; 		name: <span>{name}</span>
+//; 		cost: <span>{cost}</span>
+//; 		<button>edit</button>
+//; 	</div>;
+//; }
+//; Сделаем так, чтобы по клику на эту кнопку вызвалась некоторая функция toggleMode, переданная из родительского компонента:
+
+//; function Product({ id, name, cost, isEdit, toggleMode }) {
+//; 	return <div>
+//; 		name: <span>{name}</span>
+//; 		cost: <span>{cost}</span>
+
+//; 		<button onClick={() => toggleMode(id)}>
+//; 			edit
+//; 		</button>
+//; 	</div>;
+//; }
+//; Пока у нас нет реализации toggleMode, но мы знаем, что она будет располагаться в компоненте-родителе, параметром принимать id продукта и изменять свойство isEdit продукта на противоположное.
+
+//; Сделаем также так, чтобы текст кнопки менялся каждое нажатие:
+
+//; function Product({ id, name, cost, isEdit, toggleMode }) {
+//; 	return <div>
+//; 		name: <span>{name}</span>
+//; 		cost: <span>{cost}</span>
+
+//; 		<button onClick={() => toggleMode(id)}>
+//; 			{isEdit ? 'save': 'edit'}
+//; 		</button>
+//; 	</div>;
+//; }
+//; Давайте теперь сделаем так, чтобы в режиме редактирования у нас были инпуты с данными, а в обычном режиме - спены:
+
+//; function Product({ id, name, cost, isEdit, toggleMode }) {
+//; 	return <div>
+//; 		name: {isEdit ? <input value={name} /> : <span>{name}</span>}
+//; 		cost: {isEdit ? <input value={cost} /> : <span>{cost}</span>}
+
+//; 		<button onClick={() => toggleMode(id)}>
+//; 			{isEdit ? 'save': 'edit'}
+//; 		</button>
+//; 	</div>;
+//; }
+//; Привяжем к нашим инпутам событие onChange, в котором будем вызывать некоторую родительскую функцию editProd:
+
+//; function Product({ id, name, cost, isEdit, toggleMode, editProd }) {
+//; 	return <div>
+//; 		name: {
+//; 			isEdit
+//; 			? <input value={name} onChange={event => editProd(id, 'name', event)} />
+//; 			: <span>{ name }</span>
+//; 		}
+//; 		cost: {
+//; 			isEdit
+//; 			? <input value={cost} onChange={event => editProd(id, 'cost', event)} />
+//; 			: <span>{ cost }</span>
+//; 		}
+
+//; 		<button onClick={() => toggleMode(id)}>
+//; 			{isEdit ? 'save': 'edit'}
+//; 		</button>
+//; 	</div>;
+//; }
+//; Компонент Products
+//; Давайте теперь перейдем в компонент Products. Реализуем в нем функцию toggleMode:
+
+//; function toggleMode(id) {
+//; 	setProds(prods.map(prod => {
+//; 		if (prod.id === id) {
+//; 			prod.isEdit = !prod.isEdit;
+//; 		}
+
+//; 		return prod;
+//; 	}));
+//; }
+//; Также реализуем в нем функцию editProd:
+
+//; function editProd(id, field, event) {
+//; 	setProds(prods.map(prod => {
+//; 		if (prod.id === id) {
+//; 			prod[field] = event.target.value;
+//; 		}
+
+//; 		return prod;
+//; 	}));
+//; }
+//; В тег с продуктом атрибутами передадим наши функции toggleMode и editProd:
+
+//; const items = prods.map(prod => {
+//; 	return <Product
+//; 		key ={prod.id}
+//; 		id  ={prod.id}
+//; 		name={prod.name}
+//; 		cost={prod.cost}
+//; 		isEdit={prod.isEdit}
+//; 		toggleMode={toggleMode}
+//; 		editProd={editProd}
+//; 	/>;
+//; });
+//; Окончательный код компонента Products получится следующим:
+
+//; function Products() {
+//; 	const [prods, setProds] = useState(initProds);
+
+//; 	function toggleMode(id) {
+//; 		setProds(prods.map(prod => {
+//; 			if (prod.id === id) {
+//; 				prod.isEdit = !prod.isEdit;
+//; 			}
+
+//; 			return prod;
+//; 		}));
+//; 	}
+
+//; 	function editProd(id, field, event) {
+//; 		setProds(prods.map(prod => {
+//; 			if (prod.id === id) {
+//; 				prod[field] = event.target.value;
+//; 			}
+
+//; 			return prod;
+//; 		}));
+//; 	}
+
+//; 	const result = prods.map(prod => {
+//; 		return <Product
+//; 			key ={prod.id}
+//; 			id  ={prod.id}
+//; 			name={prod.name}
+//; 			cost={prod.cost}
+//; 			isEdit={prod.isEdit}
+//; 			toggleMode={toggleMode}
+//; 			editProd={editProd}
+//; 		/>;
+//; 	});
+
+//; 	return <div>
+//; 		{result}
+//; 	</div>;
+//; }
+
+//? Практические задачи
+//? №1⊗jsrtPmCpEPS
+
+//? Проделайте аналогичные операции с компонентами Users и User, созданными вами в предыдущих уроках.
+
+// export default function App() {
+//   return (
+//     <div>
+//       <Users />
+//     </div>
+//   );
 // }
-// Сделаем так, чтобы по клику на эту кнопку вызвалась некоторая функция toggleMode, переданная из родительского компонента:
-
-// function Product({ id, name, cost, isEdit, toggleMode }) {
-// 	return <div>
-// 		name: <span>{name}</span>
-// 		cost: <span>{cost}</span>
-
-// 		<button onClick={() => toggleMode(id)}>
-// 			edit
-// 		</button>
-// 	</div>;
-// }
-// Пока у нас нет реализации toggleMode, но мы знаем, что она будет располагаться в компоненте-родителе, параметром принимать id продукта и изменять свойство isEdit продукта на противоположное.
-
-// Сделаем также так, чтобы текст кнопки менялся каждое нажатие:
-
-// function Product({ id, name, cost, isEdit, toggleMode }) {
-// 	return <div>
-// 		name: <span>{name}</span>
-// 		cost: <span>{cost}</span>
-
-// 		<button onClick={() => toggleMode(id)}>
-// 			{isEdit ? 'save': 'edit'}
-// 		</button>
-// 	</div>;
-// }
-// Давайте теперь сделаем так, чтобы в режиме редактирования у нас были инпуты с данными, а в обычном режиме - спены:
-
-// function Product({ id, name, cost, isEdit, toggleMode }) {
-// 	return <div>
-// 		name: {isEdit ? <input value={name} /> : <span>{name}</span>}
-// 		cost: {isEdit ? <input value={cost} /> : <span>{cost}</span>}
-
-// 		<button onClick={() => toggleMode(id)}>
-// 			{isEdit ? 'save': 'edit'}
-// 		</button>
-// 	</div>;
-// }
-// Привяжем к нашим инпутам событие onChange, в котором будем вызывать некоторую родительскую функцию editProd:
-
-// function Product({ id, name, cost, isEdit, toggleMode, editProd }) {
-// 	return <div>
-// 		name: {
-// 			isEdit
-// 			? <input value={name} onChange={event => editProd(id, 'name', event)} />
-// 			: <span>{ name }</span>
-// 		}
-// 		cost: {
-// 			isEdit
-// 			? <input value={cost} onChange={event => editProd(id, 'cost', event)} />
-// 			: <span>{ cost }</span>
-// 		}
-
-// 		<button onClick={() => toggleMode(id)}>
-// 			{isEdit ? 'save': 'edit'}
-// 		</button>
-// 	</div>;
-// }
-// Компонент Products
-// Давайте теперь перейдем в компонент Products. Реализуем в нем функцию toggleMode:
-
-// function toggleMode(id) {
-// 	setProds(prods.map(prod => {
-// 		if (prod.id === id) {
-// 			prod.isEdit = !prod.isEdit;
-// 		}
-
-// 		return prod;
-// 	}));
-// }
-// Также реализуем в нем функцию editProd:
-
-// function editProd(id, field, event) {
-// 	setProds(prods.map(prod => {
-// 		if (prod.id === id) {
-// 			prod[field] = event.target.value;
-// 		}
-
-// 		return prod;
-// 	}));
-// }
-// В тег с продуктом атрибутами передадим наши функции toggleMode и editProd:
-
-// const items = prods.map(prod => {
-// 	return <Product
-// 		key ={prod.id}
-// 		id  ={prod.id}
-// 		name={prod.name}
-// 		cost={prod.cost}
-// 		isEdit={prod.isEdit}
-// 		toggleMode={toggleMode}
-// 		editProd={editProd}
-// 	/>;
-// });
-// Окончательный код компонента Products получится следующим:
-
-// function Products() {
-// 	const [prods, setProds] = useState(initProds);
-
-// 	function toggleMode(id) {
-// 		setProds(prods.map(prod => {
-// 			if (prod.id === id) {
-// 				prod.isEdit = !prod.isEdit;
-// 			}
-
-// 			return prod;
-// 		}));
-// 	}
-
-// 	function editProd(id, field, event) {
-// 		setProds(prods.map(prod => {
-// 			if (prod.id === id) {
-// 				prod[field] = event.target.value;
-// 			}
-
-// 			return prod;
-// 		}));
-// 	}
-
-// 	const result = prods.map(prod => {
-// 		return <Product
-// 			key ={prod.id}
-// 			id  ={prod.id}
-// 			name={prod.name}
-// 			cost={prod.cost}
-// 			isEdit={prod.isEdit}
-// 			toggleMode={toggleMode}
-// 			editProd={editProd}
-// 		/>;
-// 	});
-
-// 	return <div>
-// 		{result}
-// 	</div>;
-// }
-// Практические задачи
-// №1⊗jsrtPmCpEPS
-
-// Проделайте аналогичные операции с компонентами Users и User, созданными вами в предыдущих уроках.
 
 // *************************************************** //
 
-// Редактирование стейта во внучатом компоненте в React
+//! Редактирование стейта во внучатом компоненте в React
+
 // Рассмотрим компонент Product, полученный нами в предыдущем уроке:
 
 // function Product({ id, name, cost, isEdit, toggleMode, editProd }) {

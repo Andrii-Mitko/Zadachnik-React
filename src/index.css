@@ -179,3 +179,7 @@ button:hover {
   color: var(--accent);
   font-weight: bold;
 }
+
+#root > div ul li::before {
+  pointer-events: none;
+}
