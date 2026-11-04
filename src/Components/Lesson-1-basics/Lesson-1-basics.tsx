@@ -5905,6 +5905,119 @@ import Users from "./Users/Users";
 
 //? Проделайте аналогичные операции с компонентом User, созданным вами в предыдущих уроках.
 
+// export default function App() {
+//   return (
+//     <div>
+//       <Users />
+//     </div>
+//   );
+// }
+
+// *************************************************** //
+
+//! Режимы работы через стейты компонентов-потомков в React
+
+//; Пусть наш массив с продуктами теперь выглядит следующим образом:
+
+//; const initProds = [
+//; 	{id: id(), name: 'prod1', cost: 'cost1', catg: 'catg1'},
+//; 	{id: id(), name: 'prod2', cost: 'cost2', catg: 'catg2'},
+//; 	{id: id(), name: 'prod3', cost: 'cost3', catg: 'catg3'},
+//; ];
+//; Давайте выведем эти продукты в виде HTML таблицы. При этом сделаем так, чтобы по нажатию на любую ячейку таблицы в этой ячейке появлялся инпут для редактирования. Для решения задачи сделаем 3 компонента.
+
+//; Компонент Products будет хранить стейт с продуктами и использовать компоненты Product для вывода продуктов. Компонент Product в свою очередь также будет использовать компоненты ProductField для вывода определенного поля продукта (названия, цены, категории).
+
+//; Компонент ProductField будет либо показывать текст поля, либо инпут для его редактирования. При этом режим редактирования или показа пусть регулируется стейтом данного компонента.
+
+//; To есть мы не будем хранить режим в родительском стейте. Там это было бы очень неудобно, так как нам пришлось бы указывать режим для каждого поля продукта, что превратило бы наш стейт в нечто подобное:
+
+//; const initProds = [
+//; 	[
+//; 		{field: 'name', value: 'prod1', isEdit: false},
+//; 		{field: 'cost', value: 'cost1', isEdit: false},
+//; 		{field: 'catg', value: 'catg1', isEdit: false},
+//; 	],
+//; 	[
+//; 		{field: 'name', value: 'prod2', isEdit: false},
+//; 		{field: 'cost', value: 'cost2', isEdit: false},
+//; 		{field: 'catg', value: 'catg2', isEdit: false},
+//; 	],
+//; 	[
+//; 		{field: 'name', value: 'prod3', isEdit: false},
+//; 		{field: 'cost', value: 'cost3', isEdit: false},
+//; 		{field: 'catg', value: 'catg3', isEdit: false},
+//; 	],
+//; ]
+//; Мы, однако, не будем делать такой стейт, а оставим тот, который был. Просто каждый экземпляр компонента ProductField с помощью своего стейта будет регулировать режим: либо редактирование, либо показ.
+
+//; Таким образом получится, что родительский компонент будет хранить стейт с данными, а наш внучатый компонент будет получать эти данные через пропсы и при этом будет иметь свой стейт для изменения своего режима.
+
+//; Итак, давайте реализуем описанное.
+
+//; Компонент Products
+//; function Products() {
+//; 	const [prods, setProds] = useState(initProds);
+
+//; 	function changeField(id, field, event) {
+//; 		setProds(prods.map(prod => {
+//; 			if (prod.id === id) {
+//; 				prod[field] = event.target.value;
+//; 			}
+
+//; 			return prod;
+//; 		}));
+//; 	}
+
+//; 	const rows = prods.map(prod => {
+//; 		return <Product
+//; 			key ={prod.id}
+//; 			id  ={prod.id}
+//; 			name={prod.name}
+//; 			cost={prod.cost}
+//; 			catg={prod.catg}
+//; 			changeField={changeField}
+//; 		/>;
+//; 	});
+
+//; 	return <div>
+//; 		<table>
+//; 			<tbody>
+//; 				{rows}
+//; 			</tbody>
+//; 		</table>
+//; 	</div>;
+//; }
+//; Компонент Product
+//; function Product({ id, name, cost, catg, changeField }) {
+//; 	return <tr>
+//; 		<ProductField id={id} text={name} type="name" changeField={changeField} />
+//; 		<ProductField id={id} text={cost} type="cost" changeField={changeField} />
+//; 		<ProductField id={id} text={catg} type="catg" changeField={changeField} />
+//; 	</tr>;
+//; }
+//; Компонент ProductField
+//; function ProductField({ id, text, type, changeField }) {
+//; 	const [isEdit, setIsEdit] = useState(false);
+
+//; 	return <td>
+//; 		{
+//; 			isEdit
+//; 			? <input
+//; 				value={text}
+//; 				onChange={event => changeField(id, type, event)}
+//; 				onBlur={() => setIsEdit(false)}
+//; 			/>
+//; 			: <span onClick={() => setIsEdit(true)}>{text}</span>
+//; 		}
+//; 	</td>;
+//; }
+//; Практические задачи
+
+//? №1⊗jsrtPmCpMVS
+
+//? Проделайте аналогичные операции с компонентами Users и User, созданными вами в предыдущих уроках.
+
 export default function App() {
   return (
     <div>
@@ -5912,109 +6025,6 @@ export default function App() {
     </div>
   );
 }
-
-// *************************************************** //
-
-// Режимы работы через стейты компонентов-потомков в React
-// Пусть наш массив с продуктами теперь выглядит следующим образом:
-
-// const initProds = [
-// 	{id: id(), name: 'prod1', cost: 'cost1', catg: 'catg1'},
-// 	{id: id(), name: 'prod2', cost: 'cost2', catg: 'catg2'},
-// 	{id: id(), name: 'prod3', cost: 'cost3', catg: 'catg3'},
-// ];
-// Давайте выведем эти продукты в виде HTML таблицы. При этом сделаем так, чтобы по нажатию на любую ячейку таблицы в этой ячейке появлялся инпут для редактирования. Для решения задачи сделаем 3 компонента.
-
-// Компонент Products будет хранить стейт с продуктами и использовать компоненты Product для вывода продуктов. Компонент Product в свою очередь также будет использовать компоненты ProductField для вывода определенного поля продукта (названия, цены, категории).
-
-// Компонент ProductField будет либо показывать текст поля, либо инпут для его редактирования. При этом режим редактирования или показа пусть регулируется стейтом данного компонента.
-
-// To есть мы не будем хранить режим в родительском стейте. Там это было бы очень неудобно, так как нам пришлось бы указывать режим для каждого поля продукта, что превратило бы наш стейт в нечто подобное:
-
-// const initProds = [
-// 	[
-// 		{field: 'name', value: 'prod1', isEdit: false},
-// 		{field: 'cost', value: 'cost1', isEdit: false},
-// 		{field: 'catg', value: 'catg1', isEdit: false},
-// 	],
-// 	[
-// 		{field: 'name', value: 'prod2', isEdit: false},
-// 		{field: 'cost', value: 'cost2', isEdit: false},
-// 		{field: 'catg', value: 'catg2', isEdit: false},
-// 	],
-// 	[
-// 		{field: 'name', value: 'prod3', isEdit: false},
-// 		{field: 'cost', value: 'cost3', isEdit: false},
-// 		{field: 'catg', value: 'catg3', isEdit: false},
-// 	],
-// ]
-// Мы, однако, не будем делать такой стейт, а оставим тот, который был. Просто каждый экземпляр компонента ProductField с помощью своего стейта будет регулировать режим: либо редактирование, либо показ.
-
-// Таким образом получится, что родительский компонент будет хранить стейт с данными, а наш внучатый компонент будет получать эти данные через пропсы и при этом будет иметь свой стейт для изменения своего режима.
-
-// Итак, давайте реализуем описанное.
-
-// Компонент Products
-// function Products() {
-// 	const [prods, setProds] = useState(initProds);
-
-// 	function changeField(id, field, event) {
-// 		setProds(prods.map(prod => {
-// 			if (prod.id === id) {
-// 				prod[field] = event.target.value;
-// 			}
-
-// 			return prod;
-// 		}));
-// 	}
-
-// 	const rows = prods.map(prod => {
-// 		return <Product
-// 			key ={prod.id}
-// 			id  ={prod.id}
-// 			name={prod.name}
-// 			cost={prod.cost}
-// 			catg={prod.catg}
-// 			changeField={changeField}
-// 		/>;
-// 	});
-
-// 	return <div>
-// 		<table>
-// 			<tbody>
-// 				{rows}
-// 			</tbody>
-// 		</table>
-// 	</div>;
-// }
-// Компонент Product
-// function Product({ id, name, cost, catg, changeField }) {
-// 	return <tr>
-// 		<ProductField id={id} text={name} type="name" changeField={changeField} />
-// 		<ProductField id={id} text={cost} type="cost" changeField={changeField} />
-// 		<ProductField id={id} text={catg} type="catg" changeField={changeField} />
-// 	</tr>;
-// }
-// Компонент ProductField
-// function ProductField({ id, text, type, changeField }) {
-// 	const [isEdit, setIsEdit] = useState(false);
-
-// 	return <td>
-// 		{
-// 			isEdit
-// 			? <input
-// 				value={text}
-// 				onChange={event => changeField(id, type, event)}
-// 				onBlur={() => setIsEdit(false)}
-// 			/>
-// 			: <span onClick={() => setIsEdit(true)}>{text}</span>
-// 		}
-// 	</td>;
-// }
-// Практические задачи
-// №1⊗jsrtPmCpMVS
-
-// Проделайте аналогичные операции с компонентами Users и User, созданными вами в предыдущих уроках.
 
 // *************************************************** //
 

@@ -1,75 +1,112 @@
-# React + TypeScript + Vite
+# Zadachnik React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A collection of practical exercises and examples for learning React, TypeScript, and modern frontend development.
 
-Currently, two official plugins are available:
+## 🚀 Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**[View Live Demo](https://andrii-mitko.github.io/Zadachnik-React/)**
 
-## React Compiler
+## 📌 About the Project
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+**Zadachnik React** is a learning project focused on practicing React fundamentals and TypeScript through small, practical tasks.
 
-Note: This will impact Vite dev & build performances.
+The project is organized into lessons, with separate components and CSS Modules to keep the code structured, reusable, and maintainable.
 
-## Expanding the ESLint configuration
+### Key Topics
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React components and JSX
+- TypeScript types and interfaces
+- Props and component composition
+- State management with `useState`
+- Event handling and interactive UI
+- Component-based architecture
+- CSS Modules for component styling
+- Redux fundamentals
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Technologies
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- React
+- TypeScript
+- Vite
+- CSS Modules
+- Redux
+- Nano ID
+- ESLint
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📂 Project Structure
+
+```text
+src/
+├── assets/
+├── components/
+│   ├── App/
+│   ├── Lesson-1-basics/
+│   │   ├── Employee/
+│   │   ├── User/
+│   │   └── Users/
+│   ├── lesson-2-ultimate/
+│   └── Lesson-3-redux/
+├── index.css
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Node.js
+- npm
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Andrii-Mitko/Zadachnik-React.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd Zadachnik-React
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open the local URL provided by Vite.
+
+## 📜 Available Scripts
+
+- `npm run dev` — start the development server.
+- `npm run build` — build the production application.
+- `npm run lint` — run ESLint.
+- `npm run preview` — preview the production build locally.
+
+## 🎯 Project Goals
+
+- Strengthen React and TypeScript fundamentals.
+- Practice component composition and typed props.
+- Improve code organization and reusability.
+- Build interactive interfaces using React state.
+- Explore Redux and frontend state management.
+
+## 👨‍💻 Author
+
+**Andrii Mitko** — Junior Full-Stack Developer
+
+- GitHub: [Andrii-Mitko](https://github.com/Andrii-Mitko)
+- Portfolio: [andrii-mitko-brand.vercel.app](https://andrii-mitko-brand.vercel.app/)
+
+---
+
+This project is part of my ongoing frontend development learning journey.
